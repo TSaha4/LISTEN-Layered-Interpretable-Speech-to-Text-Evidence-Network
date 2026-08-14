@@ -1,0 +1,344 @@
+{
+  "question": "Why was rubber chosen for the remote control?",
+  "answer": "The provided evidence segments do not state that rubber was chosen for the remote control, nor do they provide any reasons for choosing it. Segment 4 only lists rubber as one of the material options being considered [Seg 4]. Therefore, the evidence is insufficient to answer why rubber was chosen.",
+  "evidence_graph": {
+    "nodes": [
+      {
+        "id": "seg_008",
+        "text": "Wood looks premium but it's heavy and expensive. I'd rule that out.",
+        "speaker": "ID",
+        "start_time": 43.5,
+        "end_time": 49.0,
+        "weight": 0.14675557613372803,
+        "entities": [
+          "wood",
+          "premium",
+          "heavy",
+          "expensive"
+        ]
+      },
+      {
+        "id": "seg_007",
+        "text": "The target demographic is adults aged twenty-five to forty who watch a lot of television.",
+        "speaker": "ME",
+        "start_time": 36.5,
+        "end_time": 43.0,
+        "weight": 0.13118882477283478,
+        "entities": [
+          "target demographic",
+          "adults",
+          "television"
+        ]
+      },
+      {
+        "id": "seg_013",
+        "text": "For colors, I'd recommend black, silver, and maybe a bold red option.",
+        "speaker": "UI",
+        "start_time": 75.5,
+        "end_time": 81.0,
+        "weight": 0.07687114924192429,
+        "entities": [
+          "colors",
+          "black",
+          "silver",
+          "red"
+        ]
+      },
+      {
+        "id": "seg_002",
+        "text": "I've been looking into materials. We have three options: plastic, rubber, and wood.",
+        "speaker": "ID",
+        "start_time": 5.5,
+        "end_time": 11.0,
+        "weight": 0.06090452894568443,
+        "entities": [
+          "materials",
+          "plastic",
+          "rubber",
+          "wood"
+        ]
+      },
+      {
+        "id": "seg_006",
+        "text": "We also need to consider the button layout. I suggest a simple ergonomic design.",
+        "speaker": "UI",
+        "start_time": 30.5,
+        "end_time": 36.2,
+        "weight": 0.05392581224441528,
+        "entities": [
+          "button layout",
+          "ergonomic design"
+        ]
+      },
+      {
+        "id": "seg_009",
+        "text": "I agree. So it's between plastic and rubber. Given the user preference data, I vote rubber.",
+        "speaker": "PM",
+        "start_time": 49.5,
+        "end_time": 56.0,
+        "weight": 0.04103265702724457,
+        "entities": [
+          "plastic",
+          "rubber",
+          "user preference"
+        ]
+      },
+      {
+        "id": "seg_001",
+        "text": "Okay, let's start the meeting. Today we need to decide on the remote control design.",
+        "speaker": "PM",
+        "start_time": 0.0,
+        "end_time": 5.2,
+        "weight": 0.03867024928331375,
+        "entities": [
+          "remote control",
+          "design"
+        ]
+      },
+      {
+        "id": "seg_004",
+        "text": "From a cost perspective, plastic is the cheapest option at two euros per unit.",
+        "speaker": "ID",
+        "start_time": 18.0,
+        "end_time": 24.3,
+        "weight": 0.03660774603486061,
+        "entities": [
+          "cost",
+          "plastic",
+          "two euros"
+        ]
+      },
+      {
+        "id": "seg_003",
+        "text": "The market research shows that users prefer a comfortable grip, which points to rubber.",
+        "speaker": "ME",
+        "start_time": 11.5,
+        "end_time": 17.8,
+        "weight": 0.03257283940911293,
+        "entities": [
+          "market research",
+          "users",
+          "grip",
+          "rubber"
+        ]
+      },
+      {
+        "id": "seg_014",
+        "text": "The battery compartment needs to be easily accessible. Maybe a slide-off back panel.",
+        "speaker": "ID",
+        "start_time": 81.5,
+        "end_time": 87.0,
+        "weight": 0.029164409264922142,
+        "entities": [
+          "battery compartment",
+          "back panel"
+        ]
+      },
+      {
+        "id": "seg_011",
+        "text": "Alright, let's go with the rubber casing. The small cost difference is worth it for the user experience.",
+        "speaker": "PM",
+        "start_time": 62.5,
+        "end_time": 69.0,
+        "weight": 0.02852031961083412,
+        "entities": [
+          "rubber casing",
+          "cost difference",
+          "user experience"
+        ]
+      },
+      {
+        "id": "seg_010",
+        "text": "The rubber material also has better drop resistance, which is important for remote controls.",
+        "speaker": "ID",
+        "start_time": 56.5,
+        "end_time": 62.0,
+        "weight": 0.02118263579905033,
+        "entities": [
+          "rubber",
+          "drop resistance",
+          "remote controls"
+        ]
+      },
+      {
+        "id": "seg_012",
+        "text": "Next item: we need to finalize the color options. Marketing suggests trendy colors.",
+        "speaker": "PM",
+        "start_time": 69.5,
+        "end_time": 75.0,
+        "weight": 0.020997345447540283,
+        "entities": [
+          "color options",
+          "marketing",
+          "trendy colors"
+        ]
+      },
+      {
+        "id": "seg_005",
+        "text": "But the rubber casing is only slightly more expensive, about two fifty per unit.",
+        "speaker": "ID",
+        "start_time": 24.5,
+        "end_time": 30.1,
+        "weight": 0.01874363236129284,
+        "entities": [
+          "rubber casing",
+          "two fifty"
+        ]
+      },
+      {
+        "id": "seg_015",
+        "text": "Good point. We'll use double-A batteries since they're widely available.",
+        "speaker": "PM",
+        "start_time": 87.5,
+        "end_time": 92.0,
+        "weight": 0.012978745624423027,
+        "entities": [
+          "double-A batteries"
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "source": "seg_010",
+        "target": "seg_009",
+        "weight": 0.031107645481824875,
+        "relation": "shared_entity:rubber"
+      },
+      {
+        "source": "seg_010",
+        "target": "seg_003",
+        "weight": 0.026877738535404205,
+        "relation": "shared_entity:rubber"
+      },
+      {
+        "source": "seg_010",
+        "target": "seg_002",
+        "weight": 0.04104358330368996,
+        "relation": "shared_entity:rubber"
+      },
+      {
+        "source": "seg_009",
+        "target": "seg_003",
+        "weight": 0.0368027463555336,
+        "relation": "shared_entity:rubber"
+      },
+      {
+        "source": "seg_009",
+        "target": "seg_002",
+        "weight": 0.05096859484910965,
+        "relation": "shared_entity:plastic;rubber"
+      },
+      {
+        "source": "seg_009",
+        "target": "seg_004",
+        "weight": 0.03882019966840744,
+        "relation": "shared_entity:plastic"
+      },
+      {
+        "source": "seg_003",
+        "target": "seg_002",
+        "weight": 0.04673868417739868,
+        "relation": "shared_entity:rubber"
+      },
+      {
+        "source": "seg_005",
+        "target": "seg_011",
+        "weight": 0.023631975054740906,
+        "relation": "shared_entity:rubber casing"
+      },
+      {
+        "source": "seg_002",
+        "target": "seg_004",
+        "weight": 0.04875613749027252,
+        "relation": "shared_entity:plastic"
+      },
+      {
+        "source": "seg_002",
+        "target": "seg_008",
+        "weight": 0.10383005440235138,
+        "relation": "shared_entity:wood"
+      },
+      {
+        "source": "seg_010",
+        "target": "seg_011",
+        "weight": 0.0248514786362648,
+        "relation": "semantic_similarity"
+      },
+      {
+        "source": "seg_009",
+        "target": "seg_005",
+        "weight": 0.029888145625591278,
+        "relation": "semantic_similarity"
+      },
+      {
+        "source": "seg_009",
+        "target": "seg_011",
+        "weight": 0.034776486456394196,
+        "relation": "semantic_similarity"
+      },
+      {
+        "source": "seg_003",
+        "target": "seg_011",
+        "weight": 0.030546579509973526,
+        "relation": "semantic_similarity"
+      },
+      {
+        "source": "seg_005",
+        "target": "seg_004",
+        "weight": 0.02767568826675415,
+        "relation": "semantic_similarity"
+      },
+      {
+        "source": "seg_001",
+        "target": "seg_006",
+        "weight": 0.04629803076386452,
+        "relation": "semantic_similarity"
+      },
+      {
+        "source": "seg_012",
+        "target": "seg_013",
+        "weight": 0.048934247344732285,
+        "relation": "semantic_similarity"
+      }
+    ]
+  },
+  "top_segments": [
+    "seg_008",
+    "seg_007",
+    "seg_013",
+    "seg_002",
+    "seg_006",
+    "seg_009",
+    "seg_001",
+    "seg_004",
+    "seg_003",
+    "seg_014",
+    "seg_011",
+    "seg_010",
+    "seg_012",
+    "seg_005",
+    "seg_015"
+  ],
+  "model_metadata": {
+    "retrieval_scores": {
+      "seg_010": 0.7522552013397217,
+      "seg_009": 0.568946123123169,
+      "seg_003": 0.5581275224685669,
+      "seg_005": 0.42037421464920044,
+      "seg_002": 0.40738531947135925,
+      "seg_011": 0.38048988580703735,
+      "seg_001": 0.32260292768478394,
+      "seg_004": 0.2731812000274658,
+      "seg_006": 0.1590283364057541,
+      "seg_015": 0.13851532340049744,
+      "seg_012": 0.10109034180641174,
+      "seg_008": 0.09862779080867767,
+      "seg_013": 0.08820940554141998,
+      "seg_007": 0.0225849449634552,
+      "seg_014": 0.022218937054276466
+    },
+    "gat_checkpoint": null,
+    "num_segments_retrieved": 15,
+    "num_segments_in_graph": 15
+  }
+}
