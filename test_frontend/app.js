@@ -191,37 +191,29 @@ queryForm.addEventListener("submit", async (e) => {
         const nodes = [];
         const edges = [];
         
-        // Add Question Node
-        nodes.push({ id: "Question", label: "Question", color: "#eab308", size: 30, shape: "box" });
-        
-        // Add Segment Nodes
+        // Add Nodes
         for (const [id, weight] of Object.entries(nodeScores)) {
             const isTop = topIds.includes(id);
+            
             nodes.push({
                 id: id,
-                label: id,
+                label: id === "__question__" ? "Question" : "Seg " + id.substring(id.length - 4),
                 value: weight * 100,
-                color: isTop ? "#ef4444" : "#3b82f6",
-                title: `Weight: ${(weight*100).toFixed(1)}%`
-            });
-            
-            // Link everything to Question (simplified representation)
-            edges.push({
-                from: "Question",
-                to: id,
-                value: weight * 10,
-                color: "rgba(255,255,255,0.1)"
+                color: id === "__question__" ? "#eab308" : (isTop ? "#ef4444" : "#3b82f6"),
+                size: id === "__question__" ? 30 : 15,
+                shape: id === "__question__" ? "box" : "dot",
+                title: `Weight: ${(weight*100).toFixed(1)}% | ID: ${id}`
             });
         }
         
         // Add Segment-to-Segment Edges
         for (const [edgeStr, weight] of Object.entries(data.evidence_graph.edge_scores)) {
-            const parts = edgeStr.split("-");
+            const parts = edgeStr.split("::");
             if (parts.length === 2) {
                 edges.push({
                     from: parts[0],
                     to: parts[1],
-                    value: weight * 20,
+                    value: Math.max(weight * 20, 1),
                     title: `Attention: ${(weight*100).toFixed(1)}%`,
                     color: "rgba(16, 185, 129, 0.4)"
                 });

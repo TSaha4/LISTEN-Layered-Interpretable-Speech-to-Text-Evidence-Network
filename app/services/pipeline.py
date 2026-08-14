@@ -34,6 +34,7 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
     Raises:
         ValueError: If the meeting is not found.
     """
+
     store = get_meeting_store()
     record = store.get(meeting_id)
     if record is None:

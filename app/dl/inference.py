@@ -69,13 +69,14 @@ class GATInference:
         node_id_map = metadata["node_id_map"]
         
         node_scores = {}
-        # Node 0 is the question node, skip it
-        for i in range(1, data.num_nodes):
+        # Include all nodes (even Question node 0) so frontend can plot them
+        for i in range(data.num_nodes):
             seg_id = node_id_map[i]
             node_scores[seg_id] = float(node_weights[i])
 
-        # Sort and get top K
-        sorted_scores = sorted(node_scores.items(), key=lambda x: x[1], reverse=True)
+        # Sort and get top K (excluding the question node itself)
+        evidence_only_scores = [(k, v) for k, v in node_scores.items() if k != "__question__"]
+        sorted_scores = sorted(evidence_only_scores, key=lambda x: x[1], reverse=True)
         top_evidence_ids = [k for k, v in sorted_scores[:top_k]]
 
         # Edge scores: PyG model doesn't explicitly output a single edge score per edge
@@ -86,13 +87,11 @@ class GATInference:
         for i in range(edge_index.shape[1]):
             src_idx = edge_index[0, i]
             tgt_idx = edge_index[1, i]
-            if src_idx == 0 or tgt_idx == 0:
-                continue # Skip edges to question node for the output graph
             src_id = node_id_map[src_idx]
             tgt_id = node_id_map[tgt_idx]
             # Simple average of node importance for edge score
             score = (node_scores[src_id] + node_scores[tgt_id]) / 2.0
-            edge_scores[f"{src_id}-{tgt_id}"] = float(score)
+            edge_scores[f"{src_id}::{tgt_id}"] = float(score)
 
         return GATOutput(
             node_scores=node_scores,
