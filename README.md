@@ -14,6 +14,8 @@ LISTEN is an end-to-end system that takes raw audio/video recordings of meetings
 
 ## Setup & Installation
 
+**Prerequisites**: Python 3.10, 3.11, or 3.12 is required (PyTorch 2.5 does not fully support Python 3.13+ yet).
+
 1. Create and activate a Python virtual environment.
 2. Install the requirements:
    ```bash
