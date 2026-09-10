@@ -1,213 +1,87 @@
-"""
-LISTEN Phase 2 — Graph Attention Network (GAT) for Multi-hop Reasoning
-
-Architecture adapted from HGN §3.3 (Fang et al., 2019):
-  - Multi-head graph attention with edge-type-specific attention weights
-  - 2-layer GAT with residual connections
-  - Node importance prediction head (which segments are supporting facts?)
-
-Key simplification from HGN:
-  HGN uses 4 node types (Q, P, S, E) with 7 edge types and separate prediction
-  heads for paragraphs, sentences, entities, and spans.
-  We use 2 node types (Q, Segment) with 3 edge types and a single node
-  importance prediction head — suited for spoken transcript segments.
-"""
+"""Checkpoint-compatible graph-attention model and graph conversion helpers."""
 
 from __future__ import annotations
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch_geometric.nn import GATConv
+from torch import Tensor
 from torch_geometric.data import Data
+from torch_geometric.nn import GATConv
 
 from app import config
-
-
-class EdgeTypeAttention(nn.Module):
-    """Edge-type-specific attention bias for GAT.
-
-    Following HGN Eq. 3: different edge types (question↔segment, shared-entity,
-    semantic-similarity) get different learned attention weight vectors w_{e_ij}.
-    This module adds a per-edge-type bias to the standard GAT attention scores.
-    """
-
-    def __init__(self, hidden_dim: int, num_edge_types: int = config.NUM_EDGE_TYPES):
-        super().__init__()
-        # Learnable bias per edge type
-        self.edge_type_embedding = nn.Embedding(num_edge_types, hidden_dim)
-        self.projection = nn.Linear(hidden_dim, 1, bias=False)
-
-    def forward(self, edge_type: torch.Tensor) -> torch.Tensor:
-        """Compute per-edge attention bias.
-
-        Args:
-            edge_type: (num_edges,) — integer edge type labels.
-
-        Returns:
-            (num_edges,) — attention bias per edge.
-        """
-        type_emb = self.edge_type_embedding(edge_type)   # (E, hidden_dim)
-        bias = self.projection(type_emb).squeeze(-1)     # (E,)
-        return bias
-
-
-class GATLayer(nn.Module):
-    """A single GAT layer with edge-type conditioning and residual connection.
-
-    Wraps PyG's GATConv and adds:
-      1. Edge-type attention bias (HGN-style)
-      2. Residual connection
-      3. Layer normalization
-    """
-
-    def __init__(self, in_dim: int, out_dim: int, heads: int, dropout: float, num_edge_types: int):
-        super().__init__()
-        self.gat_conv = GATConv(
-            in_channels=in_dim,
-            out_channels=out_dim // heads,  # GATConv concatenates heads
-            heads=heads,
-            dropout=dropout,
-            add_self_loops=True,
-            concat=True,
-        )
-        self.edge_attn = EdgeTypeAttention(out_dim // heads, num_edge_types)
-        self.layer_norm = nn.LayerNorm(out_dim)
-        self.dropout = nn.Dropout(dropout)
-
-        # Residual projection if dimensions don't match
-        self.residual_proj = nn.Linear(in_dim, out_dim) if in_dim != out_dim else nn.Identity()
-
-    def forward(self, x: torch.Tensor, edge_index: torch.Tensor, edge_type: torch.Tensor) -> torch.Tensor:
-        """
-        Args:
-            x: (N, in_dim) — node features.
-            edge_index: (2, E) — edge indices.
-            edge_type: (E,) — edge type labels.
-
-        Returns:
-            (N, out_dim) — updated node features.
-        """
-        # Standard GAT attention + message passing
-        h = self.gat_conv(x, edge_index)
-
-        # Residual connection
-        residual = self.residual_proj(x)
-        h = self.layer_norm(h + residual)
-        h = self.dropout(F.elu(h))
-
-        return h
+from app.models.schemas import EvidenceGraph, GATOutput
 
 
 class EvidenceGAT(nn.Module):
-    """Multi-hop Evidence Graph Attention Network.
+    """Single-level GAT matching the trained QMSum checkpoint exactly."""
 
-    Takes a PyG evidence graph (from graph_builder) and produces:
-      1. Node importance scores — which segments matter for the answer.
-      2. Updated node embeddings — enriched via multi-hop graph reasoning.
-
-    Architecture (adapted from HGN §3.3):
-      Input (384-dim) → Project (256-dim) → GAT Layer 1 → GAT Layer 2 →
-      → Node Importance Head (2-layer MLP → sigmoid)
-    """
-
-    def __init__(
-        self,
-        input_dim: int = config.GAT_INPUT_DIM,
-        hidden_dim: int = config.GAT_HIDDEN_DIM,
-        output_dim: int = config.GAT_OUTPUT_DIM,
-        num_heads: int = config.GAT_NUM_HEADS,
-        num_layers: int = config.GAT_NUM_LAYERS,
-        dropout: float = config.GAT_DROPOUT,
-        num_edge_types: int = config.NUM_EDGE_TYPES,
-    ):
+    def __init__(self, in_dim: int | None = None, hidden_dim: int | None = None, num_heads: int | None = None, num_layers: int | None = None, dropout: float | None = None) -> None:
         super().__init__()
-        self.input_dim = input_dim
-        self.hidden_dim = hidden_dim
-        self.output_dim = output_dim
-
-        # Input projection
-        self.input_proj = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim),
-            nn.LayerNorm(hidden_dim),
-            nn.ELU(),
-            nn.Dropout(dropout),
-        )
-
-        # GAT layers
+        self.in_dim = in_dim or config.EMBEDDING_DIM
+        self.hidden_dim = hidden_dim or config.GAT_HIDDEN_DIM
+        self.num_heads = num_heads or config.GAT_NUM_HEADS
+        self.num_layers = num_layers or config.GAT_NUM_LAYERS
+        self.dropout = dropout if dropout is not None else config.GAT_DROPOUT
+        self.input_proj = nn.Linear(self.in_dim, self.hidden_dim)
         self.gat_layers = nn.ModuleList()
-        for i in range(num_layers):
-            in_d = hidden_dim if i == 0 else hidden_dim
-            out_d = hidden_dim if i < num_layers - 1 else output_dim
-            self.gat_layers.append(
-                GATLayer(in_d, out_d, num_heads, dropout, num_edge_types)
-            )
+        for layer_idx in range(self.num_layers):
+            if layer_idx == self.num_layers - 1:
+                self.gat_layers.append(GATConv(self.hidden_dim, self.hidden_dim, heads=1, concat=False, dropout=self.dropout, add_self_loops=True))
+            else:
+                self.gat_layers.append(GATConv(self.hidden_dim, self.hidden_dim // self.num_heads, heads=self.num_heads, concat=True, dropout=self.dropout, add_self_loops=True))
+        self.node_scorer = nn.Sequential(nn.Linear(self.hidden_dim, self.hidden_dim // 2), nn.ReLU(), nn.Dropout(self.dropout), nn.Linear(self.hidden_dim // 2, 1))
+        self.edge_scorer = nn.Sequential(nn.Linear(self.hidden_dim * 2, self.hidden_dim // 2), nn.ReLU(), nn.Dropout(self.dropout), nn.Linear(self.hidden_dim // 2, 1))
 
-        # Node importance prediction head (2-layer MLP → sigmoid)
-        # Predicts: is this segment a supporting fact for the answer?
-        self.importance_head = nn.Sequential(
-            nn.Linear(output_dim, output_dim // 2),
-            nn.ELU(),
-            nn.Dropout(dropout),
-            nn.Linear(output_dim // 2, 1),
-        )
-
-    def forward(self, data: Data) -> dict:
-        """Forward pass through the evidence GAT.
-
-        Args:
-            data: PyG Data object with:
-              - x: (N, input_dim) node features
-              - edge_index: (2, E) edges
-              - edge_type: (E,) edge type labels
-
-        Returns:
-            dict with:
-              - 'node_weights': (N,) importance scores in [0, 1]
-              - 'node_embeddings': (N, output_dim) updated node representations
-              - 'logits': (N,) raw logits before sigmoid (for loss computation)
-        """
-        x = data.x
-        edge_index = data.edge_index
-        edge_type = data.edge_type
-
-        # Input projection
+    def forward(self, x: Tensor, edge_index: Tensor, edge_attr: Tensor | None = None) -> tuple[Tensor, Tensor]:
+        """Return raw node and edge relevance logits for a PyG graph."""
+        _ = edge_attr
         h = self.input_proj(x)
+        for layer_idx, gat in enumerate(self.gat_layers):
+            h = gat(h, edge_index)
+            if layer_idx < len(self.gat_layers) - 1:
+                h = F.elu(h)
+                h = F.dropout(h, p=self.dropout, training=self.training)
+        node_logits = self.node_scorer(h)
+        if edge_index.size(1) == 0:
+            edge_logits = torch.zeros((0, 1), device=x.device, dtype=x.dtype)
+        else:
+            src, tgt = edge_index[0], edge_index[1]
+            edge_logits = self.edge_scorer(torch.cat([h[src], h[tgt]], dim=-1))
+        return node_logits, edge_logits
 
-        # GAT layers
-        for gat_layer in self.gat_layers:
-            h = gat_layer(h, edge_index, edge_type)
 
-        # Node importance scores
-        logits = self.importance_head(h).squeeze(-1)    # (N,)
-        weights = torch.sigmoid(logits)                 # (N,) in [0, 1]
+def evidence_graph_to_pyg(graph: EvidenceGraph, device: torch.device | None = None) -> Data:
+    """Convert an evidence graph schema object to a PyG graph."""
+    device = device or torch.device("cpu")
+    if not graph.nodes:
+        return Data(x=torch.zeros((0, config.EMBEDDING_DIM), dtype=torch.float32, device=device), edge_index=torch.zeros((2, 0), dtype=torch.long, device=device), edge_attr=torch.zeros((0,), dtype=torch.float32, device=device), segment_ids=[])
+    segment_ids = [node.segment_id for node in graph.nodes]
+    id_to_idx = {segment_id: idx for idx, segment_id in enumerate(segment_ids)}
+    x = torch.tensor([node.embedding for node in graph.nodes], dtype=torch.float32, device=device)
+    src_list: list[int] = []
+    tgt_list: list[int] = []
+    weights: list[float] = []
+    for edge in graph.edges:
+        if edge.source in id_to_idx and edge.target in id_to_idx:
+            src_list.extend([id_to_idx[edge.source], id_to_idx[edge.target]])
+            tgt_list.extend([id_to_idx[edge.target], id_to_idx[edge.source]])
+            weights.extend([edge.weight, edge.weight])
+    edge_index = torch.tensor([src_list, tgt_list], dtype=torch.long, device=device) if src_list else torch.zeros((2, 0), dtype=torch.long, device=device)
+    edge_attr = torch.tensor(weights, dtype=torch.float32, device=device) if weights else torch.zeros((0,), dtype=torch.float32, device=device)
+    data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr)
+    data.segment_ids = segment_ids
+    return data
 
-        return {
-            "node_weights": weights,
-            "node_embeddings": h,
-            "logits": logits,
-        }
 
-    def get_edge_attention_weights(self, data: Data) -> list:
-        """Extract attention weights from each GAT layer for explainability.
-
-        Useful for Person C's XAI component — shows which edges the GAT
-        attends to most strongly.
-
-        Returns:
-            List of (edge_index, attention_weights) per layer.
-        """
-        attention_weights = []
-        h = self.input_proj(data.x)
-
-        for gat_layer in self.gat_layers:
-            # PyG GATConv can return attention weights
-            h_new, (edge_idx, alpha) = gat_layer.gat_conv(
-                h, data.edge_index, return_attention_weights=True
-            )
-            attention_weights.append((edge_idx, alpha))
-            residual = gat_layer.residual_proj(h)
-            h = gat_layer.layer_norm(h_new + residual)
-            h = gat_layer.dropout(F.elu(h))
-
-        return attention_weights
+def gat_output_from_logits(segment_ids: list[str], node_logits: Tensor, edge_index: Tensor, edge_logits: Tensor, top_k: int | None = None) -> GATOutput:
+    """Convert model logits into serialisable evidence scores."""
+    k = top_k or config.GAT_TOP_EVIDENCE_K
+    node_scores = {segment_id: float(score) for segment_id, score in zip(segment_ids, torch.sigmoid(node_logits.squeeze(-1)).detach().cpu().tolist())}
+    edge_scores: dict[str, float] = {}
+    if edge_index.numel() > 0:
+        for idx, score in enumerate(torch.sigmoid(edge_logits.squeeze(-1)).detach().cpu().tolist()):
+            source = segment_ids[int(edge_index[0, idx])]
+            target = segment_ids[int(edge_index[1, idx])]
+            edge_scores.setdefault(f"{source}::{target}", float(score))
+    return GATOutput(node_scores=node_scores, edge_scores=edge_scores, top_evidence_ids=[segment_id for segment_id, _ in sorted(node_scores.items(), key=lambda item: item[1], reverse=True)[:k]])

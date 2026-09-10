@@ -135,21 +135,17 @@ class TestGATModel:
 
         x = torch.randn(num_nodes, 384)
         edge_index = torch.tensor(
-            [[0, 1, 1, 2, 2, 3], [1, 0, 2, 1, 3, 2]],
-            dtype=torch.long,
+            [[0, 1, 1, 2, 2, 3], [1, 0, 2, 1, 3, 2]], dtype=torch.long
         )
-        edge_attr = torch.rand(num_edges)
-
-        node_logits, edge_logits = model(x, edge_index, edge_attr)
-
+        node_logits, edge_logits = model(x, edge_index, torch.rand(num_edges))
         assert node_logits.shape == (num_nodes, 1)
         assert edge_logits.shape == (num_edges, 1)
 
     def test_empty_graph(self) -> None:
         model = EvidenceGAT(in_dim=384, hidden_dim=64, num_heads=2, num_layers=1)
-        x = torch.zeros((0, 384))
-        edge_index = torch.zeros((2, 0), dtype=torch.long)
-        node_logits, edge_logits = model(x, edge_index, None)
+        node_logits, edge_logits = model(
+            torch.zeros((0, 384)), torch.zeros((2, 0), dtype=torch.long), None
+        )
         assert node_logits.shape == (0, 1)
         assert edge_logits.shape == (0, 1)
 
@@ -181,13 +177,13 @@ class TestGATModel:
         assert set(output.node_scores.keys()) == set(segment_ids)
         assert len(output.top_evidence_ids) == 2
         assert output.top_evidence_ids[0] == "a"
-        assert "a_b" in output.edge_scores
+        assert "a::b" in output.edge_scores
 
     def test_single_layer_gat(self) -> None:
         """Single GAT layer should still produce valid shapes."""
         model = EvidenceGAT(in_dim=384, hidden_dim=128, num_heads=4, num_layers=1)
-        x = torch.randn(3, 384)
-        edge_index = torch.tensor([[0, 1], [1, 2]], dtype=torch.long)
-        node_logits, edge_logits = model(x, edge_index, None)
+        node_logits, edge_logits = model(
+            torch.randn(3, 384), torch.tensor([[0, 1], [1, 2]], dtype=torch.long), None
+        )
         assert node_logits.shape == (3, 1)
         assert edge_logits.shape == (2, 1)

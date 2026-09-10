@@ -19,7 +19,7 @@ DATA_DIR: Path = PROJECT_ROOT / "data"
 UPLOAD_DIR: Path = DATA_DIR / "uploads"
 AUDIO_DIR: Path = DATA_DIR / "audio"
 INDEX_DIR: Path = DATA_DIR / "indices"
-CHECKPOINT_DIR: Path = PROJECT_ROOT / "checkpoints"  # Moved to project root
+CHECKPOINT_DIR: Path = DATA_DIR / "checkpoints"
 MEETING_STORE_DIR: Path = DATA_DIR / "meetings"
 QMSUM_DIR: Path = DATA_DIR / "qmsum"
 
@@ -49,9 +49,16 @@ SIMILARITY_THRESHOLD: float = 0.45   # Cosine sim threshold for segment-segment 
 MIN_SHARED_ENTITIES: int = 1       # Min shared entities for entity-based edges
 MAX_SEGMENTS_PER_GRAPH: int = 25      # Max nodes in a single evidence graph
 
+# Graph edge weighting (should sum to <= 1.0)
+GRAPH_ENTITY_EDGE_WEIGHT: float = 0.35
+GRAPH_TEMPORAL_EDGE_WEIGHT: float = 0.25
+GRAPH_SEMANTIC_EDGE_WEIGHT: float = 0.40
+GRAPH_SEMANTIC_EDGE_THRESHOLD: float = 0.30
+GRAPH_MAX_EDGES_PER_NODE: int = 5
+
 # GAT architecture (Person B)
 GAT_INPUT_DIM: int = EMBEDDING_DIM    # 384 from bi-encoder
-GAT_HIDDEN_DIM: int = 256
+GAT_HIDDEN_DIM: int = 128
 GAT_OUTPUT_DIM: int = 128
 GAT_NUM_HEADS: int = 4                # Multi-head attention (HGN uses multi-head)
 GAT_NUM_LAYERS: int = 2               # 2-layer GAT
@@ -59,7 +66,7 @@ GAT_DROPOUT: float = 0.2
 NUM_EDGE_TYPES: int = 3               # question↔seg, entity-shared, similarity
 GAT_TOP_EVIDENCE_K: int = 5
 
-GAT_CHECKPOINT_NAME: str = "hotpotqa_best.pt"
+GAT_CHECKPOINT_NAME: str = "gat_qmsum.pt"
 
 # ---------------------------------------------------------------------------
 # LLM — Multi-Provider Answer Generation
@@ -72,7 +79,7 @@ OPENAI_MODEL: str = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
 # Gemini
 GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 # Groq
 GROQ_API_KEY: str = os.environ.get("GROQ_API_KEY", "")

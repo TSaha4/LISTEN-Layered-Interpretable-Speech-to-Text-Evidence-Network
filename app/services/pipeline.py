@@ -69,20 +69,22 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
     # 5. XAI Explainability
     shap_highlights = explain_retrieval(question, retrieval, segments_by_id)
 
-    # Prepare audio references for the frontend
-    audio_refs = {
-        sid: AudioRef(
+    # Prepare audio references for the frontend (as list with segment_id embedded)
+    audio_refs = [
+        AudioRef(
+            segment_id=sid,
             start_time=seg.start_time,
             end_time=seg.end_time,
+            text=seg.text,
             url=f"{config.API_PREFIX}/meetings/{meeting_id}/audio?start={seg.start_time}&end={seg.end_time}",
         )
         for sid, seg in segments_by_id.items()
         if sid in gat_output.top_evidence_ids
-    }
+    ]
 
     return QueryResponse(
         answer=answer,
-        evidence_graph=gat_output,
+        gat_output=gat_output,  # Changed from evidence_graph
         shap_highlights=shap_highlights,
         audio_refs=audio_refs,
     )
