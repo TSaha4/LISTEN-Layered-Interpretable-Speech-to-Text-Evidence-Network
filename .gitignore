@@ -4,6 +4,11 @@ env/
 .env
 .venv/
 
+# React/Vite
+frontend/node_modules/
+frontend/dist/
+frontend/.npm-cache/
+
 # Python
 __pycache__/
 *.pyc
