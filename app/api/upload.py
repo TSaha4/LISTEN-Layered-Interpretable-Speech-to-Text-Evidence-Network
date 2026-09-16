@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import shutil
+import subprocess
 import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi.responses import StreamingResponse
 
 from app import config
 from app.models.schemas import UploadResponse
@@ -16,6 +18,33 @@ from app.slp.audio_extraction import extract_audio_from_video, is_audio_file, is
 from app.slp.entity_extraction import enrich_segments_with_entities
 
 router = APIRouter(prefix="/meetings", tags=["upload"])
+
+
+@router.get("/{meeting_id}/audio")
+async def stream_audio_clip(meeting_id: str, start: float, end: float) -> StreamingResponse:
+    """Stream a WAV clip covering the requested meeting timestamp range."""
+    if start < 0 or end <= start:
+        raise HTTPException(status_code=422, detail="Require 0 <= start < end.")
+
+    record = get_meeting_store().get(meeting_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Meeting not found.")
+    audio_path = Path(record.audio_path)
+    if not audio_path.is_file():
+        raise HTTPException(status_code=404, detail="Meeting audio file not found.")
+
+    command = [
+        "ffmpeg", "-v", "error", "-ss", str(start), "-to", str(end),
+        "-i", str(audio_path), "-vn", "-ac", "1", "-ar", str(config.FFMPEG_SAMPLE_RATE),
+        "-f", "wav", "pipe:1",
+    ]
+    try:
+        result = subprocess.run(command, capture_output=True, check=False)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=503, detail="ffmpeg is not installed or not on PATH.") from exc
+    if result.returncode != 0:
+        raise HTTPException(status_code=502, detail=f"Could not create audio clip: {result.stderr.decode(errors='replace').strip()}")
+    return StreamingResponse(iter([result.stdout]), media_type="audio/wav")
 
 
 @router.post("/upload", response_model=UploadResponse)

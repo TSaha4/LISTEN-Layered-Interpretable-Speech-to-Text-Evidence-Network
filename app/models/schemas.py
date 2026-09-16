@@ -102,8 +102,10 @@ class QueryRequest(BaseModel):
 class AudioRef(BaseModel):
     """Audio clip reference for a segment."""
 
+    segment_id: str
     start_time: float
     end_time: float
+    text: str
     url: str
 
 
@@ -111,9 +113,9 @@ class QueryResponse(BaseModel):
     """Final structured JSON returned to the frontend."""
 
     answer: str
-    evidence_graph: GATOutput
+    gat_output: GATOutput  # Changed from evidence_graph to match frontend
     shap_highlights: dict[str, list[WordHighlight]]
-    audio_refs: dict[str, AudioRef]
+    audio_refs: list[AudioRef]  # Changed from dict to list to match frontend
 
 
 class CounterfactualRequest(BaseModel):
