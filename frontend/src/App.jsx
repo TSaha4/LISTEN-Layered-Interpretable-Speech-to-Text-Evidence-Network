@@ -5,6 +5,25 @@ const API_ORIGIN = new URL(API_BASE).origin;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const formatTime = (seconds) => `${Number(seconds).toFixed(1)}s`;
+const STOP_WORDS = new Set(["about", "after", "again", "also", "and", "are", "been", "but", "can", "could", "did", "does", "for", "from", "have", "into", "just", "like", "more", "not", "our", "out", "that", "the", "their", "them", "then", "there", "they", "this", "was", "were", "what", "when", "with", "would", "you"]);
+
+function suggestedQuestions(segments = []) {
+  const topics = new Map();
+  const add = (value, weight = 1) => {
+    const label = String(value ?? "").trim().replace(/\s+/g, " ");
+    const key = label.toLowerCase();
+    if (label.length < 3 || STOP_WORDS.has(key)) return;
+    const current = topics.get(key) ?? { label, score: 0 };
+    topics.set(key, { label: current.label, score: current.score + weight });
+  };
+  segments.forEach((segment) => {
+    (segment.entities ?? []).forEach((entity) => add(entity.text ?? entity, 3));
+    String(segment.text ?? "").match(/[A-Za-z][A-Za-z'-]{2,}/g)?.forEach((word) => add(word));
+  });
+  const [primary, secondary] = [...topics.values()].sort((a, b) => b.score - a.score).map((topic) => topic.label);
+  const candidates = [primary && `What was decided about ${primary}?`, secondary && `What concerns or trade-offs were discussed about ${secondary}?`, "What actions or next steps were agreed on?"].filter(Boolean);
+  return [...new Set(candidates)].slice(0, 3);
+}
 
 function Icon({ children }) {
   return <span className="icon" aria-hidden="true">{children}</span>;
@@ -55,17 +74,29 @@ function UploadCard({ onUploaded, busy }) {
 
 function QuestionCard({ meeting, onAsk, busy }) {
   const [question, setQuestion] = useState("");
+  const suggestions = useMemo(() => suggestedQuestions(meeting?.segments), [meeting]);
   const submit = (event) => { event.preventDefault(); if (question.trim()) onAsk(question.trim()); };
+  const chooseSuggestion = (suggestion) => { setQuestion(suggestion); onAsk(suggestion); };
   return <section className={`panel question-panel ${!meeting ? "locked" : ""}`}>
     <div className="panel-kicker"><span>02</span> Ask LISTEN</div>
     <h2>What do you want to know?</h2>
     <p className="muted">LISTEN traces the answer back through the conversation.</p>
+    {meeting && suggestions.length > 0 && <div className="question-suggestions"><p>Try a question from this transcript</p><div>{suggestions.map((suggestion) => <button key={suggestion} type="button" disabled={busy} onClick={() => chooseSuggestion(suggestion)}>{suggestion}</button>)}</div></div>}
     <form onSubmit={submit} className="question-form">
       <textarea disabled={!meeting || busy} value={question} onChange={(event) => setQuestion(event.target.value)} placeholder={meeting ? "What decision did the team make?" : "Process a meeting first…"} />
       <button className="round-button" disabled={!meeting || busy || !question.trim()} type="submit" aria-label="Ask question"><Icon>→</Icon></button>
     </form>
     {meeting && <div className="meeting-chip"><Icon>✓</Icon> {meeting.segment_count} segments indexed</div>}
+    {meeting && <TranscriptPanel meeting={meeting} />}
   </section>;
+}
+
+function TranscriptPanel({ meeting }) {
+  const [expanded, setExpanded] = useState(false);
+  const segments = meeting?.segments ?? [];
+  if (!segments.length) return null;
+  const visibleSegments = expanded ? segments : segments.slice(0, 80);
+  return <section className="transcript-panel"><div className="section-heading"><div><div className="panel-kicker"><span>TX</span> Transcript</div><h2>Read the conversation.</h2></div><span className="badge">{segments.length} segments</span></div><p className="muted">The transcript below is the same source LISTEN uses to retrieve evidence.</p><div className="transcript-list">{visibleSegments.map((segment, index) => <article className="transcript-turn" key={segment.segment_id ?? `${segment.start_time}-${index}`}><div className="transcript-meta"><span>{formatTime(segment.start_time)} - {formatTime(segment.end_time)}</span><span>#{index + 1}</span></div><p>{segment.text || "[No speech recognized]"}</p>{segment.entities?.length > 0 && <div className="entity-list">{segment.entities.map((entity, entityIndex) => <span key={`${entity.text ?? entity}-${entityIndex}`}>{entity.text ?? entity}</span>)}</div>}</article>)}</div>{segments.length > 80 && <button type="button" className="outline-button transcript-toggle" onClick={() => setExpanded(!expanded)}>{expanded ? "Show less transcript" : `Show all ${segments.length} segments`}<Icon>v</Icon></button>}</section>;
 }
 
 function EvidenceGraph({ graph }) {
