@@ -9,7 +9,12 @@ from app.dl.embeddings import embed_texts
 from app.dl.graph_builder import EvidenceGraphBuilder
 from app.dl.inference import get_gat_inference
 from app.dl.retrieval import retrieve_candidates
-from app.models.schemas import CounterfactualResponse, GATOutput
+from app.models.schemas import (
+    CounterfactualResponse,
+    GATOutput,
+    RetrievalCandidate,
+    RetrievalResult,
+)
 from app.services.meeting_store import get_meeting_store
 from app.xai.shap_explainer import explain_retrieval
 
@@ -21,55 +26,99 @@ def run_counterfactual(
     original_answer: str,
     original_evidence_graph: GATOutput,
 ) -> CounterfactualResponse:
-    """Remove one evidence node, re-run DL pipeline, and diff answers.
+    """Remove one evidence node, re-run DL pipeline, and diff answers."""
 
-    Args:
-        meeting_id: Processed meeting identifier.
-        question: Original user question.
-        node_id_to_remove: Segment id to drop from the evidence graph.
-        original_answer: Answer from the unmodified pipeline run.
-        original_evidence_graph: GAT output before removal (for reference).
-
-    Returns:
-        ``CounterfactualResponse`` with old/new answers and updated graph.
-
-    Raises:
-        ValueError: If the meeting is not found.
-    """
-    _ = original_evidence_graph  # retained for API contract / future diff metrics
+    _ = original_evidence_graph
 
     store = get_meeting_store()
     record = store.get(meeting_id)
+
     if record is None:
         raise ValueError(f"Meeting not found: {meeting_id}")
 
     index = store.load_index(meeting_id)
+
     if index is None:
         raise ValueError(f"Index not found for meeting: {meeting_id}")
 
     segments_by_id = store.segments_by_id(meeting_id)
 
-    retrieval = retrieve_candidates(question, index, segments_by_id)
+    retrieval = retrieve_candidates(
+        question,
+        index,
+        segments_by_id,
+    )
+
     candidate_ids = [c.segment_id for c in retrieval.candidates]
-    candidate_ids = [sid for sid in candidate_ids if sid != node_id_to_remove]
+
+    if node_id_to_remove not in candidate_ids:
+        raise ValueError(
+            "Node to remove is not part of the retrieved evidence set: "
+            f"{node_id_to_remove}"
+        )
+
+    candidate_ids = [
+        sid for sid in candidate_ids
+        if sid != node_id_to_remove
+    ]
 
     question_embedding = embed_texts([question])[0]
-    segments = [segments_by_id[sid] for sid in candidate_ids]
-    segment_embeddings = np.array([index.get_embedding(sid) for sid in candidate_ids])
+
+    segments = [
+        segments_by_id[sid]
+        for sid in candidate_ids
+    ]
+
+    segment_embeddings = np.array([
+        index.get_embedding(sid)
+        for sid in candidate_ids
+    ])
 
     builder = EvidenceGraphBuilder()
-    data, metadata = builder.build(question_embedding, segments, segment_embeddings)
-    
-    gat_output = get_gat_inference().run(data, metadata)
 
-    counterfactual_answer = generate_answer(question, gat_output, segments_by_id)
-    shap_highlights = explain_retrieval(question, retrieval, segments_by_id)
+    data, metadata = builder.build(
+        question_embedding,
+        segments,
+        segment_embeddings,
+    )
+
+    gat_output = get_gat_inference().run(
+        data,
+        metadata,
+    )
+
+    counterfactual_answer = generate_answer(
+        question,
+        gat_output,
+        segments_by_id,
+    )
+
+    counterfactual_retrieval = RetrievalResult(
+        question=retrieval.question,
+        candidates=[
+            RetrievalCandidate(
+                segment_id=c.segment_id,
+                score=c.score,
+            )
+            for c in retrieval.candidates
+            if c.segment_id != node_id_to_remove
+        ],
+    )
+
+    shap_highlights = explain_retrieval(
+        question,
+        counterfactual_retrieval,
+        segments_by_id,
+    )
 
     return CounterfactualResponse(
         original_answer=original_answer,
         counterfactual_answer=counterfactual_answer,
         removed_node_id=node_id_to_remove,
-        answer_changed=counterfactual_answer.strip() != original_answer.strip(),
+        answer_changed=(
+            counterfactual_answer.strip()
+            != original_answer.strip()
+        ),
         evidence_graph=gat_output,
         shap_highlights=shap_highlights,
     )
