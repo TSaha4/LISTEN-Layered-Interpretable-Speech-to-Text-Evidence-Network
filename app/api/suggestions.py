@@ -30,6 +30,25 @@ QUESTION_RESPONSE_SCHEMA = {
 }
 
 
+def _parse_questions(response: object) -> list[str]:
+    """Read Gemini structured output without trusting its display text format."""
+    payload = getattr(response, "parsed", None)
+    if hasattr(payload, "model_dump"):
+        payload = payload.model_dump()
+    if not isinstance(payload, dict):
+        raw_text = getattr(response, "text", "") or ""
+        # Older/occasionally non-compliant responses may wrap valid JSON in prose
+        # or a Markdown fence. Extract only the outer JSON object in that case.
+        start, end = raw_text.find("{"), raw_text.rfind("}")
+        if start < 0 or end <= start:
+            raise ValueError("Gemini did not return a JSON question object.")
+        payload = json.loads(raw_text[start : end + 1])
+    raw_questions = payload.get("questions", [])
+    if not isinstance(raw_questions, list):
+        raise ValueError("Gemini questions field is not a list.")
+    return [str(question).strip() for question in raw_questions if str(question).strip()]
+
+
 @router.get("/{meeting_id}/suggested-questions", response_model=QuestionSuggestionsResponse)
 async def suggest_questions(meeting_id: str) -> QuestionSuggestionsResponse:
     """Return three decision-oriented questions answerable from this transcript."""
@@ -69,8 +88,7 @@ async def suggest_questions(meeting_id: str) -> QuestionSuggestionsResponse:
                 response_json_schema=QUESTION_RESPONSE_SCHEMA,
             ),
         )
-        questions = json.loads(response.text or "{}").get("questions", [])
-        questions = [str(question).strip() for question in questions if str(question).strip()]
+        questions = _parse_questions(response)
     except ClientError as exc:
         logger.warning("Gemini suggested-question request failed for meeting %s: %s", meeting_id, exc)
         if exc.code == 429:
