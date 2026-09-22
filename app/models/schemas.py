@@ -113,9 +113,16 @@ class QueryResponse(BaseModel):
     """Final structured JSON returned to the frontend."""
 
     answer: str
+    answer_supported: bool = True
     gat_output: GATOutput  # Changed from evidence_graph to match frontend
     shap_highlights: dict[str, list[WordHighlight]]
     audio_refs: list[AudioRef]  # Changed from dict to list to match frontend
+
+
+class QuestionSuggestionsResponse(BaseModel):
+    """Grounded decision/reason/action questions generated for one meeting."""
+
+    questions: list[str]
 
 
 class CounterfactualRequest(BaseModel):

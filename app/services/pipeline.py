@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 
 from app import config
-from app.dl.answer_generation import generate_answer
+from app.dl.answer_generation import generate_answer_result
 from app.dl.embeddings import embed_texts
 from app.dl.graph_builder import EvidenceGraphBuilder
 from app.dl.inference import get_gat_inference
@@ -63,11 +63,18 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
     # 3. GAT Inference
     gat_output = get_gat_inference().run(data, metadata)
 
-    # 4. LLM Answer Generation
-    answer = generate_answer(question, gat_output, segments_by_id)
+    # 4. LLM Answer Generation. Preserve the GAT graph as-is for XAI, but
+    # protect the answer context from weak GAT ranking by also including the
+    # strongest raw retrieval candidates (GAT order remains first).
+    answer_context_ids = list(dict.fromkeys(
+        gat_output.top_evidence_ids + candidate_ids[:5]
+    ))
+    answer_result = generate_answer_result(
+        question, gat_output, segments_by_id, answer_context_ids
+    )
     
-    # 5. XAI Explainability
-    shap_highlights = explain_retrieval(question, retrieval, segments_by_id)
+    # 5. XAI Explainability: do not manufacture evidence for an unsupported answer.
+    shap_highlights = explain_retrieval(question, retrieval, segments_by_id) if answer_result.supported else {}
 
     # Prepare audio references for the frontend (as list with segment_id embedded)
     audio_refs = [
@@ -79,11 +86,12 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
             url=f"{config.API_PREFIX}/meetings/{meeting_id}/audio?start={seg.start_time}&end={seg.end_time}",
         )
         for sid, seg in segments_by_id.items()
-        if sid in gat_output.top_evidence_ids
+        if answer_result.supported and sid in gat_output.top_evidence_ids
     ]
 
     return QueryResponse(
-        answer=answer,
+        answer=answer_result.answer,
+        answer_supported=answer_result.supported,
         gat_output=gat_output,  # Changed from evidence_graph
         shap_highlights=shap_highlights,
         audio_refs=audio_refs,
