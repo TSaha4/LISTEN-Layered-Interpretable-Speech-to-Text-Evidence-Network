@@ -36,9 +36,6 @@ wheels/
 .coverage
 htmlcov/
 
-# Data and Artifacts
-data/
-
 # IDEs and OS
 .idea/
 .vscode/
