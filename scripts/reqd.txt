@@ -1,0 +1,11 @@
+torch
+numpy
+soundfile
+networkx
+matplotlib
+
+# Project-specific dependencies
+# Required by app.dl / app.slp modules
+sentence-transformers
+spacy
+google-generativeai
