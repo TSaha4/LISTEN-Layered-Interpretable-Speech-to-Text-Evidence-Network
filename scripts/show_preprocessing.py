@@ -46,8 +46,8 @@ from app.models.schemas import SLPSegment
 from app.slp.asr import transcribe_audio
 from app.slp.audio_extraction import extract_audio_from_video, is_video_file
 from app.slp.entity_extraction import (
+    _get_nlp,
     enrich_segments_with_entities,
-    extract_entities_from_text,
 )
 
 AUDIO_PATH = PROJECT_ROOT / "data" / "audio" / "raw" / "ES2002a.wav"
@@ -161,6 +161,7 @@ def plot_audio_and_preprocessing(
     audio_path: Path,
     segments: list[SLPSegment],
     candidate_ids: list[str],
+    ner_label_counts: Counter[str],
     output_dir: Path,
 ) -> Path:
     info = sf.info(str(audio_path))
@@ -199,15 +200,11 @@ def plot_audio_and_preprocessing(
     axes[1].set_xlabel("Time (seconds)")
     axes[1].set_title("Whisper timestamped segments; red = retrieved for the question")
 
-    entity_counts = Counter(
-        entity for segment in segments for entity in segment.entities
-    )
-    top_entities = entity_counts.most_common(12)
-    if top_entities:
-        names, counts = zip(*top_entities)
-        axes[2].barh(list(names)[::-1], list(counts)[::-1], color="#4c956c")
+    if ner_label_counts:
+        labels, counts = zip(*ner_label_counts.most_common())
+        axes[2].barh(list(labels)[::-1], list(counts)[::-1], color="#4c956c")
         axes[2].set_xlabel("Mentions in transcript")
-        axes[2].set_title("Most frequent stored NER entities")
+        axes[2].set_title("Live spaCy entity mentions by NER class")
     else:
         axes[2].text(0.5, 0.5, "No entities found in these transcript segments", ha="center")
         axes[2].set_axis_off()
@@ -217,6 +214,37 @@ def plot_audio_and_preprocessing(
     fig.savefig(path, dpi=170, bbox_inches="tight")
     plt.close(fig)
     return path
+
+
+def extract_gat_attention(data, model) -> tuple[dict[tuple[int, int], float], list[int]]:
+    """Replay the serving GAT to collect mean attention for each graph edge."""
+    import torch
+    import torch.nn.functional as F
+
+    edge_attention: dict[tuple[int, int], list[float]] = {}
+    layer_heads: list[int] = []
+    with torch.no_grad():
+        hidden = model.input_proj(data.x)
+        for layer_idx, gat_layer in enumerate(model.gat_layers):
+            hidden, (attended_edges, alpha) = gat_layer(
+                hidden, data.edge_index, return_attention_weights=True
+            )
+            layer_heads.append(int(alpha.shape[-1]))
+            alpha_mean = alpha.mean(dim=-1).cpu().tolist()
+            edge_pairs = attended_edges.cpu().t().tolist()
+            for (source, target), weight in zip(edge_pairs, alpha_mean):
+                if source != target:
+                    edge_attention.setdefault((source, target), []).append(float(weight))
+            if layer_idx < len(model.gat_layers) - 1:
+                hidden = F.elu(hidden)
+                hidden = F.dropout(
+                    hidden, p=model.dropout, training=model.training
+                )
+
+    return {
+        edge: float(np.mean(weights))
+        for edge, weights in edge_attention.items()
+    }, layer_heads
 
 
 def plot_gat_architecture(output_dir: Path) -> Path:
@@ -268,7 +296,13 @@ def plot_gat_architecture(output_dir: Path) -> Path:
     return path
 
 
-def plot_evidence_graph(data, metadata: dict, gat_output, output_dir: Path) -> Path:
+def plot_evidence_graph(
+    data,
+    metadata: dict,
+    gat_output,
+    edge_attention: dict[tuple[int, int], float],
+    output_dir: Path,
+) -> Path:
     graph = nx.Graph()
     node_map = metadata["node_id_map"]
     scores = gat_output.node_scores
@@ -299,7 +333,15 @@ def plot_evidence_graph(data, metadata: dict, gat_output, output_dir: Path) -> P
         if source == target:
             continue
         if not graph.has_edge(source, target):
-            graph.add_edge(source, target, edge_type=int(edge_type))
+            graph.add_edge(
+                source,
+                target,
+                edge_type=int(edge_type),
+                attention=float(np.mean([
+                    edge_attention.get((source, target), 0.0),
+                    edge_attention.get((target, source), 0.0),
+                ])),
+            )
 
     positions = nx.spring_layout(graph, seed=17, k=1.0)
     fig, ax = plt.subplots(figsize=(13, 9))
@@ -329,7 +371,10 @@ def plot_evidence_graph(data, metadata: dict, gat_output, output_dir: Path) -> P
             relation_colors[graph.edges[e].get("edge_type", 0)]
             for e in graph.edges
         ],
-        width=1.5,
+        width=[
+            0.8 + 7.0 * graph.edges[e].get("attention", 0.0)
+            for e in graph.edges
+        ],
         alpha=0.7,
     )
     nx.draw_networkx_nodes(
@@ -349,9 +394,11 @@ def plot_evidence_graph(data, metadata: dict, gat_output, output_dir: Path) -> P
     legend.append(Line2D([0], [0], marker="o", color="w", markerfacecolor="#e45756",
                          markeredgecolor="#333333", label="Darker red = higher GAT score",
                          markersize=10))
+    legend.append(Line2D([0], [0], color="#555555", lw=4,
+                         label="Thicker edge = higher mean layer-2 attention"))
     ax.legend(handles=legend, loc="best", fontsize=8)
     ax.set_title(
-        "Retrieved evidence graph: edge colors show relation; labels show GAT rank/score",
+        "DL-only evidence graph: relation, layer-2 attention, and GAT node score",
         fontsize=12,
     )
     ax.axis("off")
@@ -415,9 +462,7 @@ def main() -> int:
             raise ValueError(f"Unsupported video extension: {video_path.suffix}")
         audio_path = extract_audio_from_video(video_path)
         meeting_id = f"demo_{uuid.uuid4().hex[:8]}"
-        segments = enrich_segments_with_entities(
-            transcribe_audio(str(audio_path), meeting_id=meeting_id)
-        )
+        segments = transcribe_audio(str(audio_path), meeting_id=meeting_id)
         alignment = None
         question = args.question or "What are the main topics discussed?"
         print(f"  Video          : {video_path}")
@@ -450,6 +495,9 @@ def main() -> int:
 
     if not segments:
         raise ValueError("ASR/transcript processing produced no transcript segments.")
+    # Re-run production NER so stored demos and live-video demos use the same,
+    # current entity annotations when constructing shared-entity graph edges.
+    segments = enrich_segments_with_entities(segments)
 
     audio_info = sf.info(str(audio_path))
     print(f"  Audio duration: {audio_info.duration:.1f}s; "
@@ -466,10 +514,22 @@ def main() -> int:
     print("  Each ASR segment is whitespace-trimmed; empty ASR segments are skipped.")
     print("  spaCy en_core_web_sm extracts entities per segment; duplicate surface")
     print("  forms are removed case-insensitively. No stemming/stop-word removal is done.")
-    for segment in segments[:5]:
-        live_entities = extract_entities_from_text(segment.text)
+    print("  spaCy exposes both the entity text and entity class (ent.label_).")
+    nlp = _get_nlp()
+    ner_label_counts: Counter[str] = Counter()
+    for doc in nlp.pipe(segment.text for segment in segments):
+        ner_label_counts.update(ent.label_ for ent in doc.ents)
+    examples_with_entities = [segment for segment in segments if segment.entities][:5]
+    for segment in examples_with_entities:
+        doc = nlp(segment.text)
+        labeled_entities = [f"{ent.text} [{ent.label_}]" for ent in doc.ents]
         print(f"    {segment.segment_id}: {short(segment.text, 65)}")
-        print(f"      entities: {live_entities}")
+        print(f"      entities: {labeled_entities}")
+    if not examples_with_entities:
+        print("  No entities were detected in this transcript.")
+    print(f"  Entity mentions by class: {dict(ner_label_counts)}")
+    print("  The extracted entity strings are attached to segments and compared")
+    print("  case-insensitively by the graph builder to create shared-entity links.")
 
     print("\n3. EMBEDDINGS, RETRIEVAL, AND DATASET-TO-GRAPH")
     print(f"  Encoder: {config.EMBEDDING_MODEL}; dimension={config.EMBEDDING_DIM}; "
@@ -502,11 +562,17 @@ def main() -> int:
     edge_counts = Counter(int(edge_type) for edge_type in data.edge_type.tolist())
     print(f"  PyG graph: x={tuple(data.x.shape)}, "
           f"edge_index={tuple(data.edge_index.shape)}")
+    print("  x[row] is one 384-value embedding; edge_index[0] -> edge_index[1]")
+    print("  gives each directed link; edge_type stores the relationship category.")
     print("  Edge counts (directed): "
           f"question-segment={edge_counts[0]}, "
           f"shared-entity={edge_counts[1]}, "
           f"semantic-similarity={edge_counts[2]}.")
-    print(f"  Graph labels: node_id_map={metadata['node_id_map']}")
+    print("  Node index mapping (first nodes): "
+          f"{dict(list(metadata['node_id_map'].items())[:6])}")
+    if not edge_counts[1]:
+        print("  No shared-entity links in this particular retrieved subgraph; "
+              "this is a real graph outcome, not an omitted edge category.")
     print("  Training note: phase2_graph/dataset.py builds one labeled graph per QA "
           "example; Data.y marks supporting evidence (1) vs other segments (0).")
     if alignment is not None:
@@ -528,6 +594,12 @@ def main() -> int:
     model_parameters = sum(parameter.numel() for parameter in gat.model.parameters())
     print(f"  Checkpoint: {CHECKPOINT_PATH.relative_to(PROJECT_ROOT)} "
           f"({model_parameters:,} parameters)")
+    edge_attention, attention_heads = extract_gat_attention(data, gat.model)
+    print("  Message passing uses graph connectivity (edge_index). The serving")
+    print("  model currently ignores edge_type/edge_attr values; edge colors in")
+    print("  the plot identify relation types, not a type-specific attention rule.")
+    print(f"  Layer head counts: {attention_heads}; plot edge thickness averages")
+    print("  the final layer's actual attention coefficients in both directions.")
     gat_output = gat.run(data, metadata)
     print("  Top evidence segments (sigmoid node relevance scores):")
     for rank, segment_id in enumerate(gat_output.top_evidence_ids, start=1):
@@ -539,9 +611,11 @@ def main() -> int:
     print("\n5. PLOTS")
     plot_paths = [
         plot_pipeline(output_dir),
-        plot_audio_and_preprocessing(audio_path, segments, candidate_ids, output_dir),
+        plot_audio_and_preprocessing(
+            audio_path, segments, candidate_ids, ner_label_counts, output_dir
+        ),
         plot_gat_architecture(output_dir),
-        plot_evidence_graph(data, metadata, gat_output, output_dir),
+        plot_evidence_graph(data, metadata, gat_output, edge_attention, output_dir),
     ]
     if TRAIN_LOG_PATH.is_file():
         training_plot = plot_training_curves(
