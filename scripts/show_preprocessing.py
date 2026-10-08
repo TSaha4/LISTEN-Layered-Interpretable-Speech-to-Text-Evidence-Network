@@ -1,592 +1,565 @@
 """
-================================================================================
-LISTEN — Preprocessing Pipeline on Initial Training Datasets
-================================================================================
-This script demonstrates the complete data preprocessing lifecycle and its
-direct impact on Machine Learning algorithms using the ACTUAL initial datasets
-from the LISTEN project:
+LISTEN walkthrough: video/audio -> transcript -> text processing -> graph -> GAT.
 
-  1. HotpotQA Dataset (data/hotpotqa):
-     - Used for pre-training multi-hop reasoning in LISTEN.
-     - 10 context paragraphs per question (40+ candidate sentences).
-     - Severe class imbalance: ~5% true supporting facts, ~95% distractors.
-  2. AMI Meeting Corpus (data/sample_meeting.json):
-     - Used for meeting domain evaluation in LISTEN.
-     - Spoken dialogue turns with timestamps, speakers, and entities.
+By default, the script uses the checked-in ES2002a meeting artifacts so the
+walkthrough is repeatable without rerunning ASR. Pass --video to extract audio
+and transcribe a video live with the same functions used by the upload API.
 
-Preprocessing Steps Shown:
-  - Text Extraction & Sentence Segmentation
-  - Text Normalization (Cleaning, lowercasing, punctuation stripping)
-  - Named Entity Extraction (Capitalized noun phrases & quoted phrases)
-  - Feature Engineering (TF-IDF cosine similarity, entity overlap, title match,
-    sentence position, character length)
-  - Outlier Capping (IQR) & Feature Scaling (StandardScaler)
-  - Stratified Train-Test Splitting (preserving evidence/distractor ratio)
+Run from the project root:
+    .venv/Scripts/python.exe scripts/show_preprocessing.py
+    .venv/Scripts/python.exe scripts/show_preprocessing.py --video path/to/meeting.mp4
 
-Machine Learning Algorithms Evaluated:
-  - Logistic Regression (L2)
-  - K-Nearest Neighbors (k=5)
-  - Support Vector Machine (RBF Kernel)
-  - Random Forest Classifier (100 Trees)
-
-Rich Metrics Reported:
-  - Accuracy, Precision, Recall, F1-Score (Macro, Weighted, Binary)
-  - ROC-AUC Score & 5-Fold Stratified Cross-Validation (Mean +/- Std)
-  - Confusion Matrix with Sensitivity (TPR) and Specificity (TNR)
-  - Retrieval Metrics: Recall@1, Recall@3, Recall@5, and MRR
-
-Usage:
-    python scripts/show_preprocessing.py
-================================================================================
+PNG diagrams and plots are written to data/visualizations/ by default.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
-import os
-import re
+import math
 import sys
 import time
+import uuid
+from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List, Set, Tuple
 
+import matplotlib
+import networkx as nx
 import numpy as np
-import pandas as pd
-from datasets import load_dataset
-from sklearn.base import clone
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (
-    accuracy_score,
-    classification_report,
-    confusion_matrix,
-    f1_score,
-    precision_score,
-    recall_score,
-    roc_auc_score,
+import soundfile as sf
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.patches import FancyBboxPatch
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from app import config
+from app.dl.embeddings import SegmentIndex, embed_texts
+from app.dl.graph_builder import EvidenceGraphBuilder
+from app.dl.inference import GATInference
+from app.dl.retrieval import retrieve_candidates
+from app.models.schemas import SLPSegment
+from app.slp.asr import transcribe_audio
+from app.slp.audio_extraction import extract_audio_from_video, is_video_file
+from app.slp.entity_extraction import (
+    enrich_segments_with_entities,
+    extract_entities_from_text,
 )
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
 
-# ==============================================================================
-# Console Formatting
-# ==============================================================================
-IS_TTY = sys.stdout.isatty() or os.name == "nt"
-
-def _c(text: str, code: str) -> str:
-    return f"\033[{code}m{text}\033[0m" if IS_TTY else text
-
-def cyan(text: str) -> str: return _c(text, "96")
-def green(text: str) -> str: return _c(text, "92")
-def yellow(text: str) -> str: return _c(text, "93")
-def red(text: str) -> str: return _c(text, "91")
-def bold(text: str) -> str: return _c(text, "1")
-def magenta(text: str) -> str: return _c(text, "95")
-
-def banner(title: str) -> None:
-    line = "=" * 78
-    print("\n" + cyan(line))
-    print(cyan(f"  {bold(title.upper())}"))
-    print(cyan(line))
-
-def section(title: str) -> None:
-    print("\n" + yellow(f"--- [ {bold(title)} ] " + "-" * (70 - len(title))))
-
-
-# ==============================================================================
-# 1. LOAD & INSPECT INITIAL DATASET: HOTPOTQA (CACHED LOCALLY)
-# ==============================================================================
-def load_initial_hotpotqa(max_examples: int = 50) -> Tuple[List[Dict[str, Any]], str]:
-    """Load the real HotpotQA dataset from local cache data/hotpotqa or HuggingFace."""
-    root_dir = Path(__file__).resolve().parents[1]
-    cache_dir = root_dir / "data" / "hotpotqa"
-
-    try:
-        ds = load_dataset(
-            "hotpotqa/hotpot_qa",
-            "distractor",
-            split=f"train[:{max_examples}]",
-            cache_dir=str(cache_dir) if cache_dir.exists() else None,
-        )
-        source = f"Local cache: {cache_dir.relative_to(root_dir) if cache_dir.exists() else 'HuggingFace'}"
-        return list(ds), source
-    except Exception as e:
-        # Fallback to local representative HotpotQA structure if offline
-        sample_file = root_dir / "data" / "hotpotqa_sample.json"
-        if sample_file.exists():
-            with open(sample_file, "r", encoding="utf-8") as f:
-                return json.load(f), f"Local file: {sample_file.name}"
-        raise RuntimeError(f"Could not load HotpotQA dataset: {e}")
-
-
-def extract_entities_simple(text: str) -> List[str]:
-    """Extract named entities via capitalized noun phrases (from LISTEN dataset.py)."""
-    entities = re.findall(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b", text)
-    entities += re.findall(r'"([^"]+)"', text)
-    return list(set(e.strip() for e in entities if len(e) > 1))
-
-
-def clean_text(text: str) -> str:
-    """Normalize raw text: lowercasing, whitespace collapse, punctuation cleanup."""
-    text = text.lower()
-    text = re.sub(r"[^\w\s]", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
-
-
-# ==============================================================================
-# 2. FEATURE ENGINEERING & PREPROCESSING PIPELINE FOR HOTPOTQA
-# ==============================================================================
-def preprocess_hotpotqa_dataset(
-    examples: List[Dict[str, Any]]
-) -> Tuple[pd.DataFrame, pd.DataFrame, List[Dict[str, Any]]]:
-    """Extract candidate sentences, clean text, extract entities, engineer features,
-    and build ground-truth labels from supporting facts.
-    """
-    records = []
-    sentence_meta = []
-
-    for ex_idx, ex in enumerate(examples):
-        question = ex["question"]
-        clean_q = clean_text(question)
-        q_words = set(clean_q.split())
-        q_entities = set(extract_entities_simple(question))
-
-        # Supporting facts: set of (title, sent_idx)
-        supporting_facts: Set[Tuple[str, int]] = set()
-        for sf_title, sf_idx in zip(ex["supporting_facts"]["title"], ex["supporting_facts"]["sent_id"]):
-            supporting_facts.add((sf_title, int(sf_idx)))
-
-        # Context: titles and list of sentences per paragraph
-        titles = ex["context"]["title"]
-        paragraphs = ex["context"]["sentences"]
-
-        for title, sent_list in zip(titles, paragraphs):
-            title_clean = clean_text(title)
-            title_in_q = 1.0 if title_clean in clean_q else 0.0
-
-            total_sents_in_para = max(len(sent_list), 1)
-
-            for sent_idx, sent_text in enumerate(sent_list):
-                clean_sent = clean_text(sent_text)
-                sent_words = set(clean_sent.split())
-                sent_entities = set(extract_entities_simple(sent_text))
-
-                # Feature 1: Lexical Jaccard Overlap with Question
-                union_len = len(q_words | sent_words)
-                jaccard = (len(q_words & sent_words) / union_len) if union_len > 0 else 0.0
-
-                # Feature 2: Entity Overlap Count
-                entity_overlap = len(q_entities & sent_entities)
-
-                # Feature 3: Title match in Question
-                # Feature 4: Normalized Sentence Position in Paragraph
-                pos_norm = sent_idx / total_sents_in_para
-
-                # Feature 5: Sentence Length in characters
-                char_len = float(len(sent_text))
-
-                # Feature 6: Word count
-                word_count = float(len(sent_words))
-
-                # Ground-truth binary label (Is this sentence a supporting fact?)
-                is_supporting = 1 if (title, sent_idx) in supporting_facts else 0
-
-                records.append({
-                    "jaccard_overlap": jaccard,
-                    "entity_overlap": float(entity_overlap),
-                    "title_in_question": title_in_q,
-                    "sentence_position": pos_norm,
-                    "char_length": char_len,
-                    "word_count": word_count,
-                    "is_supporting_fact": is_supporting,
-                })
-
-                sentence_meta.append({
-                    "example_idx": ex_idx,
-                    "question": question,
-                    "title": title,
-                    "sent_idx": sent_idx,
-                    "text": sent_text,
-                    "clean_text": clean_sent,
-                    "is_supporting": is_supporting,
-                })
-
-    df_raw = pd.DataFrame(records)
-
-    # Compute Global TF-IDF Cosine Similarity Feature
-    all_texts = [m["clean_text"] for m in sentence_meta]
-    q_texts = [clean_text(m["question"]) for m in sentence_meta]
-
-    tfidf = TfidfVectorizer(max_features=500, stop_words="english", ngram_range=(1, 2))
-    tfidf.fit(all_texts + list(set(q_texts)))
-
-    q_vecs = tfidf.transform(q_texts)
-    sent_vecs = tfidf.transform(all_texts)
-
-    # Pairwise row-by-row cosine similarity
-    tfidf_sims = np.asarray((q_vecs.multiply(sent_vecs)).sum(axis=1)).flatten()
-    df_raw["tfidf_similarity"] = tfidf_sims
-
-    return df_raw, sentence_meta
-
-
-# ==============================================================================
-# 3. EVALUATION & METRICS HELPERS
-# ==============================================================================
-def evaluate_model_pipeline(
-    model: Any,
-    X_train: np.ndarray,
-    y_train: np.ndarray,
-    X_test: np.ndarray,
-    y_test: np.ndarray,
-    model_name: str,
-) -> Dict[str, Any]:
-    """Train ML model on preprocessed features and compute complete metrics."""
-    t0 = time.perf_counter()
-    model.fit(X_train, y_train)
-    fit_time = (time.perf_counter() - t0) * 1000
-
-    y_pred = model.predict(X_test)
-
-    if hasattr(model, "predict_proba"):
-        y_prob = model.predict_proba(X_test)[:, 1]
-    elif hasattr(model, "decision_function"):
-        y_prob = model.decision_function(X_test)
-    else:
-        y_prob = y_pred
-
-    acc = accuracy_score(y_test, y_pred)
-    prec_macro = precision_score(y_test, y_pred, average="macro", zero_division=0)
-    rec_macro = recall_score(y_test, y_pred, average="macro", zero_division=0)
-    f1_macro = f1_score(y_test, y_pred, average="macro", zero_division=0)
-    f1_sup = f1_score(y_test, y_pred, pos_label=1, zero_division=0)
-    prec_sup = precision_score(y_test, y_pred, pos_label=1, zero_division=0)
-    rec_sup = recall_score(y_test, y_pred, pos_label=1, zero_division=0)
-
-    try:
-        auc = roc_auc_score(y_test, y_prob)
-    except Exception:
-        auc = 0.5
-
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-    cv_scores = cross_val_score(clone(model), X_train, y_train, cv=cv, scoring="roc_auc")
-
-    cm = confusion_matrix(y_test, y_pred)
-
-    return {
-        "model_name": model_name,
-        "accuracy": acc,
-        "precision_macro": prec_macro,
-        "recall_macro": rec_macro,
-        "f1_macro": f1_macro,
-        "f1_evidence": f1_sup,
-        "prec_evidence": prec_sup,
-        "rec_evidence": rec_sup,
-        "roc_auc": auc,
-        "cv_mean": cv_scores.mean(),
-        "cv_std": cv_scores.std(),
-        "fit_time_ms": fit_time,
-        "confusion_matrix": cm,
-        "y_pred": y_pred,
-        "y_prob": y_prob,
-    }
-
-
-def print_metrics_table(results: List[Dict[str, Any]]) -> None:
-    """Print aligned ASCII table of metrics across all ML algorithms."""
-    headers = [
-        "Algorithm",
-        "Accuracy",
-        "Evidence F1",
-        "Evidence Rec",
-        "Macro F1",
-        "ROC-AUC",
-        "5-Fold CV AUC",
-        "Train Time",
-    ]
-    col_w = [25, 10, 13, 13, 10, 10, 24, 12]
-
-    header_row = " | ".join(h.ljust(w) for h, w in zip(headers, col_w))
-    separator = "-+-".join("-" * w for w in col_w)
-
-    print("\n" + bold(header_row))
-    print(separator)
-
-    for r in results:
-        row = [
-            r["model_name"][:25].ljust(col_w[0]),
-            f"{r['accuracy'] * 100:.2f}%".ljust(col_w[1]),
-            f"{r['f1_evidence']:.4f}".ljust(col_w[2]),
-            f"{r['rec_evidence']:.4f}".ljust(col_w[3]),
-            f"{r['f1_macro']:.4f}".ljust(col_w[4]),
-            f"{r['roc_auc']:.4f}".ljust(col_w[5]),
-            f"{r['cv_mean']:.4f} +/- {r['cv_std']:.4f}".ljust(col_w[6]),
-            f"{r['fit_time_ms']:.1f} ms".ljust(col_w[7]),
-        ]
-        print(" | ".join(row))
-
-
-def print_confusion_matrix(cm: np.ndarray) -> None:
-    """Print labeled confusion matrix highlighting Distractors vs Supporting Facts."""
-    tn, fp = cm[0, 0], cm[0, 1]
-    fn, tp = cm[1, 0], cm[1, 1]
-
-    print(bold(f"\n  Confusion Matrix (Evidence vs Distractor Sentences):"))
-    print(f"  {'':20} Predicted: Distractor (0)  Predicted: Supporting Fact (1)")
-    print(f"  Actual: Distractor (0)       {green(str(tn).rjust(14))} (TN)   {red(str(fp).rjust(14))} (FP)")
-    print(f"  Actual: Supporting Fact (1)  {red(str(fn).rjust(14))} (FN)   {green(str(tp).rjust(14))} (TP)")
-
-    total = tn + fp + fn + tp
-    tpr = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-    tnr = tn / (tn + fp) if (tn + fp) > 0 else 0.0
-    print(f"\n  -> Diagnostic Rates: True Positive Rate (Sensitivity)={tpr:.3f} | Specificity={tnr:.3f}")
-
-
-# ==============================================================================
-# 4. AMI MEETING CORPUS PREPROCESSING (LISTEN MEETING DOMAIN)
-# ==============================================================================
-def demonstrate_ami_meeting_preprocessing() -> None:
-    """Demonstrate preprocessing on the initial AMI Meeting transcript."""
-    section("Initial Meeting Dataset Preprocessing: AMI Meeting Corpus")
-
-    root = Path(__file__).resolve().parents[1]
-    meeting_file = root / "data" / "sample_meeting.json"
-
-    if not meeting_file.exists():
-        print("  AMI meeting file not found.")
-        return
-
-    with open(meeting_file, "r", encoding="utf-8") as f:
-        meeting_data = json.load(f)
-
-    segments = meeting_data.get("segments", [])
-    print(f"  Dataset File  : {green(meeting_file.relative_to(root))}")
-    print(f"  Meeting ID    : {bold(meeting_data.get('meeting_id', 'Unknown'))}")
-    print(f"  Total Chunks  : {len(segments)} spoken dialogue segments")
-
-    print("\n  [Step 1] Raw Spoken Audio Turn Segments (Whisper ASR Chunks):")
-    for s in segments[:3]:
-        spk = s.get("speaker", "Unknown")
-        t_start, t_end = s.get("start_time", 0.0), s.get("end_time", 0.0)
-        print(f"    [{t_start:4.1f}s - {t_end:4.1f}s] {s['segment_id']} ({spk}): \"{s['text']}\"")
-        if s.get("entities"):
-            print(f"      Extracted NER Entities: {cyan(str(s['entities']))}")
-
-    # Step 2: Clean & Vectorize
-    cleaned_texts = [clean_text(s["text"]) for s in segments]
-    print("\n  [Step 2] Transcript Normalization (Before -> After):")
-    print(f"    Before: \"{segments[1]['text']}\"")
-    print(f"    After : {cyan(repr(cleaned_texts[1]))}")
-
-    # Step 3: TF-IDF Embedding Space
-    tfidf = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
-    matrix = tfidf.fit_transform(cleaned_texts)
-    print(f"\n  [Step 3] Vector Space Transformation:")
-    print(f"    Matrix Shape: {matrix.shape} ({len(cleaned_texts)} segments x {matrix.shape[1]} n-gram dimensions)")
-
-    # Step 4: Query Evidence Ranking & Retrieval Metrics
-    query = "What was decided about the rubber casing cost and user preference?"
-    clean_q = clean_text(query)
-    q_vec = tfidf.transform([clean_q])
-    sims = cosine_similarity(q_vec, matrix).flatten()
-    ranks = np.argsort(sims)[::-1]
-
-    gold_ids = {s["segment_id"] for s in segments if any(w in s["text"].lower() for w in ["rubber", "cost", "preference"])}
-
-    print(f"\n  [Step 4] Query Evidence Retrieval for: {magenta(repr(query))}")
-    retrieved_ids = []
-    for r_idx, idx in enumerate(ranks[:4], start=1):
-        seg = segments[idx]
-        retrieved_ids.append(seg["segment_id"])
-        is_gold = seg["segment_id"] in gold_ids
-        tag = green("[SUPPORTING EVIDENCE]") if is_gold else yellow("[CANDIDATE]")
-        print(f"    Rank {r_idx} (score={sims[idx]:.4f}) -> {seg['segment_id']} {tag}")
-        print(f"      Text: \"{seg['text']}\"")
-
-    # Step 5: Retrieval Metrics
-    rec_1 = len(set(retrieved_ids[:1]) & gold_ids) / len(gold_ids) if gold_ids else 1.0
-    rec_3 = len(set(retrieved_ids[:3]) & gold_ids) / len(gold_ids) if gold_ids else 1.0
-    rec_5 = len(set(retrieved_ids[:5]) & gold_ids) / len(gold_ids) if gold_ids else 1.0
-    mrr_rank = next((i + 1 for i, sid in enumerate(retrieved_ids) if sid in gold_ids), None)
-    mrr = (1.0 / mrr_rank) if mrr_rank else 0.0
-
-    print(f"\n  [Step 5] Information Retrieval Evaluation Metrics:")
-    print(f"    - Recall@1 : {rec_1 * 100:.1f}%")
-    print(f"    - Recall@3 : {rec_3 * 100:.1f}%")
-    print(f"    - Recall@5 : {rec_5 * 100:.1f}%")
-    print(f"    - MRR      : {mrr:.4f} (Top evidence retrieved at rank #{mrr_rank})")
-
-
-# ==============================================================================
-# 5. MAIN DEMO EXECUTION
-# ==============================================================================
-def main() -> int:
-    banner("LISTEN Preprocessing & ML Pipeline on Initial Training Datasets")
-    print(bold("Focus:") + " Purely utilizing initial project datasets (HotpotQA & AMI Corpus).")
-    print("       Demonstrates text parsing, feature engineering, scaling, and ML models.\n")
-
-    # --------------------------------------------------------------------------
-    # 1. Load HotpotQA Dataset
-    # --------------------------------------------------------------------------
-    section("1. Initial Training Dataset: HotpotQA Distractor Set")
-    examples, source_info = load_initial_hotpotqa(max_examples=45)
-    print(f"  Data Source : {green(source_info)}")
-    print(f"  Loaded      : {bold(str(len(examples)))} multi-hop question-answer examples")
-
-    sample_ex = examples[0]
-    print(f"\n  Sample Raw Record:")
-    print(f"    * Question         : {cyan(sample_ex['question'])}")
-    print(f"    * Answer           : {sample_ex['answer']}")
-    print(f"    * Supporting Facts : {list(zip(sample_ex['supporting_facts']['title'], sample_ex['supporting_facts']['sent_id']))}")
-    print(f"    * Context Paragraphs: {len(sample_ex['context']['title'])} documents ({sum(len(s) for s in sample_ex['context']['sentences'])} total sentences)")
-
-    # --------------------------------------------------------------------------
-    # 2. Preprocess Sentences & Engineer Features
-    # --------------------------------------------------------------------------
-    section("2. Data Preprocessing & Feature Engineering")
-    print("  Processing raw text into structured feature representations...")
-    df_raw, sentence_meta = preprocess_hotpotqa_dataset(examples)
-
-    n_total = len(df_raw)
-    n_supporting = int(df_raw["is_supporting_fact"].sum())
-    n_distractors = n_total - n_supporting
-    imbalance_ratio = n_distractors / n_supporting if n_supporting > 0 else 0.0
-
-    print(f"  Extracted Sentence Candidates: {bold(str(n_total))} total sentences")
-    print(f"    - Supporting Facts (Class 1) : {green(str(n_supporting))} ({n_supporting / n_total * 100:.1f}%)")
-    print(f"    - Distractors      (Class 0) : {red(str(n_distractors))} ({n_distractors / n_total * 100:.1f}%)")
-    print(f"    - Severe Imbalance Ratio    : {imbalance_ratio:.1f} : 1 (Needle in a haystack challenge)")
-
-    feature_cols = [
-        "jaccard_overlap",
-        "entity_overlap",
-        "title_in_question",
-        "sentence_position",
-        "char_length",
-        "word_count",
-        "tfidf_similarity",
-    ]
-
-    print("\n  [Preview] Raw Extracted Features (First 3 Candidate Sentences):")
-    print("  " + df_raw[feature_cols + ["is_supporting_fact"]].head(3).to_string(index=False).replace("\n", "\n  "))
-
-    # --------------------------------------------------------------------------
-    # 3. Stratified Partitioning & Feature Scaling
-    # --------------------------------------------------------------------------
-    section("3. Stratified Split & Feature Scaling")
-    X = df_raw[feature_cols].copy()
-    y = df_raw["is_supporting_fact"].values
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.25, random_state=42, stratify=y
+AUDIO_PATH = PROJECT_ROOT / "data" / "audio" / "raw" / "ES2002a.wav"
+SEGMENTS_PATH = PROJECT_ROOT / "data" / "processed" / "ES2002a_segments.json"
+ALIGN_PATH = PROJECT_ROOT / "data" / "processed" / "ES2002a_aligned_labels.json"
+TRAIN_LOG_PATH = PROJECT_ROOT / "data" / "checkpoints" / "gat_train_log.json"
+CHECKPOINT_PATH = config.CHECKPOINT_DIR / config.GAT_CHECKPOINT_NAME
+DEMO_QUERY_INDEX = 2
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--video",
+        type=Path,
+        help="Optional video file to run through ffmpeg, Whisper, and spaCy live.",
     )
+    parser.add_argument(
+        "--question",
+        help="Question to retrieve evidence for; defaults to the sample QMSum query.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=PROJECT_ROOT / "data" / "visualizations",
+        help="Directory for generated PNG plots (default: data/visualizations).",
+    )
+    return parser.parse_args()
 
-    print(f"  Training Split : {X_train.shape[0]} sentences (Supporting: {sum(y_train==1)}, Distractors: {sum(y_train==0)})")
-    print(f"  Testing Split  : {X_test.shape[0]} sentences (Supporting: {sum(y_test==1)}, Distractors: {sum(y_test==0)})")
 
-    # IQR Outlier Capping on char_length
-    q25 = X_train["char_length"].quantile(0.25)
-    q75 = X_train["char_length"].quantile(0.75)
-    iqr = q75 - q25
-    upper_bound = q75 + 1.5 * iqr
-    X_train["char_length"] = np.clip(X_train["char_length"], 0, upper_bound)
-    X_test["char_length"] = np.clip(X_test["char_length"], 0, upper_bound)
+def fmt_ts(seconds: float) -> str:
+    minutes, secs = divmod(seconds, 60)
+    return f"{int(minutes):02d}:{secs:04.1f}"
 
-    # StandardScaler (Zero Mean, Unit Variance)
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler.transform(X_test)
 
-    df_preview = pd.DataFrame(X_train_scaled[:3], columns=feature_cols)
-    print("\n  [Preview] Standardized Feature Matrix (Mean=0, Variance=1):")
-    print("  " + df_preview.round(3).to_string(index=False).replace("\n", "\n  "))
+def short(text: str, limit: int = 76) -> str:
+    return text if len(text) <= limit else text[: limit - 3] + "..."
 
-    # --------------------------------------------------------------------------
-    # 4. Empirical Proof: Before vs. After Preprocessing
-    # --------------------------------------------------------------------------
-    section("4. Empirical Proof: Impact of Scaling & Multi-Feature Preprocessing")
-    print("  Comparing K-Nearest Neighbors (KNN) performance on HotpotQA evidence selection:")
-    print("  Case A: Raw single lexical overlap WITHOUT scaling (char length 200 dominates)")
-    print("  Case B: FULL Preprocessing (7 Features + Outlier Capping + StandardScaler)\n")
 
-    # Case A: Single raw unscaled feature
-    knn_raw = KNeighborsClassifier(n_neighbors=5)
-    knn_raw.fit(X_train[["jaccard_overlap", "char_length"]].values, y_train)
-    rec_raw = recall_score(y_test, knn_raw.predict(X_test[["jaccard_overlap", "char_length"]].values), zero_division=0)
-    f1_raw = f1_score(y_test, knn_raw.predict(X_test[["jaccard_overlap", "char_length"]].values), zero_division=0)
-
-    # Case B: Full preprocessed feature matrix
-    knn_proc = KNeighborsClassifier(n_neighbors=5, weights="distance")
-    knn_proc.fit(X_train_scaled, y_train)
-    rec_proc = recall_score(y_test, knn_proc.predict(X_test_scaled), zero_division=0)
-    f1_proc = f1_score(y_test, knn_proc.predict(X_test_scaled), zero_division=0)
-
-    print(f"  * KNN Without Preprocessing / Scaling : Recall={red(f'{rec_raw:.4f}')} | F1={red(f'{f1_raw:.4f}')}")
-    print(f"  * KNN With Full Preprocessed Pipeline : Recall={green(f'{rec_proc:.4f}')} | F1={green(f'{f1_proc:.4f}')}")
-    print(f"  -> {bold('Preprocessing Impact:')} {green(f'+{(rec_proc - rec_raw)*100:.1f}% Evidence Recall Boost!')}")
-
-    # --------------------------------------------------------------------------
-    # 5. Model Evaluation Across Diverse ML Algorithms
-    # --------------------------------------------------------------------------
-    section("5. Training Multiple ML Algorithms on Preprocessed HotpotQA Data")
-    models = [
-        ("Logistic Regression (L2)", LogisticRegression(class_weight="balanced", max_iter=1000, random_state=42)),
-        ("K-Nearest Neighbors (k=5)", KNeighborsClassifier(n_neighbors=5, weights="distance")),
-        ("Support Vector Machine (RBF)", SVC(class_weight="balanced", probability=True, kernel="rbf", C=1.0, random_state=42)),
-        ("Random Forest (100 Trees)", RandomForestClassifier(class_weight="balanced", n_estimators=100, max_depth=8, random_state=42)),
+def print_code_map() -> None:
+    print("\nWHAT CODE DOES EACH STEP (relative to project root)")
+    pointers = [
+        ("Video upload and processing order", "app/api/upload.py:51-98"),
+        ("Video -> mono 16 kHz WAV with ffmpeg", "app/slp/audio_extraction.py:11-59"),
+        ("Whisper transcription and timestamps", "app/slp/asr.py:38-76"),
+        ("spaCy NER and duplicate removal", "app/slp/entity_extraction.py:17-70"),
+        ("Embedding vectors and FAISS index", "app/dl/embeddings.py:37-109"),
+        ("Question retrieval", "app/dl/retrieval.py:14-43"),
+        ("Question/segment graph and three edge types", "app/dl/graph_builder.py:48-176"),
+        ("Runtime GAT layers and scoring heads", "app/dl/gat_model.py:16-53"),
+        ("Training datasets and graph labels", "phase2_graph/dataset.py:35-179,201-339"),
+        ("Training loop and BCE-with-logits loss", "phase2_graph/train.py:71-115,203-309"),
+        ("Runtime orchestration", "app/services/pipeline.py:24-100"),
     ]
+    for description, location in pointers:
+        print(f"  {description:<48} {location}")
 
-    results: List[Dict[str, Any]] = []
-    for name, model in models:
-        res = evaluate_model_pipeline(model, X_train_scaled, y_train, X_test_scaled, y_test, name)
-        results.append(res)
 
-    print_metrics_table(results)
+def plot_pipeline(output_dir: Path) -> Path:
+    stages = [
+        ("VIDEO / AUDIO", "Uploaded recording\nMP4, MOV, WAV, …"),
+        ("AUDIO PREP", "ffmpeg\nmono · PCM · 16 kHz"),
+        ("ASR", "faster-whisper\ntext + segment times"),
+        ("TEXT / NER", "spaCy entities\nper transcript segment"),
+        ("EMBED + SEARCH", "MiniLM · 384-D\nFAISS top candidates"),
+        ("EVIDENCE GRAPH", "question + segments\n3 relation types"),
+        ("GAT", "attention message passing\nnode/edge scores"),
+    ]
+    fig, ax = plt.subplots(figsize=(18, 4.8))
+    ax.set_xlim(0, len(stages) * 2.5)
+    ax.set_ylim(0, 3.1)
+    ax.axis("off")
+    for idx, (title, detail) in enumerate(stages):
+        x = idx * 2.5 + 0.15
+        box = FancyBboxPatch(
+            (x, 0.9),
+            2.0,
+            1.35,
+            boxstyle="round,pad=0.08",
+            facecolor=("#dceeff" if idx < 4 else "#e4f4e8"),
+            edgecolor="#315a75",
+            linewidth=1.4,
+        )
+        ax.add_patch(box)
+        ax.text(x + 1, 1.88, title, ha="center", va="center", weight="bold", fontsize=9)
+        ax.text(x + 1, 1.38, detail, ha="center", va="center", fontsize=8)
+        if idx < len(stages) - 1:
+            ax.annotate(
+                "",
+                xy=(x + 2.35, 1.58),
+                xytext=(x + 2.04, 1.58),
+                arrowprops={"arrowstyle": "->", "lw": 1.5, "color": "#315a75"},
+            )
+    ax.text(
+        8.75,
+        0.42,
+        "Training is separate: HotpotQA / QMSum examples → graph + supporting-fact labels → trained checkpoint",
+        ha="center",
+        fontsize=9,
+        color="#555555",
+    )
+    ax.set_title("LISTEN processing path (runtime)", fontsize=15, weight="bold", pad=12)
+    fig.tight_layout()
+    path = output_dir / "01_listen_pipeline.png"
+    fig.savefig(path, dpi=170, bbox_inches="tight")
+    plt.close(fig)
+    return path
 
-    # --------------------------------------------------------------------------
-    # 6. Deep Dive into Champion Model Metrics
-    # --------------------------------------------------------------------------
-    section("6. In-Depth Diagnostic Metrics for Best Model")
-    champion = max(results, key=lambda r: r["roc_auc"])
-    f1_ev_str = f"{champion['f1_evidence']:.4f}"
-    rec_ev_str = f"{champion['rec_evidence']:.4f}"
-    auc_str = f"{champion['roc_auc']:.4f}"
-    print(f"  Champion Model: {magenta(bold(champion['model_name']))}")
-    print(f"    * Accuracy      : {champion['accuracy'] * 100:.2f}%")
-    print(f"    * Evidence F1   : {green(f1_ev_str)}")
-    print(f"    * Evidence Rec  : {green(rec_ev_str)} ({champion['rec_evidence'] * 100:.1f}% of true supporting facts found)")
-    print(f"    * ROC-AUC       : {green(auc_str)}")
-    print(f"    * 5-Fold CV AUC : {champion['cv_mean']:.4f} (+/- {champion['cv_std']:.4f})")
 
-    print_confusion_matrix(champion["confusion_matrix"])
+def plot_audio_and_preprocessing(
+    audio_path: Path,
+    segments: list[SLPSegment],
+    candidate_ids: list[str],
+    output_dir: Path,
+) -> Path:
+    info = sf.info(str(audio_path))
+    # Plot at most the first ten minutes and decimate to keep the figure light.
+    frames_to_read = min(info.frames, info.samplerate * 600)
+    waveform, sample_rate = sf.read(
+        str(audio_path), start=0, stop=frames_to_read, dtype="float32",
+        always_2d=True,
+    )
+    mono = waveform.mean(axis=1)
+    stride = max(1, math.ceil(len(mono) / 150_000))
+    time_axis = np.arange(0, len(mono), stride) / sample_rate
 
-    print(bold("\n  Classification Report (Per-Class Breakdown):"))
-    rep = classification_report(y_test, champion["y_pred"], target_names=["Distractor (0)", "Supporting Fact (1)"], digits=4)
-    for line in rep.split("\n"):
-        print(f"    {line}")
+    fig, axes = plt.subplots(
+        3, 1, figsize=(15, 9), gridspec_kw={"height_ratios": [1.5, 1, 1.2]}
+    )
+    axes[0].plot(time_axis, mono[::stride], color="#356a8a", linewidth=0.45)
+    axes[0].set_title("Audio waveform supplied to ASR (real audio; decimated for display)")
+    axes[0].set_ylabel("Amplitude")
+    axes[0].set_xlabel("Time (seconds)")
 
-    # --------------------------------------------------------------------------
-    # 7. Preprocessing on AMI Meeting Corpus
-    # --------------------------------------------------------------------------
-    demonstrate_ami_meeting_preprocessing()
+    candidate_set = set(candidate_ids)
+    shown = [s for s in segments if s.start_time <= frames_to_read / sample_rate]
+    for seg in shown:
+        is_candidate = seg.segment_id in candidate_set
+        axes[1].barh(
+            0,
+            max(0.08, seg.end_time - seg.start_time),
+            left=seg.start_time,
+            height=0.55,
+            color="#e45756" if is_candidate else "#b9c8d3",
+            alpha=0.85 if is_candidate else 0.55,
+        )
+    axes[1].set_xlim(0, max(frames_to_read / sample_rate, 1))
+    axes[1].set_yticks([])
+    axes[1].set_xlabel("Time (seconds)")
+    axes[1].set_title("Whisper timestamped segments; red = retrieved for the question")
 
-    # --------------------------------------------------------------------------
-    # 8. Summary & Reviewer Presentation Takeaways
-    # --------------------------------------------------------------------------
-    banner("Summary & Presentation Takeaways")
-    print(f"  1. {bold('Datasets Used:')} Strictly the project's actual training datasets: HotpotQA & AMI Corpus.")
-    print(f"  2. {bold('Class Imbalance:')} Handled 18:1 distractor imbalance via class weighting & stratified splits.")
-    print(f"  3. {bold('Feature Diversity:')} Combined lexical overlap, entity counts, positions, and TF-IDF vectors.")
-    print(f"  4. {bold('Standardization:')} StandardScaler balanced disparate ranges (character counts vs. similarities).")
-    print(f"  5. {bold('Comprehensive Metrics:')} Reported Accuracy, Recall, Precision, F1, ROC-AUC, CV, and Recall@K.")
-    print(cyan("=" * 78) + "\n")
+    entity_counts = Counter(
+        entity for segment in segments for entity in segment.entities
+    )
+    top_entities = entity_counts.most_common(12)
+    if top_entities:
+        names, counts = zip(*top_entities)
+        axes[2].barh(list(names)[::-1], list(counts)[::-1], color="#4c956c")
+        axes[2].set_xlabel("Mentions in transcript")
+        axes[2].set_title("Most frequent stored NER entities")
+    else:
+        axes[2].text(0.5, 0.5, "No entities found in these transcript segments", ha="center")
+        axes[2].set_axis_off()
+
+    fig.tight_layout()
+    path = output_dir / "02_audio_transcript_ner.png"
+    fig.savefig(path, dpi=170, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def plot_gat_architecture(output_dir: Path) -> Path:
+    blocks = [
+        ("Node feature input", "Question + transcript segment\n384 values each"),
+        ("Input projection", "Linear(384 → 128)"),
+        ("GAT layer 1", "4 attention heads\n32 values/head → 128"),
+        ("GAT layer 2", "1 attention head\n128 output values"),
+        ("Prediction heads", "Node relevance score\nEdge relevance score"),
+    ]
+    fig, ax = plt.subplots(figsize=(15, 4.4))
+    ax.set_xlim(0, 15)
+    ax.set_ylim(0, 3.5)
+    ax.axis("off")
+    for idx, (title, detail) in enumerate(blocks):
+        x = idx * 3 + 0.25
+        box = FancyBboxPatch(
+            (x, 1.2),
+            2.45,
+            1.35,
+            boxstyle="round,pad=0.08",
+            facecolor="#edf2fb" if idx < 4 else "#e5f4e8",
+            edgecolor="#315a75",
+            linewidth=1.4,
+        )
+        ax.add_patch(box)
+        ax.text(x + 1.225, 2.12, title, ha="center", weight="bold", fontsize=10)
+        ax.text(x + 1.225, 1.58, detail, ha="center", va="center", fontsize=9)
+        if idx < len(blocks) - 1:
+            ax.annotate(
+                "",
+                xy=(x + 2.82, 1.88),
+                xytext=(x + 2.48, 1.88),
+                arrowprops={"arrowstyle": "->", "lw": 1.5, "color": "#315a75"},
+            )
+    ax.text(
+        7.5,
+        0.56,
+        "Each GAT layer aggregates neighbor messages; learned attention weights determine their influence.",
+        ha="center",
+        fontsize=9,
+        color="#555555",
+    )
+    ax.set_title("Serving EvidenceGAT architecture from app/dl/gat_model.py", fontsize=14, weight="bold")
+    fig.tight_layout()
+    path = output_dir / "03_gat_architecture.png"
+    fig.savefig(path, dpi=170, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def plot_evidence_graph(data, metadata: dict, gat_output, output_dir: Path) -> Path:
+    graph = nx.Graph()
+    node_map = metadata["node_id_map"]
+    scores = gat_output.node_scores
+    top_rank = {
+        segment_id: rank
+        for rank, segment_id in enumerate(gat_output.top_evidence_ids, start=1)
+    }
+    for node_idx, segment_id in node_map.items():
+        graph.add_node(node_idx, segment_id=segment_id)
+
+    relation_names = {
+        0: "Question link",
+        1: "Shared entity",
+        2: "Semantic similarity",
+    }
+    relation_colors = {
+        0: "#7b8fa1",
+        1: "#e09f3e",
+        2: "#3a86a8",
+    }
+    segment_scores = [score for segment_id, score in scores.items()
+                      if segment_id != "__question__"]
+    min_score = min(segment_scores, default=0.0)
+    score_range = max(segment_scores, default=1.0) - min_score
+    edge_types = data.edge_type.detach().cpu().tolist()
+    edge_index = data.edge_index.detach().cpu().tolist()
+    for source, target, edge_type in zip(edge_index[0], edge_index[1], edge_types):
+        if source == target:
+            continue
+        if not graph.has_edge(source, target):
+            graph.add_edge(source, target, edge_type=int(edge_type))
+
+    positions = nx.spring_layout(graph, seed=17, k=1.0)
+    fig, ax = plt.subplots(figsize=(13, 9))
+    node_colors = []
+    labels = {}
+    for node_idx, attrs in graph.nodes(data=True):
+        segment_id = attrs["segment_id"]
+        if segment_id == "__question__":
+            node_colors.append("#ffd166")
+            labels[node_idx] = "Q\nquestion"
+        else:
+            node_score = scores.get(segment_id, 0.0)
+            normalized_score = (
+                (node_score - min_score) / score_range if score_range else 0.5
+            )
+            node_colors.append(plt.cm.Reds(0.2 + 0.75 * normalized_score))
+            rank = top_rank.get(segment_id)
+            short_id = segment_id[-4:]
+            rank_label = f"#{rank} {short_id}" if rank else short_id
+            labels[node_idx] = f"{rank_label}\n{node_score:.2f}"
+
+    nx.draw_networkx_edges(
+        graph,
+        positions,
+        ax=ax,
+        edge_color=[
+            relation_colors[graph.edges[e].get("edge_type", 0)]
+            for e in graph.edges
+        ],
+        width=1.5,
+        alpha=0.7,
+    )
+    nx.draw_networkx_nodes(
+        graph,
+        positions,
+        ax=ax,
+        node_color=node_colors,
+        node_size=1200,
+        edgecolors="#333333",
+        linewidths=0.8,
+    )
+    nx.draw_networkx_labels(graph, positions, labels=labels, ax=ax, font_size=7)
+    legend = [
+        Line2D([0], [0], color=relation_colors[k], lw=2, label=v)
+        for k, v in relation_names.items()
+    ]
+    legend.append(Line2D([0], [0], marker="o", color="w", markerfacecolor="#e45756",
+                         markeredgecolor="#333333", label="Darker red = higher GAT score",
+                         markersize=10))
+    ax.legend(handles=legend, loc="best", fontsize=8)
+    ax.set_title(
+        "Retrieved evidence graph: edge colors show relation; labels show GAT rank/score",
+        fontsize=12,
+    )
+    ax.axis("off")
+    fig.tight_layout()
+    path = output_dir / "04_evidence_graph_gat_scores.png"
+    fig.savefig(path, dpi=170, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def plot_training_curves(train_log: dict, output_dir: Path) -> Path | None:
+    train_loss = train_log.get("train_loss", [])
+    val_loss = train_log.get("val_loss", [])
+    val_f1 = train_log.get("val_f1", [])
+    val_accuracy = train_log.get("val_accuracy", [])
+    if not any((train_loss, val_loss, val_f1, val_accuracy)):
+        return None
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.3))
+    if train_loss:
+        axes[0].plot(range(1, len(train_loss) + 1), train_loss, label="Train loss")
+    if val_loss:
+        axes[0].plot(range(1, len(val_loss) + 1), val_loss, label="Validation loss")
+    axes[0].set_title("Training objective")
+    axes[0].set_xlabel("Epoch")
+    axes[0].set_ylabel("Binary cross-entropy loss")
+    axes[0].legend()
+
+    if val_f1:
+        axes[1].plot(range(1, len(val_f1) + 1), val_f1, label="Validation F1")
+    if val_accuracy:
+        axes[1].plot(range(1, len(val_accuracy) + 1), val_accuracy, label="Validation accuracy")
+    axes[1].set_title("Validation metrics")
+    axes[1].set_xlabel("Epoch")
+    axes[1].set_ylim(0, 1)
+    axes[1].legend()
+    fig.suptitle("Recorded GAT training history", weight="bold")
+    fig.tight_layout()
+    path = output_dir / "05_gat_training_curves.png"
+    fig.savefig(path, dpi=170, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+def main() -> int:
+    started = time.time()
+    args = parse_args()
+    output_dir = args.output_dir.resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    print("=" * 84)
+    print("LISTEN - VIDEO / TRANSCRIPT / NER / GRAPH / GAT WALKTHROUGH")
+    print_code_map()
+    print("\n1. VIDEO TO TRANSCRIPT")
+
+    if args.video is not None:
+        video_path = args.video.resolve()
+        if not video_path.is_file():
+            raise FileNotFoundError(f"Video file does not exist: {video_path}")
+        if not is_video_file(video_path):
+            raise ValueError(f"Unsupported video extension: {video_path.suffix}")
+        audio_path = extract_audio_from_video(video_path)
+        meeting_id = f"demo_{uuid.uuid4().hex[:8]}"
+        segments = enrich_segments_with_entities(
+            transcribe_audio(str(audio_path), meeting_id=meeting_id)
+        )
+        alignment = None
+        question = args.question or "What are the main topics discussed?"
+        print(f"  Video          : {video_path}")
+        print(f"  Extracted audio: {audio_path}")
+        print("  Live path      : ffmpeg -> faster-whisper -> spaCy NER")
+    else:
+        required = [AUDIO_PATH, SEGMENTS_PATH, ALIGN_PATH, CHECKPOINT_PATH]
+        missing = [path for path in required if not path.is_file()]
+        if missing:
+            raise FileNotFoundError(
+                "Required demo artifacts are missing:\n"
+                + "\n".join(f"  - {path}" for path in missing)
+                + "\nSupply --video to run ASR live (the GAT checkpoint is still required)."
+            )
+        audio_path = AUDIO_PATH
+        segments = [
+            SLPSegment(**row)
+            for row in json.loads(SEGMENTS_PATH.read_text(encoding="utf-8"))
+        ]
+        alignment = json.loads(ALIGN_PATH.read_text(encoding="utf-8"))
+        if DEMO_QUERY_INDEX >= len(alignment["queries"]):
+            raise IndexError(
+                f"Demo query index {DEMO_QUERY_INDEX} is not available in {ALIGN_PATH}"
+            )
+        selected_query = alignment["queries"][DEMO_QUERY_INDEX]
+        question = args.question or selected_query["query"]
+        print(f"  Input audio    : {audio_path.relative_to(PROJECT_ROOT)}")
+        print(f"  Transcript file: {SEGMENTS_PATH.relative_to(PROJECT_ROOT)}")
+        print("  Mode           : reusing real stored ASR output; no ASR is rerun")
+
+    if not segments:
+        raise ValueError("ASR/transcript processing produced no transcript segments.")
+
+    audio_info = sf.info(str(audio_path))
+    print(f"  Audio duration: {audio_info.duration:.1f}s; "
+          f"{audio_info.samplerate} Hz; {audio_info.channels} channel(s)")
+    print(f"  Transcript segments: {len(segments)}")
+    print("  ffmpeg output config: PCM s16le, 16 kHz, mono; video stream is discarded.")
+    print("  Whisper config: model='base', CPU/int8, VAD enabled, segment timestamps.")
+    print("  Example transcript segments:")
+    for segment in segments[:3]:
+        print(f"    [{fmt_ts(segment.start_time)}-{fmt_ts(segment.end_time)}] "
+              f"{segment.segment_id}: {short(segment.text, 100)}")
+
+    print("\n2. TEXT PREPROCESSING / NER")
+    print("  Each ASR segment is whitespace-trimmed; empty ASR segments are skipped.")
+    print("  spaCy en_core_web_sm extracts entities per segment; duplicate surface")
+    print("  forms are removed case-insensitively. No stemming/stop-word removal is done.")
+    for segment in segments[:5]:
+        live_entities = extract_entities_from_text(segment.text)
+        print(f"    {segment.segment_id}: {short(segment.text, 65)}")
+        print(f"      entities: {live_entities}")
+
+    print("\n3. EMBEDDINGS, RETRIEVAL, AND DATASET-TO-GRAPH")
+    print(f"  Encoder: {config.EMBEDDING_MODEL}; dimension={config.EMBEDDING_DIM}; "
+          "vectors L2-normalized.")
+    index = SegmentIndex()
+    index.build(segments)
+    print(f"  Transcript index: {index.size} vectors in FAISS IndexFlatIP.")
+    print(f"  Question: {question}")
+    retrieval = retrieve_candidates(question, index, {s.segment_id: s for s in segments})
+    if not retrieval.candidates:
+        raise ValueError("No transcript candidates were returned for the question.")
+    candidate_ids = [candidate.segment_id for candidate in retrieval.candidates]
+    segments_by_id = {segment.segment_id: segment for segment in segments}
+    candidates = [segments_by_id[sid] for sid in candidate_ids]
+    question_embedding = embed_texts([question])[0]
+    segment_embeddings = np.stack([index.get_embedding(sid) for sid in candidate_ids])
+    print(f"  Retrieved {len(candidates)} candidates (configured top-k="
+          f"{config.RETRIEVAL_TOP_K}); graph node 0 is the question.")
+    for rank, candidate in enumerate(retrieval.candidates[:5], start=1):
+        seg = segments_by_id[candidate.segment_id]
+        print(f"    {rank:>2}. cosine={candidate.score:.3f} "
+              f"{candidate.segment_id}: {short(seg.text, 72)}")
+
+    builder = EvidenceGraphBuilder()
+    data, metadata = builder.build(
+        question_embedding=question_embedding,
+        segments=candidates,
+        segment_embeddings=segment_embeddings,
+    )
+    edge_counts = Counter(int(edge_type) for edge_type in data.edge_type.tolist())
+    print(f"  PyG graph: x={tuple(data.x.shape)}, "
+          f"edge_index={tuple(data.edge_index.shape)}")
+    print("  Edge counts (directed): "
+          f"question-segment={edge_counts[0]}, "
+          f"shared-entity={edge_counts[1]}, "
+          f"semantic-similarity={edge_counts[2]}.")
+    print(f"  Graph labels: node_id_map={metadata['node_id_map']}")
+    print("  Training note: phase2_graph/dataset.py builds one labeled graph per QA "
+          "example; Data.y marks supporting evidence (1) vs other segments (0).")
+    if alignment is not None:
+        gold_ids = set(
+            alignment["queries"][DEMO_QUERY_INDEX].get("evidence_segment_ids") or []
+        )
+        print(f"  This stored query has {len(gold_ids)} aligned supporting segment(s); "
+              "runtime inference itself does not receive those labels.")
+    else:
+        gold_ids = set()
+        print("  Live video has no dataset gold labels; graph construction is inference-only.")
+
+    print("\n4. GAT MODEL AND EVIDENCE RANKING")
+    print("  Serving model: app/dl/gat_model.py (not the separate phase2 training class).")
+    print(f"  Architecture config: input={config.EMBEDDING_DIM}, "
+          f"hidden={config.GAT_HIDDEN_DIM}, heads={config.GAT_NUM_HEADS}, "
+          f"layers={config.GAT_NUM_LAYERS}.")
+    gat = GATInference(checkpoint_path=CHECKPOINT_PATH)
+    model_parameters = sum(parameter.numel() for parameter in gat.model.parameters())
+    print(f"  Checkpoint: {CHECKPOINT_PATH.relative_to(PROJECT_ROOT)} "
+          f"({model_parameters:,} parameters)")
+    gat_output = gat.run(data, metadata)
+    print("  Top evidence segments (sigmoid node relevance scores):")
+    for rank, segment_id in enumerate(gat_output.top_evidence_ids, start=1):
+        score = gat_output.node_scores[segment_id]
+        marker = "GOLD" if segment_id in gold_ids else ""
+        print(f"    {rank}. score={score:.4f} {marker:>4} {segment_id}: "
+              f"{short(segments_by_id[segment_id].text, 74)}")
+
+    print("\n5. PLOTS")
+    plot_paths = [
+        plot_pipeline(output_dir),
+        plot_audio_and_preprocessing(audio_path, segments, candidate_ids, output_dir),
+        plot_gat_architecture(output_dir),
+        plot_evidence_graph(data, metadata, gat_output, output_dir),
+    ]
+    if TRAIN_LOG_PATH.is_file():
+        training_plot = plot_training_curves(
+            json.loads(TRAIN_LOG_PATH.read_text(encoding="utf-8")), output_dir
+        )
+        if training_plot is not None:
+            plot_paths.append(training_plot)
+    for path in plot_paths:
+        print(f"  Saved: {path.relative_to(PROJECT_ROOT) if path.is_relative_to(PROJECT_ROOT) else path}")
+
+    print("\nDATASET TRAINING FLOW")
+    print("  HotpotQA: context sentences -> segment nodes -> supporting_facts labels.")
+    print("  QMSum: meeting turns -> query-relevant candidate turns -> relevant-span labels.")
+    print("  Both use phase2_graph/graph_builder.py::build_with_labels and are")
+    print("  optimized with BCEWithLogitsLoss in phase2_graph/train.py.")
+    print("\nWalkthrough complete in {:.1f}s.".format(time.time() - started))
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
