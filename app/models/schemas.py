@@ -90,6 +90,7 @@ class UploadResponse(BaseModel):
     segment_count: int
     segments: list[SLPSegment]
     message: str = "Processing complete."
+    stage_timings: dict[str, float] | None = None
 
 
 class QueryRequest(BaseModel):
@@ -117,6 +118,7 @@ class QueryResponse(BaseModel):
     gat_output: GATOutput  # Changed from evidence_graph to match frontend
     shap_highlights: dict[str, list[WordHighlight]]
     audio_refs: list[AudioRef]  # Changed from dict to list to match frontend
+    trace: dict[str, Any] | None = None
 
 
 class QuestionSuggestionsResponse(BaseModel):

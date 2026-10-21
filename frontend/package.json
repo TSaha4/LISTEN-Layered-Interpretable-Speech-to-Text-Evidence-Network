@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
     "react": "latest",
-    "react-dom": "latest"
-  },
-  "devDependencies": {}
+    "react-dom": "latest",
+    "recharts": "^3.10.1",
+    "vite": "latest"
+  }
 }

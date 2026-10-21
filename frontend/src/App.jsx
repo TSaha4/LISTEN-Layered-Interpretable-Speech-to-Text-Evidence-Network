@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import TrainingInsights from "./components/TrainingInsights";
+import DatasetInsights from "./components/DatasetInsights";
+import ThisRecordingInsights from "./components/ThisRecordingInsights";
+import AblationInsights from "./components/AblationInsights";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://127.0.0.1:8000/api/v1";
 const API_ORIGIN = new URL(API_BASE).origin;
@@ -24,6 +28,30 @@ function UploadCard({ onUploaded, busy }) {
   const inputRef = useRef(null);
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState(null);
+  const [availableMeetings, setAvailableMeetings] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/meetings`)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((list) => {
+        if (Array.isArray(list)) setAvailableMeetings(list);
+      })
+      .catch(() => {});
+  }, []);
+
+  const loadExistingMeeting = async (mid) => {
+    if (!mid) return;
+    setStatus({ kind: "working", loading: true, message: "Loading pre-processed meeting from disk…" });
+    try {
+      const response = await fetch(`${API_BASE}/meetings/${mid}`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || "Failed to load meeting");
+      onUploaded(data);
+      setStatus({ kind: "success", message: `${data.segment_count} transcript segments ready.` });
+    } catch (error) {
+      setStatus({ kind: "error", message: error.message });
+    }
+  };
 
   const upload = async (event) => {
     event.preventDefault();
@@ -66,6 +94,31 @@ function UploadCard({ onUploaded, busy }) {
           {busy ? "Working…" : "Process meeting"}<Icon>→</Icon>
         </button>
       </form>
+
+      {availableMeetings.length > 0 && (
+        <div className="stored-meetings-picker">
+          <label className="picker-label" htmlFor="meeting-select">
+            Or load a processed meeting:
+          </label>
+          <select
+            id="meeting-select"
+            className="meeting-select"
+            defaultValue=""
+            disabled={busy}
+            onChange={(e) => {
+              if (e.target.value) loadExistingMeeting(e.target.value);
+            }}
+          >
+            <option value="" disabled>Select a meeting ({availableMeetings.length} on disk)…</option>
+            {availableMeetings.map((m) => (
+              <option key={m.meeting_id} value={m.meeting_id}>
+                {m.original_filename || m.meeting_id.slice(0, 8)} ({m.segment_count} segments)
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <Status state={status} />
     </section>
   );
@@ -499,6 +552,7 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
 }
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState("ask");
   const [meeting, setMeeting] = useState(null);
   const [result, setResult] = useState(null);
   const [counterfactual, setCounterfactual] = useState(null);
@@ -554,45 +608,128 @@ export default function App() {
   return (
     <main>
       <header className="topbar">
-        <a className="brand" href="#top">LI<span>ST</span>EN<span className="brand-dot">.</span></a>
+        <div className="topbar-left">
+          <a
+            className="brand"
+            href="#top"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveTab("ask");
+            }}
+          >
+            LI<span>ST</span>EN<span className="brand-dot">.</span>
+          </a>
+        </div>
+
+        <nav className="topbar-nav" aria-label="Main Navigation">
+          <button
+            type="button"
+            className={`nav-tab-btn ${activeTab === "ask" ? "active" : ""}`}
+            onClick={() => setActiveTab("ask")}
+          >
+            Ask
+          </button>
+          <button
+            type="button"
+            className={`nav-tab-btn ${activeTab === "dataset" ? "active" : ""}`}
+            onClick={() => setActiveTab("dataset")}
+          >
+            Dataset
+          </button>
+          <button
+            type="button"
+            className={`nav-tab-btn ${activeTab === "training" ? "active" : ""}`}
+            onClick={() => setActiveTab("training")}
+          >
+            Training
+          </button>
+          <button
+            type="button"
+            className={`nav-tab-btn ${activeTab === "recording" ? "active" : ""}`}
+            onClick={() => setActiveTab("recording")}
+          >
+            This Recording {meeting ? <span className="tab-dot" /> : ""}
+          </button>
+          <button
+            type="button"
+            className={`nav-tab-btn ${activeTab === "ablation" ? "active" : ""}`}
+            onClick={() => setActiveTab("ablation")}
+          >
+            Ablation
+          </button>
+        </nav>
+
         <div className="topbar-right">
           <span className="live-dot" /> Evidence-first meeting intelligence
         </div>
       </header>
 
-      <div className="hero" id="top">
-        <div>
-          <p className="eyebrow">Layered interpretable speech-to-text network</p>
-          <h1>Hear the <em>why</em><br />behind every answer.</h1>
-          <p className="hero-copy">Upload a conversation. Ask anything. LISTEN shows the evidence, word by word.</p>
-        </div>
-        <div className="scribble-card">
-          <span>listening...</span>
-          <div className="wave">⌁⌁⌁⌁⌁</div>
-          <small>Audio → Evidence → Answer</small>
-        </div>
-      </div>
+      {/* TAB 1: ASK (EXISTING WORKFLOW) */}
+      {activeTab === "ask" && (
+        <div className="tab-pane-fade">
+          <div className="hero" id="top">
+            <div>
+              <p className="eyebrow">Layered interpretable speech-to-text network</p>
+              <h1>Hear the <em>why</em><br />behind every answer.</h1>
+              <p className="hero-copy">Upload a conversation. Ask anything. LISTEN shows the evidence, word by word.</p>
+            </div>
+            <div className="scribble-card">
+              <span>listening...</span>
+              <div className="wave">⌁⌁⌁⌁⌁</div>
+              <small>Audio → Evidence → Answer</small>
+            </div>
+          </div>
 
-      <div className="workspace">
-        <UploadCard onUploaded={setMeeting} busy={busy} />
-        <QuestionCard meeting={meeting} onAsk={ask} busy={busy} />
-      </div>
+          <div className="workspace">
+            <UploadCard onUploaded={setMeeting} busy={busy} />
+            <QuestionCard meeting={meeting} onAsk={ask} busy={busy} />
+          </div>
 
-      {meeting && <TranscriptPanel meeting={meeting} />}
+          {meeting && <TranscriptPanel meeting={meeting} />}
 
-      {state.mode === "query" && (
-        <div className="loading-line">
-          <span />{state.message}
+          {state.mode === "query" && (
+            <div className="loading-line">
+              <span />{state.message}
+            </div>
+          )}
+
+          {result && (
+            <Results
+              result={result}
+              onCounterfactual={validate}
+              counterfactual={counterfactual}
+              busy={busy}
+            />
+          )}
         </div>
       )}
 
-      {result && (
-        <Results
-          result={result}
-          onCounterfactual={validate}
-          counterfactual={counterfactual}
-          busy={busy}
-        />
+      {/* TAB 2: DATASET */}
+      {activeTab === "dataset" && (
+        <div className="tab-pane-fade">
+          <DatasetInsights apiBase={API_BASE} />
+        </div>
+      )}
+
+      {/* TAB 3: TRAINING */}
+      {activeTab === "training" && (
+        <div className="tab-pane-fade">
+          <TrainingInsights apiBase={API_BASE} />
+        </div>
+      )}
+
+      {/* TAB 4: THIS RECORDING */}
+      {activeTab === "recording" && (
+        <div className="tab-pane-fade">
+          <ThisRecordingInsights meeting={meeting} result={result} apiBase={API_BASE} />
+        </div>
+      )}
+
+      {/* TAB 5: ABLATION */}
+      {activeTab === "ablation" && (
+        <div className="tab-pane-fade">
+          <AblationInsights apiBase={API_BASE} />
+        </div>
       )}
 
       <footer>
