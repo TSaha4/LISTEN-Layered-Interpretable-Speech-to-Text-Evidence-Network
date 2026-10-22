@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -11,7 +11,7 @@ import {
   Cell,
 } from "recharts";
 
-export default function DatasetInsights({ apiBase }) {
+function DatasetInsights({ apiBase }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -199,7 +199,7 @@ export default function DatasetInsights({ apiBase }) {
                 <Tooltip
                   contentStyle={{ backgroundColor: "#15120e", color: "#fff", borderRadius: 4, border: "none" }}
                 />
-                <Bar dataKey="count" name="Turn Count" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="count" name="Turn Count" radius={[4, 4, 0, 0]} isAnimationActive={false}>
                   {funnelData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
@@ -233,7 +233,7 @@ export default function DatasetInsights({ apiBase }) {
                   strokeDasharray="4 4"
                   label={{ value: "Cutoff", fill: "#c53030", fontSize: 10 }}
                 />
-                <Bar dataKey="count" name="Matches" fill="#2b6cb0" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="count" name="Matches" fill="#2b6cb0" radius={[4, 4, 0, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -258,8 +258,8 @@ export default function DatasetInsights({ apiBase }) {
                   contentStyle={{ backgroundColor: "#15120e", color: "#fff", borderRadius: 4, border: "none" }}
                   formatter={(val, name) => [val, name === "segments" ? "Segments" : name === "durationMin" ? "Duration (min)" : "Kept Turns"]}
                 />
-                <Bar dataKey="segments" name="Total Segments" fill="#d69e2e" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="kept" name="Kept Turns" fill="#319795" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="segments" name="Total Segments" fill="#d69e2e" radius={[4, 4, 0, 0]} isAnimationActive={false} />
+                <Bar dataKey="kept" name="Kept Turns" fill="#319795" radius={[4, 4, 0, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -292,7 +292,7 @@ export default function DatasetInsights({ apiBase }) {
                     props.payload.fullQuery.slice(0, 50) + "...",
                   ]}
                 />
-                <Bar dataKey="count" name="Gold Segments" fill="#805ad5" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="count" name="Gold Segments" fill="#805ad5" radius={[4, 4, 0, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -316,7 +316,7 @@ export default function DatasetInsights({ apiBase }) {
                 <Tooltip
                   contentStyle={{ backgroundColor: "#15120e", color: "#fff", borderRadius: 4, border: "none" }}
                 />
-                <Bar dataKey="count" name="Occurrences" fill="#dd6b20" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="count" name="Occurrences" fill="#dd6b20" radius={[4, 4, 0, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -328,3 +328,5 @@ export default function DatasetInsights({ apiBase }) {
     </section>
   );
 }
+
+export default memo(DatasetInsights);

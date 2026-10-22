@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -10,7 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-export default function AblationInsights({ apiBase }) {
+function AblationInsights({ apiBase }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -125,10 +125,10 @@ export default function AblationInsights({ apiBase }) {
                 }}
               />
               <Legend />
-              <Bar dataKey="retrievalHits" name="(a) Retrieval Only Top-5" fill="#457b9d" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="trainedGatHits" name="(b) Trained GAT Top-5" fill="#e28c3e" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="untrainedGatHits" name="(c) Untrained GAT (seed 42)" fill="#718096" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="llmContextHits" name="(d) LLM Context Set" fill="#319795" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="retrievalHits" name="(a) Retrieval Only Top-5" fill="#457b9d" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="trainedGatHits" name="(b) Trained GAT Top-5" fill="#e28c3e" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="untrainedGatHits" name="(c) Untrained GAT (seed 42)" fill="#718096" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="llmContextHits" name="(d) LLM Context Set" fill="#319795" radius={[3, 3, 0, 0]} isAnimationActive={false} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -232,3 +232,5 @@ export default function AblationInsights({ apiBase }) {
     </section>
   );
 }
+
+export default memo(AblationInsights);

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -119,12 +119,6 @@ class QueryResponse(BaseModel):
     shap_highlights: dict[str, list[WordHighlight]]
     audio_refs: list[AudioRef]  # Changed from dict to list to match frontend
     trace: dict[str, Any] | None = None
-
-
-class QuestionSuggestionsResponse(BaseModel):
-    """Grounded decision/reason/action questions generated for one meeting."""
-
-    questions: list[str]
 
 
 class CounterfactualRequest(BaseModel):

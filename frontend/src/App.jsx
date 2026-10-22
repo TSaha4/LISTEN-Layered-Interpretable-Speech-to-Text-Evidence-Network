@@ -24,7 +24,7 @@ function Status({ state }) {
   );
 }
 
-function UploadCard({ onUploaded, busy }) {
+function UploadCard({ onUploaded, onTaskChange, busy }) {
   const inputRef = useRef(null);
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState(null);
@@ -41,6 +41,7 @@ function UploadCard({ onUploaded, busy }) {
 
   const loadExistingMeeting = async (mid) => {
     if (!mid) return;
+    onTaskChange("Loading meeting…");
     setStatus({ kind: "working", loading: true, message: "Loading pre-processed meeting from disk…" });
     try {
       const response = await fetch(`${API_BASE}/meetings/${mid}`);
@@ -50,12 +51,15 @@ function UploadCard({ onUploaded, busy }) {
       setStatus({ kind: "success", message: `${data.segment_count} transcript segments ready.` });
     } catch (error) {
       setStatus({ kind: "error", message: error.message });
+    } finally {
+      onTaskChange("");
     }
   };
 
   const upload = async (event) => {
     event.preventDefault();
     if (!file) return;
+    onTaskChange("Processing recording…");
     setStatus({ kind: "working", loading: true, message: "Transcribing and indexing your meeting…" });
     try {
       const form = new FormData();
@@ -67,6 +71,8 @@ function UploadCard({ onUploaded, busy }) {
       setStatus({ kind: "success", message: `${data.segment_count} transcript segments are ready.` });
     } catch (error) {
       setStatus({ kind: "error", message: error.message });
+    } finally {
+      onTaskChange("");
     }
   };
 
@@ -126,45 +132,10 @@ function UploadCard({ onUploaded, busy }) {
 
 function QuestionCard({ meeting, onAsk, busy }) {
   const [question, setQuestion] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    if (!meeting?.meeting_id) {
-      setSuggestions([]);
-      return undefined;
-    }
-    setSuggestions([]);
-    setSuggestionsLoading(true);
-    fetch(`${API_BASE}/meetings/${meeting.meeting_id}/suggested-questions`)
-      .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.detail || "Could not generate suggested questions.");
-        return Array.isArray(data.questions) ? data.questions : [];
-      })
-      .then((questions) => {
-        if (active) setSuggestions(questions);
-      })
-      .catch(() => {
-        if (active) setSuggestions([]);
-      })
-      .finally(() => {
-        if (active) setSuggestionsLoading(false);
-      });
-    return () => {
-      active = false;
-    };
-  }, [meeting?.meeting_id]);
 
   const submit = (event) => {
     event.preventDefault();
     if (question.trim()) onAsk(question.trim());
-  };
-
-  const chooseSuggestion = (suggestion) => {
-    setQuestion(suggestion);
-    onAsk(suggestion);
   };
 
   return (
@@ -172,21 +143,6 @@ function QuestionCard({ meeting, onAsk, busy }) {
       <div className="panel-kicker"><span>02</span> Ask LISTEN</div>
       <h2>What do you want to know?</h2>
       <p className="muted">LISTEN traces the answer back through the conversation.</p>
-
-      {meeting && (suggestionsLoading || suggestions.length > 0) && (
-        <div className="question-suggestions">
-          <p>{suggestionsLoading ? "Finding grounded meeting questions..." : "Suggested from this transcript"}</p>
-          {suggestions.length > 0 && (
-            <div>
-              {suggestions.map((suggestion) => (
-                <button key={suggestion} type="button" disabled={busy} onClick={() => chooseSuggestion(suggestion)}>
-                  {suggestion}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
 
       <form onSubmit={submit} className="question-form">
         <textarea
@@ -553,11 +509,23 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("ask");
+  const [visitedTabs, setVisitedTabs] = useState(() => new Set(["ask"]));
   const [meeting, setMeeting] = useState(null);
   const [result, setResult] = useState(null);
   const [counterfactual, setCounterfactual] = useState(null);
   const [state, setState] = useState({ mode: null, message: "" });
-  const busy = state.mode !== null;
+  const [backgroundTask, setBackgroundTask] = useState("");
+  const busy = state.mode !== null || backgroundTask !== "";
+  const operationMessage = backgroundTask
+    || (state.mode === "query" ? state.message : state.mode === "counterfactual" ? "Validating evidence…" : "");
+
+  const openTab = (tab) => {
+    setVisitedTabs((visited) => {
+      if (visited.has(tab)) return visited;
+      return new Set(visited).add(tab);
+    });
+    setActiveTab(tab);
+  };
 
   const ask = async (question) => {
     setState({ mode: "query", message: "Following the evidence trail…" });
@@ -614,7 +582,7 @@ export default function App() {
             href="#top"
             onClick={(e) => {
               e.preventDefault();
-              setActiveTab("ask");
+              openTab("ask");
             }}
           >
             LI<span>ST</span>EN<span className="brand-dot">.</span>
@@ -625,48 +593,48 @@ export default function App() {
           <button
             type="button"
             className={`nav-tab-btn ${activeTab === "ask" ? "active" : ""}`}
-            onClick={() => setActiveTab("ask")}
+            onClick={() => openTab("ask")}
           >
             Ask
           </button>
           <button
             type="button"
             className={`nav-tab-btn ${activeTab === "dataset" ? "active" : ""}`}
-            onClick={() => setActiveTab("dataset")}
+            onClick={() => openTab("dataset")}
           >
             Dataset
           </button>
           <button
             type="button"
             className={`nav-tab-btn ${activeTab === "training" ? "active" : ""}`}
-            onClick={() => setActiveTab("training")}
+            onClick={() => openTab("training")}
           >
             Training
           </button>
           <button
             type="button"
             className={`nav-tab-btn ${activeTab === "recording" ? "active" : ""}`}
-            onClick={() => setActiveTab("recording")}
+            onClick={() => openTab("recording")}
           >
             This Recording {meeting ? <span className="tab-dot" /> : ""}
           </button>
           <button
             type="button"
             className={`nav-tab-btn ${activeTab === "ablation" ? "active" : ""}`}
-            onClick={() => setActiveTab("ablation")}
+            onClick={() => openTab("ablation")}
           >
             Ablation
           </button>
         </nav>
 
-        <div className="topbar-right">
-          <span className="live-dot" /> Evidence-first meeting intelligence
+        <div className="topbar-right" role="status">
+          <span className="live-dot" /> {operationMessage || "Evidence-first meeting intelligence"}
         </div>
       </header>
 
       {/* TAB 1: ASK (EXISTING WORKFLOW) */}
-      {activeTab === "ask" && (
-        <div className="tab-pane-fade">
+      {visitedTabs.has("ask") && (
+        <div className="tab-pane-fade" hidden={activeTab !== "ask"}>
           <div className="hero" id="top">
             <div>
               <p className="eyebrow">Layered interpretable speech-to-text network</p>
@@ -681,7 +649,7 @@ export default function App() {
           </div>
 
           <div className="workspace">
-            <UploadCard onUploaded={setMeeting} busy={busy} />
+            <UploadCard onUploaded={setMeeting} onTaskChange={setBackgroundTask} busy={busy} />
             <QuestionCard meeting={meeting} onAsk={ask} busy={busy} />
           </div>
 
@@ -705,29 +673,29 @@ export default function App() {
       )}
 
       {/* TAB 2: DATASET */}
-      {activeTab === "dataset" && (
-        <div className="tab-pane-fade">
+      {visitedTabs.has("dataset") && (
+        <div className="tab-pane-fade" hidden={activeTab !== "dataset"}>
           <DatasetInsights apiBase={API_BASE} />
         </div>
       )}
 
       {/* TAB 3: TRAINING */}
-      {activeTab === "training" && (
-        <div className="tab-pane-fade">
+      {visitedTabs.has("training") && (
+        <div className="tab-pane-fade" hidden={activeTab !== "training"}>
           <TrainingInsights apiBase={API_BASE} />
         </div>
       )}
 
       {/* TAB 4: THIS RECORDING */}
-      {activeTab === "recording" && (
-        <div className="tab-pane-fade">
+      {visitedTabs.has("recording") && (
+        <div className="tab-pane-fade" hidden={activeTab !== "recording"}>
           <ThisRecordingInsights meeting={meeting} result={result} apiBase={API_BASE} />
         </div>
       )}
 
       {/* TAB 5: ABLATION */}
-      {activeTab === "ablation" && (
-        <div className="tab-pane-fade">
+      {visitedTabs.has("ablation") && (
+        <div className="tab-pane-fade" hidden={activeTab !== "ablation"}>
           <AblationInsights apiBase={API_BASE} />
         </div>
       )}

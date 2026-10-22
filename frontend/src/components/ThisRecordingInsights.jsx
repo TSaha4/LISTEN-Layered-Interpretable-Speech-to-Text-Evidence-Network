@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -20,7 +20,7 @@ const formatTime = (seconds) => {
   return `${m}:${s < 10 ? "0" : ""}${s}`;
 };
 
-export default function ThisRecordingInsights({ meeting, result, apiBase }) {
+function ThisRecordingInsights({ meeting, result, apiBase }) {
   const [traceData, setTraceData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -376,8 +376,8 @@ export default function ThisRecordingInsights({ meeting, result, apiBase }) {
                     ]}
                   />
                   <Legend />
-                  <Bar dataKey="retrievalRank" name="Retrieval Rank" fill="#4a5568" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="gatRank" name="GAT Rank" fill="#3182ce" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="retrievalRank" name="Retrieval Rank" fill="#4a5568" radius={[4, 4, 0, 0]} isAnimationActive={false} />
+                  <Bar dataKey="gatRank" name="GAT Rank" fill="#3182ce" radius={[4, 4, 0, 0]} isAnimationActive={false} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -406,8 +406,8 @@ export default function ThisRecordingInsights({ meeting, result, apiBase }) {
                     ]}
                   />
                   <Legend />
-                  <Bar dataKey="retrievalScore" name="Cosine Similarity" fill="#319795" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="gatScore" name="GAT Attention Score" fill="#d69e2e" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="retrievalScore" name="Cosine Similarity" fill="#319795" radius={[4, 4, 0, 0]} isAnimationActive={false} />
+                  <Bar dataKey="gatScore" name="GAT Attention Score" fill="#d69e2e" radius={[4, 4, 0, 0]} isAnimationActive={false} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -420,3 +420,5 @@ export default function ThisRecordingInsights({ meeting, result, apiBase }) {
     </section>
   );
 }
+
+export default memo(ThisRecordingInsights);

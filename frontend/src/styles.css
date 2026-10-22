@@ -377,42 +377,6 @@ main {
   color: #fb554d;
 }
 
-.question-suggestions {
-  margin-top: 16px;
-}
-
-.question-suggestions p {
-  margin: 0 0 8px;
-  font: 500 11px/1.2 "DM Mono", monospace;
-  text-transform: uppercase;
-}
-
-.question-suggestions > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.question-suggestions button {
-  border: 1.5px solid #15120e;
-  background: #fffdf7;
-  padding: 7px 11px;
-  cursor: pointer;
-  text-align: left;
-  font-size: 12px;
-  line-height: 1.25;
-  transition: background .15s;
-}
-
-.question-suggestions button:hover:not(:disabled) {
-  background: #f4cf53;
-}
-
-.question-suggestions button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
 /* Transcript Section: Dedicated Collapsible Explorer */
 .transcript-section {
   width: min(1180px, calc(100% - 40px));
@@ -1713,4 +1677,3 @@ footer span {
     grid-template-columns: 1fr;
   }
 }
-

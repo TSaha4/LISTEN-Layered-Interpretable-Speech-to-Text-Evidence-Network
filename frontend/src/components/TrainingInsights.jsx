@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -10,7 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-export default function TrainingInsights({ apiBase }) {
+function TrainingInsights({ apiBase }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -175,8 +175,8 @@ export default function TrainingInsights({ apiBase }) {
         {/* Loss Curves */}
         <div className="chart-card">
           <div className="chart-card-header">
-            <h3>Loss Curves (Train vs Validation)</h3>
-            <span className="badge">BCE with Logits</span>
+            <h3>Training Loss Curves</h3>
+            <span className="badge">Train vs Validation</span>
           </div>
           <div className="chart-wrapper">
             <ResponsiveContainer width="100%" height={280}>
@@ -195,6 +195,7 @@ export default function TrainingInsights({ apiBase }) {
                   stroke="#e28c3e"
                   strokeWidth={2.5}
                   dot={{ r: 3, fill: "#e28c3e" }}
+                  isAnimationActive={false}
                 />
                 <Line
                   type="monotone"
@@ -203,6 +204,7 @@ export default function TrainingInsights({ apiBase }) {
                   stroke="#2b6cb0"
                   strokeWidth={2.5}
                   dot={{ r: 3, fill: "#2b6cb0" }}
+                  isAnimationActive={false}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -247,6 +249,7 @@ export default function TrainingInsights({ apiBase }) {
                   stroke="#2f855a"
                   strokeWidth={2.5}
                   dot={{ r: 3, fill: "#2f855a" }}
+                  isAnimationActive={false}
                 />
                 <Line
                   yAxisId="right"
@@ -256,6 +259,7 @@ export default function TrainingInsights({ apiBase }) {
                   stroke="#c53030"
                   strokeWidth={2.5}
                   dot={{ r: 3, fill: "#c53030" }}
+                  isAnimationActive={false}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -268,3 +272,5 @@ export default function TrainingInsights({ apiBase }) {
     </section>
   );
 }
+
+export default memo(TrainingInsights);

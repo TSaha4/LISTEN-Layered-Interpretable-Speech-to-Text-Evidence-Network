@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
-from app.api import counterfactual, insights, query, suggestions, upload
+from app.api import counterfactual, insights, query, upload
 from app.config import API_PREFIX
 from app.models.schemas import HealthResponse
 
@@ -28,7 +28,6 @@ app.add_middleware(
 )
 
 app.include_router(upload.router, prefix=API_PREFIX)
-app.include_router(suggestions.router, prefix=API_PREFIX)
 app.include_router(query.router, prefix=API_PREFIX)
 app.include_router(counterfactual.router, prefix=API_PREFIX)
 app.include_router(insights.router, prefix=API_PREFIX)
