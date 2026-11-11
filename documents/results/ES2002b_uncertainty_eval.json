@@ -1,0 +1,2407 @@
+{
+ "meeting": "ES2002b",
+ "top_k": 5,
+ "best_beta": "0.0",
+ "conditions": [
+  {
+   "condition": "clean",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.6131728316565038,
+   "retrieval_f1": 0.15377535212542384,
+   "mean_reliability_gold": 0.5398015219730644,
+   "mean_reliability_nongold": 0.5412875956289622,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.3666666666666667,
+     "recall": 0.16745865883796918,
+     "f1": 0.1994871327726421
+    },
+    "0.5": {
+     "precision": 0.3,
+     "recall": 0.1467756381549485,
+     "f1": 0.1716125683127118
+    },
+    "0.785": {
+     "precision": 0.3,
+     "recall": 0.1467756381549485,
+     "f1": 0.1716125683127118
+    },
+    "1.0": {
+     "precision": 0.3,
+     "recall": 0.1467756381549485,
+     "f1": 0.1716125683127118
+    }
+   }
+  },
+  {
+   "condition": "snr10",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.35635883725941264,
+   "retrieval_f1": 0.07294489611562782,
+   "mean_reliability_gold": 0.47443687068591356,
+   "mean_reliability_nongold": 0.4278658916171445,
+   "gated_entity_edges": 1,
+   "beta": {
+    "0.0": {
+     "precision": 0.10000000000000002,
+     "recall": 0.02813852813852814,
+     "f1": 0.03590785907859079
+    },
+    "0.5": {
+     "precision": 0.10000000000000002,
+     "recall": 0.02284752284752285,
+     "f1": 0.03193960511033681
+    },
+    "0.785": {
+     "precision": 0.10000000000000002,
+     "recall": 0.02284752284752285,
+     "f1": 0.03193960511033681
+    },
+    "1.0": {
+     "precision": 0.10000000000000002,
+     "recall": 0.02284752284752285,
+     "f1": 0.03193960511033681
+    }
+   }
+  },
+  {
+   "condition": "snr5",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.2791534778259617,
+   "retrieval_f1": 0.02773792443806791,
+   "mean_reliability_gold": 0.3411642077757508,
+   "mean_reliability_nongold": 0.3403344046152623,
+   "gated_entity_edges": 1,
+   "beta": {
+    "0.0": {
+     "precision": 0.09999999999999999,
+     "recall": 0.006493506493506493,
+     "f1": 0.012195121951219511
+    },
+    "0.5": {
+     "precision": 0.09999999999999999,
+     "recall": 0.006493506493506493,
+     "f1": 0.012195121951219511
+    },
+    "0.785": {
+     "precision": 0.06666666666666667,
+     "recall": 0.004329004329004329,
+     "f1": 0.008130081300813009
+    },
+    "1.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.004329004329004329,
+     "f1": 0.008130081300813009
+    }
+   }
+  },
+  {
+   "condition": "snr0",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.19177304122547323,
+   "retrieval_f1": 0.013868962219033954,
+   "mean_reliability_gold": 0.20823518672970934,
+   "mean_reliability_nongold": 0.22217760847637477,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.005747126436781609,
+     "f1": 0.009803921568627449
+    },
+    "0.5": {
+     "precision": 0.03333333333333333,
+     "recall": 0.0021645021645021645,
+     "f1": 0.0040650406504065045
+    },
+    "0.785": {
+     "precision": 0.03333333333333333,
+     "recall": 0.0021645021645021645,
+     "f1": 0.0040650406504065045
+    },
+    "1.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.0021645021645021645,
+     "f1": 0.0040650406504065045
+    }
+   }
+  }
+ ],
+ "calibration": {
+  "0.0": {
+   "n": 24,
+   "positive_rate": 0.16666666666666666,
+   "ece_default_weights": 0.7773874294647433,
+   "ece_leave_one_out": 0.12648163478413027,
+   "brier_default": 0.7377645256453985,
+   "brier_leave_one_out": 0.16112682639074757
+  }
+ },
+ "per_query": [
+  [
+   {
+    "query": "Summarize the presentation on market inspirations.",
+    "gold_count": 77,
+    "retrieval_prf": [
+     0.2,
+     0.012987012987012988,
+     0.024390243902439025
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5612953031716079,
+    "mean_reliability_nongold": 0.5991848351920187,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.03896103896103896,
+       0.07317073170731707
+      ],
+      "top": [
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0218",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0152"
+      ],
+      "components": {
+       "evidence_reliability": 0.5858693645339987,
+       "retrieval_margin": 0.2601837263835754,
+       "evidence_agreement": 0.36820632219314575,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0218",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0014"
+      ],
+      "components": {
+       "evidence_reliability": 0.6295546743542854,
+       "retrieval_margin": 0.2601837263835754,
+       "evidence_agreement": 0.37099188566207886,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0218",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0014"
+      ],
+      "components": {
+       "evidence_reliability": 0.6295546743542854,
+       "retrieval_margin": 0.2601837263835754,
+       "evidence_agreement": 0.37099188566207886,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0218",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0014"
+      ],
+      "components": {
+       "evidence_reliability": 0.6295546743542854,
+       "retrieval_margin": 0.2601837263835754,
+       "evidence_agreement": 0.37099188566207886,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of installing a new remote control when presenting the second inspiration on technology simplicity?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.2,
+     0.25,
+     0.22222222222222224
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.554158635955143,
+    "mean_reliability_nongold": 0.5886920635613367,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.25,
+       0.22222222222222224
+      ],
+      "top": [
+       "ES2002b_seg_0239",
+       "ES2002b_seg_0210",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0103",
+       "ES2002b_seg_0091"
+      ],
+      "components": {
+       "evidence_reliability": 0.499285027947632,
+       "retrieval_margin": 0.16555391770516562,
+       "evidence_agreement": 0.5262624025344849,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.25,
+       0.22222222222222224
+      ],
+      "top": [
+       "ES2002b_seg_0198",
+       "ES2002b_seg_0220",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0214",
+       "ES2002b_seg_0200"
+      ],
+      "components": {
+       "evidence_reliability": 0.7209511403986641,
+       "retrieval_margin": 0.16555391770516562,
+       "evidence_agreement": 0.4616503119468689,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.25,
+       0.22222222222222224
+      ],
+      "top": [
+       "ES2002b_seg_0198",
+       "ES2002b_seg_0220",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0214",
+       "ES2002b_seg_0200"
+      ],
+      "components": {
+       "evidence_reliability": 0.7209511403986641,
+       "retrieval_margin": 0.16555391770516562,
+       "evidence_agreement": 0.4616503119468689,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.25,
+       0.22222222222222224
+      ],
+      "top": [
+       "ES2002b_seg_0198",
+       "ES2002b_seg_0220",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0214",
+       "ES2002b_seg_0200"
+      ],
+      "components": {
+       "evidence_reliability": 0.7209511403986641,
+       "retrieval_margin": 0.16555391770516562,
+       "evidence_agreement": 0.4616503119468689,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What's the conclusion on the age group when discussing the target group and why?",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.2,
+     0.14285714285714285,
+     0.16666666666666666
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5248345873588897,
+    "mean_reliability_nongold": 0.506455473263211,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.2857142857142857,
+       0.3333333333333333
+      ],
+      "top": [
+       "ES2002b_seg_0278",
+       "ES2002b_seg_0255",
+       "ES2002b_seg_0281",
+       "ES2002b_seg_0275",
+       "ES2002b_seg_0280"
+      ],
+      "components": {
+       "evidence_reliability": 0.4634349055642322,
+       "retrieval_margin": 0.4495066774588431,
+       "evidence_agreement": 0.40224868059158325,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.2857142857142857,
+       0.3333333333333333
+      ],
+      "top": [
+       "ES2002b_seg_0278",
+       "ES2002b_seg_0268",
+       "ES2002b_seg_0255",
+       "ES2002b_seg_0684",
+       "ES2002b_seg_0270"
+      ],
+      "components": {
+       "evidence_reliability": 0.5758187476901357,
+       "retrieval_margin": 0.4495066774588431,
+       "evidence_agreement": 0.26412567496299744,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.2857142857142857,
+       0.3333333333333333
+      ],
+      "top": [
+       "ES2002b_seg_0278",
+       "ES2002b_seg_0268",
+       "ES2002b_seg_0265",
+       "ES2002b_seg_0684",
+       "ES2002b_seg_0270"
+      ],
+      "components": {
+       "evidence_reliability": 0.6263240970660997,
+       "retrieval_margin": 0.4495066774588431,
+       "evidence_agreement": 0.24653315544128418,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.2857142857142857,
+       0.3333333333333333
+      ],
+      "top": [
+       "ES2002b_seg_0278",
+       "ES2002b_seg_0265",
+       "ES2002b_seg_0268",
+       "ES2002b_seg_0684",
+       "ES2002b_seg_0270"
+      ],
+      "components": {
+       "evidence_reliability": 0.6263240970660997,
+       "retrieval_margin": 0.4495066774588431,
+       "evidence_agreement": 0.24653315544128418,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the presentation on the working design.",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.2,
+     0.034482758620689655,
+     0.0588235294117647
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5923292685954246,
+    "mean_reliability_nongold": 0.4922070947656845,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.06896551724137931,
+       0.1176470588235294
+      ],
+      "top": [
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0325",
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0386",
+       "ES2002b_seg_0434"
+      ],
+      "components": {
+       "evidence_reliability": 0.5883628892891035,
+       "retrieval_margin": 0.2030540914841664,
+       "evidence_agreement": 0.29618555307388306,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.06896551724137931,
+       0.1176470588235294
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0325",
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0386",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5988542316529467,
+       "retrieval_margin": 0.2030540914841664,
+       "evidence_agreement": 0.3193524479866028,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.06896551724137931,
+       0.1176470588235294
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0325",
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0386",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5988542316529467,
+       "retrieval_margin": 0.2030540914841664,
+       "evidence_agreement": 0.3193524479866028,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.06896551724137931,
+       0.1176470588235294
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0325",
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0386",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5988542316529467,
+       "retrieval_margin": 0.2030540914841664,
+       "evidence_agreement": 0.3193524479866028,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What are the advantages and the disadvantages of voice recognition from group discussion?",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.2,
+     0.1111111111111111,
+     0.14285714285714285
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.47828523408181584,
+    "mean_reliability_nongold": 0.5421603833718526,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2002b_seg_0312",
+       "ES2002b_seg_0311",
+       "ES2002b_seg_0330",
+       "ES2002b_seg_0436",
+       "ES2002b_seg_0331"
+      ],
+      "components": {
+       "evidence_reliability": 0.5517596348615875,
+       "retrieval_margin": 0.1482679365384362,
+       "evidence_agreement": 0.6074095368385315,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0292",
+       "ES2002b_seg_0331",
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0412"
+      ],
+      "components": {
+       "evidence_reliability": 0.6547072239104794,
+       "retrieval_margin": 0.1482679365384362,
+       "evidence_agreement": 0.6197119951248169,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0292",
+       "ES2002b_seg_0331",
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0412"
+      ],
+      "components": {
+       "evidence_reliability": 0.6547072239104794,
+       "retrieval_margin": 0.1482679365384362,
+       "evidence_agreement": 0.6197119951248169,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0292",
+       "ES2002b_seg_0331",
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0412"
+      ],
+      "components": {
+       "evidence_reliability": 0.6547072239104794,
+       "retrieval_margin": 0.1482679365384362,
+       "evidence_agreement": 0.6197119951248169,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Industrial Designer think that the power source was important when presenting the working design?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.4,
+     0.25,
+     0.3076923076923077
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5279061026755052,
+    "mean_reliability_nongold": 0.5190257236196696,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.25,
+       0.3076923076923077
+      ],
+      "top": [
+       "ES2002b_seg_0502",
+       "ES2002b_seg_0413",
+       "ES2002b_seg_0390",
+       "ES2002b_seg_0587",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5750654449649237,
+       "retrieval_margin": 0.25957358651874385,
+       "evidence_agreement": 0.390051931142807,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.25,
+       0.3076923076923077
+      ],
+      "top": [
+       "ES2002b_seg_0502",
+       "ES2002b_seg_0390",
+       "ES2002b_seg_0413",
+       "ES2002b_seg_0587",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5750654449649237,
+       "retrieval_margin": 0.25957358651874385,
+       "evidence_agreement": 0.3900519013404846,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.25,
+       0.3076923076923077
+      ],
+      "top": [
+       "ES2002b_seg_0502",
+       "ES2002b_seg_0390",
+       "ES2002b_seg_0413",
+       "ES2002b_seg_0587",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5750654449649237,
+       "retrieval_margin": 0.25957358651874385,
+       "evidence_agreement": 0.3900519013404846,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.25,
+       0.3076923076923077
+      ],
+      "top": [
+       "ES2002b_seg_0502",
+       "ES2002b_seg_0390",
+       "ES2002b_seg_0413",
+       "ES2002b_seg_0587",
+       "ES2002b_seg_0604"
+      ],
+      "components": {
+       "evidence_reliability": 0.5750654449649237,
+       "retrieval_margin": 0.25957358651874385,
+       "evidence_agreement": 0.3900519013404846,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the presentation on market inspirations.",
+    "gold_count": 77,
+    "retrieval_prf": [
+     0.4,
+     0.025974025974025976,
+     0.04878048780487805
+    ],
+    "gated_entity_edges": 1,
+    "mean_reliability_gold": 0.4135608487163889,
+    "mean_reliability_nongold": 0.48285980200022516,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0599",
+       "ES2002b_seg_0218",
+       "ES2002b_seg_0153"
+      ],
+      "components": {
+       "evidence_reliability": 0.3743919652093983,
+       "retrieval_margin": 0.2785614981545413,
+       "evidence_agreement": 0.2762450873851776,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0153",
+       "ES2002b_seg_0218",
+       "ES2002b_seg_0199"
+      ],
+      "components": {
+       "evidence_reliability": 0.5363531177645838,
+       "retrieval_margin": 0.2785614981545413,
+       "evidence_agreement": 0.2970878481864929,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0153",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0218"
+      ],
+      "components": {
+       "evidence_reliability": 0.5363531177645837,
+       "retrieval_margin": 0.2785614981545413,
+       "evidence_agreement": 0.2970878481864929,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0153",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0218"
+      ],
+      "components": {
+       "evidence_reliability": 0.5363531177645837,
+       "retrieval_margin": 0.2785614981545413,
+       "evidence_agreement": 0.2970878481864929,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of installing a new remote control when presenting the second inspiration on technology simplicity?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.2,
+     0.25,
+     0.22222222222222224
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.6148269465965082,
+    "mean_reliability_nongold": 0.5048700762668205,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0200",
+       "ES2002b_seg_0196"
+      ],
+      "components": {
+       "evidence_reliability": 0.4935579766540445,
+       "retrieval_margin": 0.18080608702625373,
+       "evidence_agreement": 0.49813729524612427,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0023",
+       "ES2002b_seg_0196",
+       "ES2002b_seg_0200",
+       "ES2002b_seg_0214"
+      ],
+      "components": {
+       "evidence_reliability": 0.5897977704843437,
+       "retrieval_margin": 0.18080608702625373,
+       "evidence_agreement": 0.4408818185329437,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0023",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0196",
+       "ES2002b_seg_0200",
+       "ES2002b_seg_0019"
+      ],
+      "components": {
+       "evidence_reliability": 0.596355599496815,
+       "retrieval_margin": 0.18080608702625373,
+       "evidence_agreement": 0.4026695787906647,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0023",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0196",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0200"
+      ],
+      "components": {
+       "evidence_reliability": 0.596355599496815,
+       "retrieval_margin": 0.18080608702625373,
+       "evidence_agreement": 0.4026695787906647,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What's the conclusion on the age group when discussing the target group and why?",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.2,
+     0.14285714285714285,
+     0.16666666666666666
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.33323206963932284,
+    "mean_reliability_nongold": 0.3856889565092007,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.14285714285714285,
+       0.16666666666666666
+      ],
+      "top": [
+       "ES2002b_seg_0255",
+       "ES2002b_seg_0275",
+       "ES2002b_seg_0283",
+       "ES2002b_seg_0270",
+       "ES2002b_seg_0269"
+      ],
+      "components": {
+       "evidence_reliability": 0.358247356247974,
+       "retrieval_margin": 0.38852764398476625,
+       "evidence_agreement": 0.15443113446235657,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0255",
+       "ES2002b_seg_0270",
+       "ES2002b_seg_0153",
+       "ES2002b_seg_0269",
+       "ES2002b_seg_0267"
+      ],
+      "components": {
+       "evidence_reliability": 0.4397183052505568,
+       "retrieval_margin": 0.38852764398476625,
+       "evidence_agreement": 0.1744280308485031,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0255",
+       "ES2002b_seg_0270",
+       "ES2002b_seg_0153",
+       "ES2002b_seg_0265",
+       "ES2002b_seg_0267"
+      ],
+      "components": {
+       "evidence_reliability": 0.463664660777624,
+       "retrieval_margin": 0.38852764398476625,
+       "evidence_agreement": 0.1791602522134781,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0255",
+       "ES2002b_seg_0270",
+       "ES2002b_seg_0153",
+       "ES2002b_seg_0265",
+       "ES2002b_seg_0267"
+      ],
+      "components": {
+       "evidence_reliability": 0.463664660777624,
+       "retrieval_margin": 0.38852764398476625,
+       "evidence_agreement": 0.1791602522134781,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the presentation on the working design.",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.40184762705016924,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0011",
+       "ES2002b_seg_0599",
+       "ES2002b_seg_0021"
+      ],
+      "components": {
+       "evidence_reliability": 0.38743033701946306,
+       "retrieval_margin": 0.2851729245245006,
+       "evidence_agreement": 0.3826325833797455,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0011",
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0135"
+      ],
+      "components": {
+       "evidence_reliability": 0.4384691920871415,
+       "retrieval_margin": 0.2851729245245006,
+       "evidence_agreement": 0.3772684633731842,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0011",
+       "ES2002b_seg_0661",
+       "ES2002b_seg_0135"
+      ],
+      "components": {
+       "evidence_reliability": 0.5164526864297025,
+       "retrieval_margin": 0.2851729245245006,
+       "evidence_agreement": 0.27107346057891846,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0140",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0011",
+       "ES2002b_seg_0661",
+       "ES2002b_seg_0176"
+      ],
+      "components": {
+       "evidence_reliability": 0.5284491891734814,
+       "retrieval_margin": 0.2851729245245006,
+       "evidence_agreement": 0.2568938136100769,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What are the advantages and the disadvantages of voice recognition from group discussion?",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5361276177914344,
+    "mean_reliability_nongold": 0.3788298214801706,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0330",
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0213",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0289"
+      ],
+      "components": {
+       "evidence_reliability": 0.4727259672967942,
+       "retrieval_margin": 0.4774564677646136,
+       "evidence_agreement": 0.5632938146591187,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0335",
+       "ES2002b_seg_0289",
+       "ES2002b_seg_0330"
+      ],
+      "components": {
+       "evidence_reliability": 0.5143291902355303,
+       "retrieval_margin": 0.4774564677646136,
+       "evidence_agreement": 0.3701663315296173,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0335",
+       "ES2002b_seg_0289",
+       "ES2002b_seg_0330"
+      ],
+      "components": {
+       "evidence_reliability": 0.5143291902355303,
+       "retrieval_margin": 0.4774564677646136,
+       "evidence_agreement": 0.3701663315296173,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0192",
+       "ES2002b_seg_0335",
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0289"
+      ],
+      "components": {
+       "evidence_reliability": 0.5509541564618678,
+       "retrieval_margin": 0.4774564677646136,
+       "evidence_agreement": 0.34306079149246216,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Industrial Designer think that the power source was important when presenting the working design?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.41309906639628075,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0603",
+       "ES2002b_seg_0021"
+      ],
+      "components": {
+       "evidence_reliability": 0.4363426788019127,
+       "retrieval_margin": 0.19858916179050887,
+       "evidence_agreement": 0.2738538384437561,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0206",
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0603"
+      ],
+      "components": {
+       "evidence_reliability": 0.513129253023477,
+       "retrieval_margin": 0.19858916179050887,
+       "evidence_agreement": 0.2904168963432312,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0206",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0603"
+      ],
+      "components": {
+       "evidence_reliability": 0.5675898414167101,
+       "retrieval_margin": 0.19858916179050887,
+       "evidence_agreement": 0.25004032254219055,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0206",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0603"
+      ],
+      "components": {
+       "evidence_reliability": 0.5675898414167101,
+       "retrieval_margin": 0.19858916179050887,
+       "evidence_agreement": 0.25004032254219055,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the presentation on market inspirations.",
+    "gold_count": 77,
+    "retrieval_prf": [
+     0.4,
+     0.025974025974025976,
+     0.04878048780487805
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.31770437665504236,
+    "mean_reliability_nongold": 0.34777844625630416,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.03896103896103896,
+       0.07317073170731707
+      ],
+      "top": [
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0217"
+      ],
+      "components": {
+       "evidence_reliability": 0.3466112397519777,
+       "retrieval_margin": 0.3355708856639229,
+       "evidence_agreement": 0.4031345844268799,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.6,
+       0.03896103896103896,
+       0.07317073170731707
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0217"
+      ],
+      "components": {
+       "evidence_reliability": 0.3466112397519777,
+       "retrieval_margin": 0.3355708856639229,
+       "evidence_agreement": 0.4031345844268799,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0217",
+       "ES2002b_seg_0199"
+      ],
+      "components": {
+       "evidence_reliability": 0.39919942832350314,
+       "retrieval_margin": 0.3355708856639229,
+       "evidence_agreement": 0.3316158950328827,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.025974025974025976,
+       0.04878048780487805
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0181",
+       "ES2002b_seg_0217",
+       "ES2002b_seg_0199"
+      ],
+      "components": {
+       "evidence_reliability": 0.39919942832350314,
+       "retrieval_margin": 0.3355708856639229,
+       "evidence_agreement": 0.3316158950328827,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of installing a new remote control when presenting the second inspiration on technology simplicity?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 1,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.38862364751696693,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0197",
+       "ES2002b_seg_0222",
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0229"
+      ],
+      "components": {
+       "evidence_reliability": 0.4151648545374034,
+       "retrieval_margin": 0.22918596149325943,
+       "evidence_agreement": 0.3298465609550476,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0197",
+       "ES2002b_seg_0222",
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0196"
+      ],
+      "components": {
+       "evidence_reliability": 0.47783068289190606,
+       "retrieval_margin": 0.22918596149325943,
+       "evidence_agreement": 0.28168684244155884,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0197",
+       "ES2002b_seg_0222",
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0229",
+       "ES2002b_seg_0196"
+      ],
+      "components": {
+       "evidence_reliability": 0.47783068289190606,
+       "retrieval_margin": 0.22918596149325943,
+       "evidence_agreement": 0.28168684244155884,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0197",
+       "ES2002b_seg_0222",
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0196",
+       "ES2002b_seg_0229"
+      ],
+      "components": {
+       "evidence_reliability": 0.47783068289190606,
+       "retrieval_margin": 0.22918596149325943,
+       "evidence_agreement": 0.28168684244155884,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What's the conclusion on the age group when discussing the target group and why?",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.3425346939080567,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0549",
+       "ES2002b_seg_0283",
+       "ES2002b_seg_0533"
+      ],
+      "components": {
+       "evidence_reliability": 0.2859233892932419,
+       "retrieval_margin": 0.24323744122542015,
+       "evidence_agreement": 0.16789060831069946,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0533",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0536",
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0684"
+      ],
+      "components": {
+       "evidence_reliability": 0.37042436988648436,
+       "retrieval_margin": 0.24323744122542015,
+       "evidence_agreement": 0.12881913781166077,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0533",
+       "ES2002b_seg_0532",
+       "ES2002b_seg_0536",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0684"
+      ],
+      "components": {
+       "evidence_reliability": 0.4237928103773693,
+       "retrieval_margin": 0.24323744122542015,
+       "evidence_agreement": 0.14817938208580017,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0533",
+       "ES2002b_seg_0532",
+       "ES2002b_seg_0536",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0231"
+      ],
+      "components": {
+       "evidence_reliability": 0.44118223635955894,
+       "retrieval_margin": 0.24323744122542015,
+       "evidence_agreement": 0.15857228636741638,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the presentation on the working design.",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.4,
+     0.06896551724137931,
+     0.1176470588235294
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3646240388964592,
+    "mean_reliability_nongold": 0.31052597416686284,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0194",
+       "ES2002b_seg_0152",
+       "ES2002b_seg_0537",
+       "ES2002b_seg_0014",
+       "ES2002b_seg_0011"
+      ],
+      "components": {
+       "evidence_reliability": 0.2996565473498308,
+       "retrieval_margin": 0.2948402869318151,
+       "evidence_agreement": 0.2490294873714447,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0537",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0014",
+       "ES2002b_seg_0194",
+       "ES2002b_seg_0152"
+      ],
+      "components": {
+       "evidence_reliability": 0.3598888037713971,
+       "retrieval_margin": 0.2948402869318151,
+       "evidence_agreement": 0.2373201847076416,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0537",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0014",
+       "ES2002b_seg_0194",
+       "ES2002b_seg_0686"
+      ],
+      "components": {
+       "evidence_reliability": 0.37126752809884817,
+       "retrieval_margin": 0.2948402869318151,
+       "evidence_agreement": 0.17168419063091278,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0537",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0014",
+       "ES2002b_seg_0194",
+       "ES2002b_seg_0686"
+      ],
+      "components": {
+       "evidence_reliability": 0.37126752809884817,
+       "retrieval_margin": 0.2948402869318151,
+       "evidence_agreement": 0.17168419063091278,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What are the advantages and the disadvantages of voice recognition from group discussion?",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.2991016094794498,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0330",
+       "ES2002b_seg_0213"
+      ],
+      "components": {
+       "evidence_reliability": 0.24537911084513203,
+       "retrieval_margin": 0.4950558274640257,
+       "evidence_agreement": 0.2806660234928131,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0330"
+      ],
+      "components": {
+       "evidence_reliability": 0.31704562571893097,
+       "retrieval_margin": 0.4950558274640257,
+       "evidence_agreement": 0.28461259603500366,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0129",
+       "ES2002b_seg_0150"
+      ],
+      "components": {
+       "evidence_reliability": 0.3794205340976557,
+       "retrieval_margin": 0.4950558274640257,
+       "evidence_agreement": 0.20904836058616638,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0259",
+       "ES2002b_seg_0205",
+       "ES2002b_seg_0150",
+       "ES2002b_seg_0129",
+       "ES2002b_seg_0125"
+      ],
+      "components": {
+       "evidence_reliability": 0.37942053409765564,
+       "retrieval_margin": 0.4950558274640257,
+       "evidence_agreement": 0.20904836058616638,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Industrial Designer think that the power source was important when presenting the working design?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.35344205636393344,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0490",
+       "ES2002b_seg_0119"
+      ],
+      "components": {
+       "evidence_reliability": 0.3183234145246835,
+       "retrieval_margin": 0.19104541872099706,
+       "evidence_agreement": 0.33358603715896606,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0024",
+       "ES2002b_seg_0232"
+      ],
+      "components": {
+       "evidence_reliability": 0.40045007729374665,
+       "retrieval_margin": 0.19104541872099706,
+       "evidence_agreement": 0.2943035960197449,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0024",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0119"
+      ],
+      "components": {
+       "evidence_reliability": 0.4526170406216333,
+       "retrieval_margin": 0.19104541872099706,
+       "evidence_agreement": 0.2865261733531952,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0021",
+       "ES2002b_seg_0024",
+       "ES2002b_seg_0019",
+       "ES2002b_seg_0119"
+      ],
+      "components": {
+       "evidence_reliability": 0.4526170406216333,
+       "retrieval_margin": 0.19104541872099706,
+       "evidence_agreement": 0.2865261733531952,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the presentation on market inspirations.",
+    "gold_count": 77,
+    "retrieval_prf": [
+     0.2,
+     0.012987012987012988,
+     0.024390243902439025
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.21387711104810458,
+    "mean_reliability_nongold": 0.2127199937146933,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0028",
+       "ES2002b_seg_0614",
+       "ES2002b_seg_0604",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0341"
+      ],
+      "components": {
+       "evidence_reliability": 0.20811580554899375,
+       "retrieval_margin": 0.348047138009379,
+       "evidence_agreement": 0.3184205889701843,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.012987012987012988,
+       0.024390243902439025
+      ],
+      "top": [
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0028",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0341"
+      ],
+      "components": {
+       "evidence_reliability": 0.2569000800072234,
+       "retrieval_margin": 0.348047138009379,
+       "evidence_agreement": 0.2926429808139801,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.012987012987012988,
+       0.024390243902439025
+      ],
+      "top": [
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0024",
+       "ES2002b_seg_0028"
+      ],
+      "components": {
+       "evidence_reliability": 0.2808420978073802,
+       "retrieval_margin": 0.348047138009379,
+       "evidence_agreement": 0.2367161214351654,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.012987012987012988,
+       0.024390243902439025
+      ],
+      "top": [
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0024",
+       "ES2002b_seg_0341"
+      ],
+      "components": {
+       "evidence_reliability": 0.29572274911813684,
+       "retrieval_margin": 0.348047138009379,
+       "evidence_agreement": 0.2769708037376404,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of installing a new remote control when presenting the second inspiration on technology simplicity?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.19123146184958453,
+    "mean_reliability_nongold": 0.238300400125287,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0197",
+       "ES2002b_seg_0662",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0224"
+      ],
+      "components": {
+       "evidence_reliability": 0.25661104053805034,
+       "retrieval_margin": 0.31769109803130047,
+       "evidence_agreement": 0.3106013536453247,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0662",
+       "ES2002b_seg_0148",
+       "ES2002b_seg_0197",
+       "ES2002b_seg_0224"
+      ],
+      "components": {
+       "evidence_reliability": 0.2709884284701278,
+       "retrieval_margin": 0.31769109803130047,
+       "evidence_agreement": 0.2798774838447571,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0662",
+       "ES2002b_seg_0148",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0224"
+      ],
+      "components": {
+       "evidence_reliability": 0.2925782949802265,
+       "retrieval_margin": 0.31769109803130047,
+       "evidence_agreement": 0.23981840908527374,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0662",
+       "ES2002b_seg_0148",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0224"
+      ],
+      "components": {
+       "evidence_reliability": 0.2925782949802265,
+       "retrieval_margin": 0.31769109803130047,
+       "evidence_agreement": 0.23981840908527374,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What's the conclusion on the age group when discussing the target group and why?",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.22904191418448905,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0535",
+       "ES2002b_seg_0178",
+       "ES2002b_seg_0441",
+       "ES2002b_seg_0269"
+      ],
+      "components": {
+       "evidence_reliability": 0.23340954619793722,
+       "retrieval_margin": 0.4259906683397258,
+       "evidence_agreement": 0.18623794615268707,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0535",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0536",
+       "ES2002b_seg_0196"
+      ],
+      "components": {
+       "evidence_reliability": 0.30849198078124845,
+       "retrieval_margin": 0.4259906683397258,
+       "evidence_agreement": 0.12228621542453766,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0535",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0536",
+       "ES2002b_seg_0176"
+      ],
+      "components": {
+       "evidence_reliability": 0.32084395934065385,
+       "retrieval_margin": 0.4259906683397258,
+       "evidence_agreement": 0.08405091613531113,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0535",
+       "ES2002b_seg_0267",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0176",
+       "ES2002b_seg_0536"
+      ],
+      "components": {
+       "evidence_reliability": 0.32084395934065385,
+       "retrieval_margin": 0.4259906683397258,
+       "evidence_agreement": 0.08405091613531113,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the presentation on the working design.",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.2,
+     0.034482758620689655,
+     0.0588235294117647
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.219596987291439,
+    "mean_reliability_nongold": 0.229797060260164,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.034482758620689655,
+       0.0588235294117647
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0341",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0040"
+      ],
+      "components": {
+       "evidence_reliability": 0.24272338053563247,
+       "retrieval_margin": 0.3637580682360723,
+       "evidence_agreement": 0.2711361050605774,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0461"
+      ],
+      "components": {
+       "evidence_reliability": 0.28003057950512006,
+       "retrieval_margin": 0.3637580682360723,
+       "evidence_agreement": 0.24546709656715393,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0461"
+      ],
+      "components": {
+       "evidence_reliability": 0.28003057950512006,
+       "retrieval_margin": 0.3637580682360723,
+       "evidence_agreement": 0.2454671412706375,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0024"
+      ],
+      "components": {
+       "evidence_reliability": 0.29160100233116165,
+       "retrieval_margin": 0.3637580682360723,
+       "evidence_agreement": 0.22868618369102478,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What are the advantages and the disadvantages of voice recognition from group discussion?",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.1956603162728922,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0213",
+       "ES2002b_seg_0232",
+       "ES2002b_seg_0006",
+       "ES2002b_seg_0207"
+      ],
+      "components": {
+       "evidence_reliability": 0.17090957335276538,
+       "retrieval_margin": 0.33267315897728716,
+       "evidence_agreement": 0.1640145480632782,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0176",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0006"
+      ],
+      "components": {
+       "evidence_reliability": 0.25954195333925845,
+       "retrieval_margin": 0.33267315897728716,
+       "evidence_agreement": 0.16635243594646454,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0176",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0006"
+      ],
+      "components": {
+       "evidence_reliability": 0.25954195333925845,
+       "retrieval_margin": 0.33267315897728716,
+       "evidence_agreement": 0.16635242104530334,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0231",
+       "ES2002b_seg_0176",
+       "ES2002b_seg_0125",
+       "ES2002b_seg_0459",
+       "ES2002b_seg_0006"
+      ],
+      "components": {
+       "evidence_reliability": 0.25954195333925845,
+       "retrieval_margin": 0.33267315897728716,
+       "evidence_agreement": 0.16635242104530334,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Industrial Designer think that the power source was important when presenting the working design?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.22754596630072318,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0684",
+       "ES2002b_seg_0040"
+      ],
+      "components": {
+       "evidence_reliability": 0.22503146402066748,
+       "retrieval_margin": 0.27775091459490675,
+       "evidence_agreement": 0.17250080406665802,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0461"
+      ],
+      "components": {
+       "evidence_reliability": 0.27444386299785795,
+       "retrieval_margin": 0.27775091459490675,
+       "evidence_agreement": 0.27635735273361206,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0461"
+      ],
+      "components": {
+       "evidence_reliability": 0.27444386299785795,
+       "retrieval_margin": 0.27775091459490675,
+       "evidence_agreement": 0.27635735273361206,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002b_seg_0195",
+       "ES2002b_seg_0199",
+       "ES2002b_seg_0224",
+       "ES2002b_seg_0201",
+       "ES2002b_seg_0461"
+      ],
+      "components": {
+       "evidence_reliability": 0.27444386299785795,
+       "retrieval_margin": 0.27775091459490675,
+       "evidence_agreement": 0.27635735273361206,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ]
+ ]
+}

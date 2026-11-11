@@ -1,0 +1,2031 @@
+{
+ "meeting": "ES2002c",
+ "top_k": 5,
+ "best_beta": "0.0",
+ "conditions": [
+  {
+   "condition": "clean",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.793787805312636,
+   "retrieval_f1": 0.061363636363636356,
+   "mean_reliability_gold": 0.4558971155778509,
+   "mean_reliability_nongold": 0.4903116376098494,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.12000000000000002,
+     "recall": 0.04814814814814815,
+     "f1": 0.061363636363636356
+    },
+    "0.5": {
+     "precision": 0.12000000000000002,
+     "recall": 0.04814814814814815,
+     "f1": 0.061363636363636356
+    },
+    "0.785": {
+     "precision": 0.12000000000000002,
+     "recall": 0.04814814814814815,
+     "f1": 0.061363636363636356
+    },
+    "1.0": {
+     "precision": 0.12000000000000002,
+     "recall": 0.04814814814814815,
+     "f1": 0.061363636363636356
+    }
+   }
+  },
+  {
+   "condition": "snr10",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.5934789677037591,
+   "retrieval_f1": 0.1340909090909091,
+   "mean_reliability_gold": 0.4315239172026337,
+   "mean_reliability_nongold": 0.35814166907933115,
+   "gated_entity_edges": 5,
+   "beta": {
+    "0.0": {
+     "precision": 0.24,
+     "recall": 0.1253968253968254,
+     "f1": 0.12974598930481285
+    },
+    "0.5": {
+     "precision": 0.27999999999999997,
+     "recall": 0.1285714285714286,
+     "f1": 0.13562834224598933
+    },
+    "0.785": {
+     "precision": 0.27999999999999997,
+     "recall": 0.1285714285714286,
+     "f1": 0.13562834224598933
+    },
+    "1.0": {
+     "precision": 0.27999999999999997,
+     "recall": 0.1285714285714286,
+     "f1": 0.13562834224598933
+    }
+   }
+  },
+  {
+   "condition": "snr5",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.4878197239169207,
+   "retrieval_f1": 0.12159090909090908,
+   "mean_reliability_gold": 0.3246961109462407,
+   "mean_reliability_nongold": 0.2797159819781687,
+   "gated_entity_edges": 6,
+   "beta": {
+    "0.0": {
+     "precision": 0.24,
+     "recall": 0.1513227513227513,
+     "f1": 0.15360962566844918
+    },
+    "0.5": {
+     "precision": 0.24,
+     "recall": 0.09206349206349206,
+     "f1": 0.1161096256684492
+    },
+    "0.785": {
+     "precision": 0.24,
+     "recall": 0.09206349206349206,
+     "f1": 0.1161096256684492
+    },
+    "1.0": {
+     "precision": 0.24,
+     "recall": 0.09206349206349206,
+     "f1": 0.1161096256684492
+    }
+   }
+  },
+  {
+   "condition": "snr0",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.3451795658277212,
+   "retrieval_f1": 0.04886363636363636,
+   "mean_reliability_gold": 0.1925424821875743,
+   "mean_reliability_nongold": 0.19998583802196013,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.12000000000000002,
+     "recall": 0.1074074074074074,
+     "f1": 0.09886363636363635
+    },
+    "0.5": {
+     "precision": 0.16,
+     "recall": 0.11481481481481481,
+     "f1": 0.11136363636363636
+    },
+    "0.785": {
+     "precision": 0.08,
+     "recall": 0.014814814814814814,
+     "f1": 0.025
+    },
+    "1.0": {
+     "precision": 0.08,
+     "recall": 0.014814814814814814,
+     "f1": 0.025
+    }
+   }
+  }
+ ],
+ "calibration": {
+  "0.0": {
+   "n": 20,
+   "positive_rate": 0.4,
+   "ece_default_weights": 0.5420138271062377,
+   "ece_leave_one_out": 0.4536206004729623,
+   "brier_default": 0.5304279957026016,
+   "brier_leave_one_out": 0.34411859256606353
+  }
+ },
+ "per_query": [
+  [
+   {
+    "query": "Summarize the presentation on market trends.",
+    "gold_count": 27,
+    "retrieval_prf": [
+     0.4,
+     0.07407407407407407,
+     0.125
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.4558971155778509,
+    "mean_reliability_nongold": 0.5375525000708137,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0217"
+      ],
+      "components": {
+       "evidence_reliability": 0.5240884863006506,
+       "retrieval_margin": 0.3772311670123643,
+       "evidence_agreement": 0.4075796604156494,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0217"
+      ],
+      "components": {
+       "evidence_reliability": 0.5240884863006506,
+       "retrieval_margin": 0.3772311670123643,
+       "evidence_agreement": 0.4075796604156494,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0217"
+      ],
+      "components": {
+       "evidence_reliability": 0.5240884863006506,
+       "retrieval_margin": 0.3772311670123643,
+       "evidence_agreement": 0.4075796604156494,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0210"
+      ],
+      "components": {
+       "evidence_reliability": 0.543448160796097,
+       "retrieval_margin": 0.3772311670123643,
+       "evidence_agreement": 0.3656708896160126,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of technology innovation when presenting the market trend?",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.2,
+     0.16666666666666666,
+     0.1818181818181818
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.4558971155778509,
+    "mean_reliability_nongold": 0.4927046399867234,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0158"
+      ],
+      "components": {
+       "evidence_reliability": 0.4701773469723189,
+       "retrieval_margin": 0.25620702777160403,
+       "evidence_agreement": 0.4610193371772766,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034"
+      ],
+      "components": {
+       "evidence_reliability": 0.4917138309907293,
+       "retrieval_margin": 0.25620702777160403,
+       "evidence_agreement": 0.47806626558303833,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034"
+      ],
+      "components": {
+       "evidence_reliability": 0.4917138309907293,
+       "retrieval_margin": 0.25620702777160403,
+       "evidence_agreement": 0.47806626558303833,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034"
+      ],
+      "components": {
+       "evidence_reliability": 0.4917138309907293,
+       "retrieval_margin": 0.25620702777160403,
+       "evidence_agreement": 0.47806626558303833,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing propose lemon or lime when proposing the market trend?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.44156504193124646,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0214",
+       "ES2002c_seg_0224",
+       "ES2002c_seg_0074",
+       "ES2002c_seg_0069",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.3806886253143914,
+       "retrieval_margin": 0.25959548763653045,
+       "evidence_agreement": 0.4119638502597809,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0214",
+       "ES2002c_seg_0069",
+       "ES2002c_seg_0074",
+       "ES2002c_seg_0224",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.3806886253143914,
+       "retrieval_margin": 0.25959548763653045,
+       "evidence_agreement": 0.4119638502597809,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0214",
+       "ES2002c_seg_0069",
+       "ES2002c_seg_0074",
+       "ES2002c_seg_0224",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.3806886253143914,
+       "retrieval_margin": 0.25959548763653045,
+       "evidence_agreement": 0.4119638502597809,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0069",
+       "ES2002c_seg_0214",
+       "ES2002c_seg_0074",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.4416590531752606,
+       "retrieval_margin": 0.25959548763653045,
+       "evidence_agreement": 0.37915557622909546,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the decision discussion about remote concepts.",
+    "gold_count": 63,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.5547360479882163,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0049",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0124",
+       "ES2002c_seg_0196"
+      ],
+      "components": {
+       "evidence_reliability": 0.5233705599196022,
+       "retrieval_margin": 0.1488036727310142,
+       "evidence_agreement": 0.32733431458473206,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0049",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0196",
+       "ES2002c_seg_0136"
+      ],
+      "components": {
+       "evidence_reliability": 0.5908248952043048,
+       "retrieval_margin": 0.1488036727310142,
+       "evidence_agreement": 0.3395625054836273,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0049",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0196",
+       "ES2002c_seg_0136"
+      ],
+      "components": {
+       "evidence_reliability": 0.5908248952043048,
+       "retrieval_margin": 0.1488036727310142,
+       "evidence_agreement": 0.3395625054836273,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0049",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0196",
+       "ES2002c_seg_0136"
+      ],
+      "components": {
+       "evidence_reliability": 0.5908248952043048,
+       "retrieval_margin": 0.1488036727310142,
+       "evidence_agreement": 0.3395625054836273,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did the group decide not to go for an LCD when discussing the remote concepts?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.4249999580722474,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0252",
+       "ES2002c_seg_0047",
+       "ES2002c_seg_0189",
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0179"
+      ],
+      "components": {
+       "evidence_reliability": 0.4292227088484659,
+       "retrieval_margin": 0.2694038307796889,
+       "evidence_agreement": 0.3713931441307068,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0189",
+       "ES2002c_seg_0047",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0252"
+      ],
+      "components": {
+       "evidence_reliability": 0.4494519433036871,
+       "retrieval_margin": 0.2694038307796889,
+       "evidence_agreement": 0.36660706996917725,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0189",
+       "ES2002c_seg_0047",
+       "ES2002c_seg_0125"
+      ],
+      "components": {
+       "evidence_reliability": 0.48044836961037873,
+       "retrieval_margin": 0.2694038307796889,
+       "evidence_agreement": 0.3391459584236145,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0189",
+       "ES2002c_seg_0047",
+       "ES2002c_seg_0125"
+      ],
+      "components": {
+       "evidence_reliability": 0.48044836961037873,
+       "retrieval_margin": 0.2694038307796889,
+       "evidence_agreement": 0.3391459584236145,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the presentation on market trends.",
+    "gold_count": 27,
+    "retrieval_prf": [
+     0.4,
+     0.07407407407407407,
+     0.125
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.461722352856617,
+    "mean_reliability_nongold": 0.3574604066416106,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0050"
+      ],
+      "components": {
+       "evidence_reliability": 0.4664647107510842,
+       "retrieval_margin": 0.34927293034173046,
+       "evidence_agreement": 0.44485846161842346,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.5105499063364269,
+       "retrieval_margin": 0.34927293034173046,
+       "evidence_agreement": 0.45123201608657837,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.5105499063364269,
+       "retrieval_margin": 0.34927293034173046,
+       "evidence_agreement": 0.45123201608657837,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0045",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.5105499063364269,
+       "retrieval_margin": 0.34927293034173046,
+       "evidence_agreement": 0.45123201608657837,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of technology innovation when presenting the market trend?",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.6,
+     0.5,
+     0.5454545454545454
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.41382239810231525,
+    "mean_reliability_nongold": 0.4205582567453716,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0159",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0055"
+      ],
+      "components": {
+       "evidence_reliability": 0.40565127997952,
+       "retrieval_margin": 0.30392328573779975,
+       "evidence_agreement": 0.5195703506469727,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.52545933307729,
+       "retrieval_margin": 0.30392328573779975,
+       "evidence_agreement": 0.3914669156074524,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.5254593330772901,
+       "retrieval_margin": 0.30392328573779975,
+       "evidence_agreement": 0.3914669156074524,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0034"
+      ],
+      "components": {
+       "evidence_reliability": 0.5254593330772901,
+       "retrieval_margin": 0.30392328573779975,
+       "evidence_agreement": 0.3914669156074524,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing propose lemon or lime when proposing the market trend?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.38722803569773556,
+    "mean_reliability_nongold": 0.3745952546055097,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0042"
+      ],
+      "components": {
+       "evidence_reliability": 0.42172363074560343,
+       "retrieval_margin": 0.24441935377593077,
+       "evidence_agreement": 0.4503404498100281,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.4582289208417915,
+       "retrieval_margin": 0.24441935377593077,
+       "evidence_agreement": 0.4933866560459137,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.4582289208417915,
+       "retrieval_margin": 0.24441935377593077,
+       "evidence_agreement": 0.4933866858482361,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0023",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0197"
+      ],
+      "components": {
+       "evidence_reliability": 0.4899618881572027,
+       "retrieval_margin": 0.24441935377593077,
+       "evidence_agreement": 0.4137059152126312,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the decision discussion about remote concepts.",
+    "gold_count": 63,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.463322882153867,
+    "mean_reliability_nongold": 0.35267431294873175,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.015873015873015872,
+       0.029411764705882353
+      ],
+      "top": [
+       "ES2002c_seg_0070",
+       "ES2002c_seg_0081",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0011",
+       "ES2002c_seg_0290"
+      ],
+      "components": {
+       "evidence_reliability": 0.3622321450525455,
+       "retrieval_margin": 0.15200999090587894,
+       "evidence_agreement": 0.556945264339447,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.031746031746031744,
+       0.058823529411764705
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0197",
+       "ES2002c_seg_0020",
+       "ES2002c_seg_0081"
+      ],
+      "components": {
+       "evidence_reliability": 0.4807341274690154,
+       "retrieval_margin": 0.15200999090587894,
+       "evidence_agreement": 0.4822337031364441,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.031746031746031744,
+       0.058823529411764705
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0197",
+       "ES2002c_seg_0020",
+       "ES2002c_seg_0081"
+      ],
+      "components": {
+       "evidence_reliability": 0.4807341274690154,
+       "retrieval_margin": 0.15200999090587894,
+       "evidence_agreement": 0.4822337031364441,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.031746031746031744,
+       0.058823529411764705
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0197",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0020",
+       "ES2002c_seg_0081"
+      ],
+      "components": {
+       "evidence_reliability": 0.4807341274690154,
+       "retrieval_margin": 0.15200999090587894,
+       "evidence_agreement": 0.4822337031364441,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did the group decide not to go for an LCD when discussing the remote concepts?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 5,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.2854201144554321,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0252",
+       "ES2002c_seg_0162",
+       "ES2002c_seg_0178",
+       "ES2002c_seg_0179",
+       "ES2002c_seg_0250"
+      ],
+      "components": {
+       "evidence_reliability": 0.2559105831739655,
+       "retrieval_margin": 0.3774543121313667,
+       "evidence_agreement": 0.386609822511673,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0162",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0178",
+       "ES2002c_seg_0254"
+      ],
+      "components": {
+       "evidence_reliability": 0.3021511656403746,
+       "retrieval_margin": 0.3774543121313667,
+       "evidence_agreement": 0.2955276370048523,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0162",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0254",
+       "ES2002c_seg_0178"
+      ],
+      "components": {
+       "evidence_reliability": 0.30215116564037453,
+       "retrieval_margin": 0.3774543121313667,
+       "evidence_agreement": 0.2955276370048523,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0162",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0254",
+       "ES2002c_seg_0255"
+      ],
+      "components": {
+       "evidence_reliability": 0.33828429874733007,
+       "retrieval_margin": 0.3774543121313667,
+       "evidence_agreement": 0.2711942493915558,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the presentation on market trends.",
+    "gold_count": 27,
+    "retrieval_prf": [
+     0.2,
+     0.037037037037037035,
+     0.0625
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.39788563256081994,
+    "mean_reliability_nongold": 0.28507954855559076,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0065",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.3222420893006785,
+       "retrieval_margin": 0.35869806381300523,
+       "evidence_agreement": 0.4849949777126312,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.3693954697568936,
+       "retrieval_margin": 0.35869806381300523,
+       "evidence_agreement": 0.4288565516471863,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.3693954697568936,
+       "retrieval_margin": 0.35869806381300523,
+       "evidence_agreement": 0.4288565516471863,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.6,
+       0.1111111111111111,
+       0.18750000000000003
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0031"
+      ],
+      "components": {
+       "evidence_reliability": 0.3693954697568936,
+       "retrieval_margin": 0.35869806381300523,
+       "evidence_agreement": 0.4288565516471863,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of technology innovation when presenting the market trend?",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.6,
+     0.5,
+     0.5454545454545454
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3066730007049963,
+    "mean_reliability_nongold": 0.2989971480019942,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.3333333333333333,
+       0.3636363636363636
+      ],
+      "top": [
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0042",
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0031"
+      ],
+      "components": {
+       "evidence_reliability": 0.2880343644315827,
+       "retrieval_margin": 0.31138351489455496,
+       "evidence_agreement": 0.43112650513648987,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.3333333333333333,
+       0.3636363636363636
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.34702781023592105,
+       "retrieval_margin": 0.31138351489455496,
+       "evidence_agreement": 0.4121254086494446,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.3333333333333333,
+       0.3636363636363636
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031"
+      ],
+      "components": {
+       "evidence_reliability": 0.36081894097784584,
+       "retrieval_margin": 0.31138351489455496,
+       "evidence_agreement": 0.48390427231788635,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.3333333333333333,
+       0.3636363636363636
+      ],
+      "top": [
+       "ES2002c_seg_0055",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031"
+      ],
+      "components": {
+       "evidence_reliability": 0.36081894097784584,
+       "retrieval_margin": 0.31138351489455496,
+       "evidence_agreement": 0.48390427231788635,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing propose lemon or lime when proposing the market trend?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.2609476808394559,
+    "mean_reliability_nongold": 0.278210906010547,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0042",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0044"
+      ],
+      "components": {
+       "evidence_reliability": 0.27936573604803233,
+       "retrieval_margin": 0.2566165565889738,
+       "evidence_agreement": 0.4493328034877777,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0039",
+       "ES2002c_seg_0057"
+      ],
+      "components": {
+       "evidence_reliability": 0.3567971051642091,
+       "retrieval_margin": 0.2566165565889738,
+       "evidence_agreement": 0.34963274002075195,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0057",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0039"
+      ],
+      "components": {
+       "evidence_reliability": 0.3567971051642091,
+       "retrieval_margin": 0.2566165565889738,
+       "evidence_agreement": 0.34963271021842957,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0057",
+       "ES2002c_seg_0044",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0039"
+      ],
+      "components": {
+       "evidence_reliability": 0.3567971051642091,
+       "retrieval_margin": 0.2566165565889738,
+       "evidence_agreement": 0.34963271021842957,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the decision discussion about remote concepts.",
+    "gold_count": 63,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.33327812967969056,
+    "mean_reliability_nongold": 0.2996415418695968,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.015873015873015872,
+       0.029411764705882353
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0145",
+       "ES2002c_seg_0030",
+       "ES2002c_seg_0116"
+      ],
+      "components": {
+       "evidence_reliability": 0.3620864415064056,
+       "retrieval_margin": 0.15342598298300186,
+       "evidence_agreement": 0.3450544476509094,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.015873015873015872,
+       0.029411764705882353
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0030",
+       "ES2002c_seg_0025",
+       "ES2002c_seg_0145"
+      ],
+      "components": {
+       "evidence_reliability": 0.39311487482917207,
+       "retrieval_margin": 0.15342598298300186,
+       "evidence_agreement": 0.32599493861198425,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.015873015873015872,
+       0.029411764705882353
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0030",
+       "ES2002c_seg_0025",
+       "ES2002c_seg_0136"
+      ],
+      "components": {
+       "evidence_reliability": 0.4306341491754376,
+       "retrieval_margin": 0.15342598298300186,
+       "evidence_agreement": 0.3208102881908417,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.015873015873015872,
+       0.029411764705882353
+      ],
+      "top": [
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0290",
+       "ES2002c_seg_0030",
+       "ES2002c_seg_0025",
+       "ES2002c_seg_0136"
+      ],
+      "components": {
+       "evidence_reliability": 0.4306341491754376,
+       "retrieval_margin": 0.15342598298300186,
+       "evidence_agreement": 0.3208102881908417,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did the group decide not to go for an LCD when discussing the remote concepts?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 6,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.2366507654531149,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0047",
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0249",
+       "ES2002c_seg_0178",
+       "ES2002c_seg_0170"
+      ],
+      "components": {
+       "evidence_reliability": 0.23004397398657003,
+       "retrieval_margin": 0.4165443784661007,
+       "evidence_agreement": 0.3305397629737854,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0249",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0192",
+       "ES2002c_seg_0135"
+      ],
+      "components": {
+       "evidence_reliability": 0.2698970207787203,
+       "retrieval_margin": 0.4165443784661007,
+       "evidence_agreement": 0.3936936557292938,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0249",
+       "ES2002c_seg_0170",
+       "ES2002c_seg_0143",
+       "ES2002c_seg_0192"
+      ],
+      "components": {
+       "evidence_reliability": 0.29405180488963484,
+       "retrieval_margin": 0.4165443784661007,
+       "evidence_agreement": 0.31438401341438293,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0250",
+       "ES2002c_seg_0249",
+       "ES2002c_seg_0143",
+       "ES2002c_seg_0192",
+       "ES2002c_seg_0170"
+      ],
+      "components": {
+       "evidence_reliability": 0.29405180488963484,
+       "retrieval_margin": 0.4165443784661007,
+       "evidence_agreement": 0.3143840432167053,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the presentation on market trends.",
+    "gold_count": 27,
+    "retrieval_prf": [
+     0.2,
+     0.037037037037037035,
+     0.0625
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.23217975263459079,
+    "mean_reliability_nongold": 0.20062316142059286,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.037037037037037035,
+       0.0625
+      ],
+      "top": [
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0048",
+       "ES2002c_seg_0267"
+      ],
+      "components": {
+       "evidence_reliability": 0.2132618358748252,
+       "retrieval_margin": 0.34782850437593893,
+       "evidence_agreement": 0.24934649467468262,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0156"
+      ],
+      "components": {
+       "evidence_reliability": 0.2392012981442801,
+       "retrieval_margin": 0.34782850437593893,
+       "evidence_agreement": 0.27623844146728516,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0156"
+      ],
+      "components": {
+       "evidence_reliability": 0.2392012981442801,
+       "retrieval_margin": 0.34782850437593893,
+       "evidence_agreement": 0.27623847126960754,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.07407407407407407,
+       0.125
+      ],
+      "top": [
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0156"
+      ],
+      "components": {
+       "evidence_reliability": 0.2392012981442801,
+       "retrieval_margin": 0.34782850437593893,
+       "evidence_agreement": 0.27623847126960754,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of technology innovation when presenting the market trend?",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.2,
+     0.16666666666666666,
+     0.1818181818181818
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.1812361915836143,
+    "mean_reliability_nongold": 0.1983226583315584,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0245",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0182"
+      ],
+      "components": {
+       "evidence_reliability": 0.17299811675605875,
+       "retrieval_margin": 0.5258431722638378,
+       "evidence_agreement": 0.3323611617088318,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2002c_seg_0197",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0038",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.23560191010859305,
+       "retrieval_margin": 0.5258431722638378,
+       "evidence_agreement": 0.29684677720069885,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0197",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0038"
+      ],
+      "components": {
+       "evidence_reliability": 0.25511301125265184,
+       "retrieval_margin": 0.5258431722638378,
+       "evidence_agreement": 0.2531646490097046,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0197",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0038"
+      ],
+      "components": {
+       "evidence_reliability": 0.25511301125265184,
+       "retrieval_margin": 0.5258431722638378,
+       "evidence_agreement": 0.2531646490097046,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing propose lemon or lime when proposing the market trend?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.18583562801341094,
+    "mean_reliability_nongold": 0.20845949682829418,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0076",
+       "ES2002c_seg_0245",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0038"
+      ],
+      "components": {
+       "evidence_reliability": 0.179479394836402,
+       "retrieval_margin": 0.3825920520900693,
+       "evidence_agreement": 0.2985720634460449,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2002c_seg_0155",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0076",
+       "ES2002c_seg_0038"
+      ],
+      "components": {
+       "evidence_reliability": 0.238776394861026,
+       "retrieval_margin": 0.3825920520900693,
+       "evidence_agreement": 0.20494675636291504,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0155",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0076",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.25753334075416634,
+       "retrieval_margin": 0.3825920520900693,
+       "evidence_agreement": 0.21069104969501495,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0155",
+       "ES2002c_seg_0031",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0156"
+      ],
+      "components": {
+       "evidence_reliability": 0.2799290126747583,
+       "retrieval_margin": 0.3825920520900693,
+       "evidence_agreement": 0.20308184623718262,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the decision discussion about remote concepts.",
+    "gold_count": 63,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.17091835651868126,
+    "mean_reliability_nongold": 0.20020634332386408,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0125",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0167",
+       "ES2002c_seg_0016"
+      ],
+      "components": {
+       "evidence_reliability": 0.173399842207697,
+       "retrieval_margin": 0.2310527249574387,
+       "evidence_agreement": 0.3353366255760193,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0136",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0125",
+       "ES2002c_seg_0064"
+      ],
+      "components": {
+       "evidence_reliability": 0.23630627838055548,
+       "retrieval_margin": 0.2310527249574387,
+       "evidence_agreement": 0.33446624875068665,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0136",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0125"
+      ],
+      "components": {
+       "evidence_reliability": 0.23630627838055548,
+       "retrieval_margin": 0.2310527249574387,
+       "evidence_agreement": 0.33446624875068665,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0136",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0125"
+      ],
+      "components": {
+       "evidence_reliability": 0.23630627838055548,
+       "retrieval_margin": 0.2310527249574387,
+       "evidence_agreement": 0.33446624875068665,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did the group decide not to go for an LCD when discussing the remote concepts?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.1923175302054912,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0035",
+       "ES2002c_seg_0130",
+       "ES2002c_seg_0194",
+       "ES2002c_seg_0309"
+      ],
+      "components": {
+       "evidence_reliability": 0.1943149216813173,
+       "retrieval_margin": 0.33709780741387313,
+       "evidence_agreement": 0.20889973640441895,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0136",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0130",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.2681325739921919,
+       "retrieval_margin": 0.33709780741387313,
+       "evidence_agreement": 0.22379633784294128,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0136",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0130",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.2681325739921919,
+       "retrieval_margin": 0.33709780741387313,
+       "evidence_agreement": 0.2237963229417801,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002c_seg_0136",
+       "ES2002c_seg_0034",
+       "ES2002c_seg_0064",
+       "ES2002c_seg_0130",
+       "ES2002c_seg_0035"
+      ],
+      "components": {
+       "evidence_reliability": 0.2681325739921919,
+       "retrieval_margin": 0.33709780741387313,
+       "evidence_agreement": 0.2237963229417801,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ]
+ ]
+}

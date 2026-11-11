@@ -1,0 +1,2407 @@
+{
+ "meeting": "ES2003a",
+ "top_k": 5,
+ "best_beta": "0.0",
+ "conditions": [
+  {
+   "condition": "clean",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.681632291256087,
+   "retrieval_f1": 0.10867604617604616,
+   "mean_reliability_gold": 0.5780865755062228,
+   "mean_reliability_nongold": 0.5974158270701876,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.3,
+     "recall": 0.16244172494172493,
+     "f1": 0.20367364117364117
+    },
+    "0.5": {
+     "precision": 0.16666666666666666,
+     "recall": 0.08131798756798757,
+     "f1": 0.10636123136123136
+    },
+    "0.785": {
+     "precision": 0.16666666666666666,
+     "recall": 0.08131798756798757,
+     "f1": 0.10636123136123136
+    },
+    "1.0": {
+     "precision": 0.16666666666666666,
+     "recall": 0.08131798756798757,
+     "f1": 0.10636123136123136
+    }
+   }
+  },
+  {
+   "condition": "snr10",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.49395676335321,
+   "retrieval_f1": 0.083994708994709,
+   "mean_reliability_gold": 0.30340440025447263,
+   "mean_reliability_nongold": 0.38373346018021515,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.20000000000000004,
+     "recall": 0.10457135457135458,
+     "f1": 0.13513107263107263
+    },
+    "0.5": {
+     "precision": 0.13333333333333333,
+     "recall": 0.07426832426832426,
+     "f1": 0.09346440596440597
+    },
+    "0.785": {
+     "precision": 0.10000000000000002,
+     "recall": 0.05574980574980575,
+     "f1": 0.06965488215488215
+    },
+    "1.0": {
+     "precision": 0.10000000000000002,
+     "recall": 0.05574980574980575,
+     "f1": 0.06965488215488215
+    }
+   }
+  },
+  {
+   "condition": "snr5",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.42089135299557584,
+   "retrieval_f1": 0.08432539682539682,
+   "mean_reliability_gold": 0.29577692013361623,
+   "mean_reliability_nongold": 0.26855381119085775,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.13333333333333333,
+     "recall": 0.07186447811447812,
+     "f1": 0.09081890331890331
+    },
+    "0.5": {
+     "precision": 0.13333333333333333,
+     "recall": 0.07426832426832426,
+     "f1": 0.09346440596440597
+    },
+    "0.785": {
+     "precision": 0.13333333333333333,
+     "recall": 0.07426832426832426,
+     "f1": 0.09346440596440597
+    },
+    "1.0": {
+     "precision": 0.13333333333333333,
+     "recall": 0.07426832426832426,
+     "f1": 0.09346440596440597
+    }
+   }
+  },
+  {
+   "condition": "snr0",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.3387188062430647,
+   "retrieval_f1": 0.042328042328042326,
+   "mean_reliability_gold": 0.19710156947273794,
+   "mean_reliability_nongold": 0.1819237796365867,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.10000000000000002,
+     "recall": 0.044086700336700334,
+     "f1": 0.06051587301587302
+    },
+    "0.5": {
+     "precision": 0.13333333333333333,
+     "recall": 0.056907213157213164,
+     "f1": 0.07903439153439153
+    },
+    "0.785": {
+     "precision": 0.13333333333333333,
+     "recall": 0.05120920745920746,
+     "f1": 0.07374338624338624
+    },
+    "1.0": {
+     "precision": 0.10000000000000002,
+     "recall": 0.03605769230769231,
+     "f1": 0.05291005291005291
+    }
+   }
+  }
+ ],
+ "calibration": {
+  "0.0": {
+   "n": 24,
+   "positive_rate": 0.25,
+   "ece_default_weights": 0.6907020850632,
+   "ece_leave_one_out": 0.1690527304801842,
+   "brier_default": 0.6560251742765435,
+   "brier_leave_one_out": 0.2118803051840743
+  }
+ },
+ "per_query": [
+  [
+   {
+    "query": "What did the group discuss about project finance and the new remote control design?",
+    "gold_count": 16,
+    "retrieval_prf": [
+     0.2,
+     0.0625,
+     0.09523809523809523
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.598538888438033,
+    "mean_reliability_nongold": 0.6017036868192431,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.125,
+       0.19047619047619047
+      ],
+      "top": [
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0105"
+      ],
+      "components": {
+       "evidence_reliability": 0.6345793570208724,
+       "retrieval_margin": 0.33851475360968203,
+       "evidence_agreement": 0.5234044194221497,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0102"
+      ],
+      "components": {
+       "evidence_reliability": 0.683936483289535,
+       "retrieval_margin": 0.33851475360968203,
+       "evidence_agreement": 0.5385237336158752,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0102"
+      ],
+      "components": {
+       "evidence_reliability": 0.683936483289535,
+       "retrieval_margin": 0.33851475360968203,
+       "evidence_agreement": 0.5385237336158752,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0012"
+      ],
+      "components": {
+       "evidence_reliability": 0.6857929991399738,
+       "retrieval_margin": 0.33851475360968203,
+       "evidence_agreement": 0.5577467083930969,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize User Interface's opinions towards the new remote control design.",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.46415439826567617,
+    "mean_reliability_nongold": 0.5905448204340756,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0109",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0065"
+      ],
+      "components": {
+       "evidence_reliability": 0.6265821824618515,
+       "retrieval_margin": 0.25503222974384004,
+       "evidence_agreement": 0.4809567332267761,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0102"
+      ],
+      "components": {
+       "evidence_reliability": 0.6797622105679317,
+       "retrieval_margin": 0.25503222974384004,
+       "evidence_agreement": 0.5068809390068054,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6980729942898531,
+       "retrieval_margin": 0.25503222974384004,
+       "evidence_agreement": 0.48897257447242737,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6980729942898531,
+       "retrieval_margin": 0.25503222974384004,
+       "evidence_agreement": 0.48897260427474976,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Marketing's opinions towards the new remote control design.",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.2,
+     0.16666666666666666,
+     0.1818181818181818
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5588697777345584,
+    "mean_reliability_nongold": 0.5952348098671527,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.5,
+       0.5454545454545454
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0109",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0105"
+      ],
+      "components": {
+       "evidence_reliability": 0.6009454170066029,
+       "retrieval_margin": 0.32191816797683764,
+       "evidence_agreement": 0.4778524339199066,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6835953275503077,
+       "retrieval_margin": 0.32191816797683764,
+       "evidence_agreement": 0.5385237336158752,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0102"
+      ],
+      "components": {
+       "evidence_reliability": 0.6835953275503078,
+       "retrieval_margin": 0.32191816797683764,
+       "evidence_agreement": 0.5385236740112305,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0102"
+      ],
+      "components": {
+       "evidence_reliability": 0.6835953275503078,
+       "retrieval_margin": 0.32191816797683764,
+       "evidence_agreement": 0.5385236740112305,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about the keypad and ergonomic design of the new remote control?",
+    "gold_count": 13,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.6850570359407722,
+    "mean_reliability_nongold": 0.5812821902438605,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0109"
+      ],
+      "components": {
+       "evidence_reliability": 0.6279187934253547,
+       "retrieval_margin": 0.2678234448953224,
+       "evidence_agreement": 0.4809567332267761,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6982606398851428,
+       "retrieval_margin": 0.2678234448953224,
+       "evidence_agreement": 0.48897257447242737,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6982606398851429,
+       "retrieval_margin": 0.2678234448953224,
+       "evidence_agreement": 0.48897260427474976,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6982606398851429,
+       "retrieval_margin": 0.2678234448953224,
+       "evidence_agreement": 0.48897257447242737,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the special button design for game players when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.6,
+     0.2727272727272727,
+     0.37499999999999994
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5838127771520741,
+    "mean_reliability_nongold": 0.6116525101003447,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.2727272727272727,
+       0.37499999999999994
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0109",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0102"
+      ],
+      "components": {
+       "evidence_reliability": 0.6284066629053966,
+       "retrieval_margin": 0.2997750592903905,
+       "evidence_agreement": 0.5144599080085754,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.18181818181818182,
+       0.25000000000000006
+      ],
+      "top": [
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6984163544683938,
+       "retrieval_margin": 0.2997750592903905,
+       "evidence_agreement": 0.48897260427474976,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.18181818181818182,
+       0.25000000000000006
+      ],
+      "top": [
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6984163544683938,
+       "retrieval_margin": 0.2997750592903905,
+       "evidence_agreement": 0.48897260427474976,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.18181818181818182,
+       0.25000000000000006
+      ],
+      "top": [
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0103"
+      ],
+      "components": {
+       "evidence_reliability": 0.6984163544683938,
+       "retrieval_margin": 0.2997750592903905,
+       "evidence_agreement": 0.48897260427474976,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did User Interface think of a curve design when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.604076944956449,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0109",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0065"
+      ],
+      "components": {
+       "evidence_reliability": 0.6275793080841258,
+       "retrieval_margin": 0.24766817095307703,
+       "evidence_agreement": 0.48095670342445374,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6983422884908007,
+       "retrieval_margin": 0.24766817095307703,
+       "evidence_agreement": 0.48897260427474976,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6983422884908007,
+       "retrieval_margin": 0.24766817095307703,
+       "evidence_agreement": 0.48897257447242737,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0065",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.6983422884908007,
+       "retrieval_margin": 0.24766817095307703,
+       "evidence_agreement": 0.48897257447242737,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about project finance and the new remote control design?",
+    "gold_count": 16,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.2998718021101833,
+    "mean_reliability_nongold": 0.393949954865304,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0134",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.36535550904361025,
+       "retrieval_margin": 0.32337134721852123,
+       "evidence_agreement": 0.23770873248577118,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.47841761488823525,
+       "retrieval_margin": 0.32337134721852123,
+       "evidence_agreement": 0.24201150238513947,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.47841761488823525,
+       "retrieval_margin": 0.32337134721852123,
+       "evidence_agreement": 0.24201150238513947,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0018",
+       "ES2003a_seg_0066"
+      ],
+      "components": {
+       "evidence_reliability": 0.5346591522590697,
+       "retrieval_margin": 0.32337134721852123,
+       "evidence_agreement": 0.26837292313575745,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize User Interface's opinions towards the new remote control design.",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.2,
+     0.1111111111111111,
+     0.14285714285714285
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.25876973793363933,
+    "mean_reliability_nongold": 0.3898011181028909,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0086",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0074",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.2732854183739139,
+       "retrieval_margin": 0.3530830289674644,
+       "evidence_agreement": 0.3968343734741211,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0086"
+      ],
+      "components": {
+       "evidence_reliability": 0.35277016521074256,
+       "retrieval_margin": 0.3530830289674644,
+       "evidence_agreement": 0.40119966864585876,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0115"
+      ],
+      "components": {
+       "evidence_reliability": 0.48846223396746286,
+       "retrieval_margin": 0.3530830289674644,
+       "evidence_agreement": 0.30315959453582764,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.48846223396746286,
+       "retrieval_margin": 0.3530830289674644,
+       "evidence_agreement": 0.30315956473350525,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Marketing's opinions towards the new remote control design.",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3695694966309074,
+    "mean_reliability_nongold": 0.39239200881054537,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0086",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.28891314204876256,
+       "retrieval_margin": 0.3415589853970852,
+       "evidence_agreement": 0.4340469241142273,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0086"
+      ],
+      "components": {
+       "evidence_reliability": 0.3539485384869993,
+       "retrieval_margin": 0.3415589853970852,
+       "evidence_agreement": 0.40119966864585876,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0015"
+      ],
+      "components": {
+       "evidence_reliability": 0.4886944436124132,
+       "retrieval_margin": 0.3415589853970852,
+       "evidence_agreement": 0.30315953493118286,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.4886944436124132,
+       "retrieval_margin": 0.3415589853970852,
+       "evidence_agreement": 0.30315956473350525,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about the keypad and ergonomic design of the new remote control?",
+    "gold_count": 13,
+    "retrieval_prf": [
+     0.2,
+     0.07692307692307693,
+     0.1111111111111111
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3100609551601582,
+    "mean_reliability_nongold": 0.37199129772805617,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0074",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.28415455344552504,
+       "retrieval_margin": 0.4070846048508428,
+       "evidence_agreement": 0.444053590297699,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0132"
+      ],
+      "components": {
+       "evidence_reliability": 0.39402505478886707,
+       "retrieval_margin": 0.4070846048508428,
+       "evidence_agreement": 0.34857237339019775,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0015"
+      ],
+      "components": {
+       "evidence_reliability": 0.5104992075247118,
+       "retrieval_margin": 0.4070846048508428,
+       "evidence_agreement": 0.3260802626609802,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0016"
+      ],
+      "components": {
+       "evidence_reliability": 0.5104992075247118,
+       "retrieval_margin": 0.4070846048508428,
+       "evidence_agreement": 0.3260802626609802,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the special button design for game players when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.4,
+     0.18181818181818182,
+     0.25000000000000006
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.278750009437475,
+    "mean_reliability_nongold": 0.40183612542427216,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.2727272727272727,
+       0.37499999999999994
+      ],
+      "top": [
+       "ES2003a_seg_0109",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0094"
+      ],
+      "components": {
+       "evidence_reliability": 0.28997145962399423,
+       "retrieval_margin": 0.3875242940191264,
+       "evidence_agreement": 0.2764766812324524,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.4587512828687438,
+       "retrieval_margin": 0.3875242940191264,
+       "evidence_agreement": 0.27327823638916016,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0115"
+      ],
+      "components": {
+       "evidence_reliability": 0.5107970084931113,
+       "retrieval_margin": 0.3875242940191264,
+       "evidence_agreement": 0.3260802626609802,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0016",
+       "ES2003a_seg_0115"
+      ],
+      "components": {
+       "evidence_reliability": 0.5107970084931113,
+       "retrieval_margin": 0.3875242940191264,
+       "evidence_agreement": 0.3260802924633026,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did User Interface think of a curve design when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.352430256150222,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0137",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.2804387030861892,
+       "retrieval_margin": 0.3009275678517559,
+       "evidence_agreement": 0.36430153250694275,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0132",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.3667518709118551,
+       "retrieval_margin": 0.3009275678517559,
+       "evidence_agreement": 0.44363290071487427,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.49076083303135726,
+       "retrieval_margin": 0.3009275678517559,
+       "evidence_agreement": 0.30315956473350525,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.49076083303135726,
+       "retrieval_margin": 0.3009275678517559,
+       "evidence_agreement": 0.30315956473350525,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about project finance and the new remote control design?",
+    "gold_count": 16,
+    "retrieval_prf": [
+     0.2,
+     0.0625,
+     0.09523809523809523
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.14661498602309195,
+    "mean_reliability_nongold": 0.27154022310431786,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0057",
+       "ES2003a_seg_0068",
+       "ES2003a_seg_0086"
+      ],
+      "components": {
+       "evidence_reliability": 0.23991573973403976,
+       "retrieval_margin": 0.30646113928372937,
+       "evidence_agreement": 0.23976600170135498,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0057",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0116"
+      ],
+      "components": {
+       "evidence_reliability": 0.31364460423858326,
+       "retrieval_margin": 0.30646113928372937,
+       "evidence_agreement": 0.30842143297195435,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0057",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0116"
+      ],
+      "components": {
+       "evidence_reliability": 0.31364460423858326,
+       "retrieval_margin": 0.30646113928372937,
+       "evidence_agreement": 0.30842143297195435,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0040",
+       "ES2003a_seg_0057",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0116"
+      ],
+      "components": {
+       "evidence_reliability": 0.31364460423858326,
+       "retrieval_margin": 0.30646113928372937,
+       "evidence_agreement": 0.30842143297195435,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize User Interface's opinions towards the new remote control design.",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.4,
+     0.2222222222222222,
+     0.2857142857142857
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.21899831053992105,
+    "mean_reliability_nongold": 0.28938206281396706,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0084",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0068",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0087"
+      ],
+      "components": {
+       "evidence_reliability": 0.27227266300945346,
+       "retrieval_margin": 0.37789730891099477,
+       "evidence_agreement": 0.35037875175476074,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0084",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0015"
+      ],
+      "components": {
+       "evidence_reliability": 0.3857575385699881,
+       "retrieval_margin": 0.37789730891099477,
+       "evidence_agreement": 0.3120962977409363,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0084"
+      ],
+      "components": {
+       "evidence_reliability": 0.3857575385699881,
+       "retrieval_margin": 0.37789730891099477,
+       "evidence_agreement": 0.3120962977409363,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0084"
+      ],
+      "components": {
+       "evidence_reliability": 0.3857575385699882,
+       "retrieval_margin": 0.37789730891099477,
+       "evidence_agreement": 0.3120962977409363,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Marketing's opinions towards the new remote control design.",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.2942967902171805,
+    "mean_reliability_nongold": 0.28121312557345507,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0084",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0068",
+       "ES2003a_seg_0087"
+      ],
+      "components": {
+       "evidence_reliability": 0.27505368130775126,
+       "retrieval_margin": 0.31905544742645675,
+       "evidence_agreement": 0.35037878155708313,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0084",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0015"
+      ],
+      "components": {
+       "evidence_reliability": 0.39063707366495776,
+       "retrieval_margin": 0.31905544742645675,
+       "evidence_agreement": 0.3120962977409363,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0084",
+       "ES2003a_seg_0103"
+      ],
+      "components": {
+       "evidence_reliability": 0.3906370736649577,
+       "retrieval_margin": 0.31905544742645675,
+       "evidence_agreement": 0.3120962977409363,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.16666666666666666,
+       0.1818181818181818
+      ],
+      "top": [
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0015",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0084"
+      ],
+      "components": {
+       "evidence_reliability": 0.3906370736649577,
+       "retrieval_margin": 0.31905544742645675,
+       "evidence_agreement": 0.3120962977409363,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about the keypad and ergonomic design of the new remote control?",
+    "gold_count": 13,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.593620516516987,
+    "mean_reliability_nongold": 0.2360871702225331,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0087",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0035",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.21578778043789384,
+       "retrieval_margin": 0.38111931796211207,
+       "evidence_agreement": 0.2907889485359192,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0087",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0115"
+      ],
+      "components": {
+       "evidence_reliability": 0.3046026070033615,
+       "retrieval_margin": 0.38111931796211207,
+       "evidence_agreement": 0.3437601625919342,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0087"
+      ],
+      "components": {
+       "evidence_reliability": 0.30460260700336156,
+       "retrieval_margin": 0.38111931796211207,
+       "evidence_agreement": 0.3437601625919342,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0018"
+      ],
+      "components": {
+       "evidence_reliability": 0.3609160389878352,
+       "retrieval_margin": 0.38111931796211207,
+       "evidence_agreement": 0.2899039089679718,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the special button design for game players when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.2,
+     0.09090909090909091,
+     0.12500000000000003
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.22535399737090073,
+    "mean_reliability_nongold": 0.27189474021676435,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0094",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0068",
+       "ES2003a_seg_0087",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.20528384022359594,
+       "retrieval_margin": 0.33724970794693754,
+       "evidence_agreement": 0.277260422706604,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.3408831843943194,
+       "retrieval_margin": 0.33724970794693754,
+       "evidence_agreement": 0.3342117965221405,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0068"
+      ],
+      "components": {
+       "evidence_reliability": 0.3408831843943194,
+       "retrieval_margin": 0.33724970794693754,
+       "evidence_agreement": 0.3342117965221405,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0116"
+      ],
+      "components": {
+       "evidence_reliability": 0.3717928038209492,
+       "retrieval_margin": 0.33724970794693754,
+       "evidence_agreement": 0.3450090289115906,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did User Interface think of a curve design when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.26120554521410894,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0087",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0137",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.2343287927254604,
+       "retrieval_margin": 0.37625261690946427,
+       "evidence_agreement": 0.31402426958084106,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0087",
+       "ES2003a_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.2343287927254604,
+       "retrieval_margin": 0.37625261690946427,
+       "evidence_agreement": 0.31402426958084106,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.33732662487241577,
+       "retrieval_margin": 0.37625261690946427,
+       "evidence_agreement": 0.2982635796070099,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0012",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.33732662487241577,
+       "retrieval_margin": 0.37625261690946427,
+       "evidence_agreement": 0.2982635796070099,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about project finance and the new remote control design?",
+    "gold_count": 16,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.22004225148307033,
+    "mean_reliability_nongold": 0.19019482620449127,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0123",
+       "ES2003a_seg_0013",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0109"
+      ],
+      "components": {
+       "evidence_reliability": 0.19751664129686888,
+       "retrieval_margin": 0.46709207754297233,
+       "evidence_agreement": 0.20654737949371338,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0123",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0013",
+       "ES2003a_seg_0109"
+      ],
+      "components": {
+       "evidence_reliability": 0.20929616574023788,
+       "retrieval_margin": 0.46709207754297233,
+       "evidence_agreement": 0.16542892158031464,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0123",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0013",
+       "ES2003a_seg_0109"
+      ],
+      "components": {
+       "evidence_reliability": 0.20929616574023788,
+       "retrieval_margin": 0.46709207754297233,
+       "evidence_agreement": 0.16542892158031464,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.0625,
+       0.09523809523809523
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0123",
+       "ES2003a_seg_0066",
+       "ES2003a_seg_0109",
+       "ES2003a_seg_0013"
+      ],
+      "components": {
+       "evidence_reliability": 0.20929616574023788,
+       "retrieval_margin": 0.46709207754297233,
+       "evidence_agreement": 0.16542892158031464,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize User Interface's opinions towards the new remote control design.",
+    "gold_count": 9,
+    "retrieval_prf": [
+     0.2,
+     0.1111111111111111,
+     0.14285714285714285
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.1425222904810575,
+    "mean_reliability_nongold": 0.18690869370192217,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0078",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0104"
+      ],
+      "components": {
+       "evidence_reliability": 0.18789904021147563,
+       "retrieval_margin": 0.37053024913186006,
+       "evidence_agreement": 0.19675599038600922,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.1111111111111111,
+       0.14285714285714285
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0078",
+       "ES2003a_seg_0032"
+      ],
+      "components": {
+       "evidence_reliability": 0.19271250760301456,
+       "retrieval_margin": 0.37053024913186006,
+       "evidence_agreement": 0.18143996596336365,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0032"
+      ],
+      "components": {
+       "evidence_reliability": 0.2144106458696577,
+       "retrieval_margin": 0.37053024913186006,
+       "evidence_agreement": 0.17819222807884216,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0032",
+       "ES2003a_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.229737469992195,
+       "retrieval_margin": 0.37053024913186006,
+       "evidence_agreement": 0.18208260834217072,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Marketing's opinions towards the new remote control design.",
+    "gold_count": 6,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.19426614804989478,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0025",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0078",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0057"
+      ],
+      "components": {
+       "evidence_reliability": 0.21458818421516312,
+       "retrieval_margin": 0.3558125118594429,
+       "evidence_agreement": 0.20680859684944153,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0025",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0078"
+      ],
+      "components": {
+       "evidence_reliability": 0.2310178766716819,
+       "retrieval_margin": 0.3558125118594429,
+       "evidence_agreement": 0.21093249320983887,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0025",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0150"
+      ],
+      "components": {
+       "evidence_reliability": 0.2538701031846222,
+       "retrieval_margin": 0.3558125118594429,
+       "evidence_agreement": 0.21713384985923767,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0025",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.27070351240676466,
+       "retrieval_margin": 0.3558125118594429,
+       "evidence_agreement": 0.18821686506271362,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about the keypad and ergonomic design of the new remote control?",
+    "gold_count": 13,
+    "retrieval_prf": [
+     0.2,
+     0.07692307692307693,
+     0.1111111111111111
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.2530668162935386,
+    "mean_reliability_nongold": 0.15987577268087325,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0067",
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0104",
+       "ES2003a_seg_0065"
+      ],
+      "components": {
+       "evidence_reliability": 0.1926042178527365,
+       "retrieval_margin": 0.3828781768387643,
+       "evidence_agreement": 0.18255019187927246,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.07692307692307693,
+       0.1111111111111111
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0067",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0090"
+      ],
+      "components": {
+       "evidence_reliability": 0.22620250702600564,
+       "retrieval_margin": 0.3828781768387643,
+       "evidence_agreement": 0.1455601006746292,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.15384615384615385,
+       0.2222222222222222
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0090",
+       "ES2003a_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.23492270704003654,
+       "retrieval_margin": 0.3828781768387643,
+       "evidence_agreement": 0.1756177693605423,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.15384615384615385,
+       0.2222222222222222
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0090",
+       "ES2003a_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.23492270704003654,
+       "retrieval_margin": 0.3828781768387643,
+       "evidence_agreement": 0.1756177693605423,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the special button design for game players when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.1438712696733103,
+    "mean_reliability_nongold": 0.183964006364341,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0085",
+       "ES2003a_seg_0078",
+       "ES2003a_seg_0116"
+      ],
+      "components": {
+       "evidence_reliability": 0.15614514743251418,
+       "retrieval_margin": 0.5171692020284376,
+       "evidence_agreement": 0.16199593245983124,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0103",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0078"
+      ],
+      "components": {
+       "evidence_reliability": 0.1788765341898893,
+       "retrieval_margin": 0.5171692020284376,
+       "evidence_agreement": 0.19174356758594513,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.09090909090909091,
+       0.12500000000000003
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0150",
+       "ES2003a_seg_0103"
+      ],
+      "components": {
+       "evidence_reliability": 0.19854573887846647,
+       "retrieval_margin": 0.5171692020284376,
+       "evidence_agreement": 0.19729670882225037,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0090",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.23524032611950088,
+       "retrieval_margin": 0.5171692020284376,
+       "evidence_agreement": 0.1756177693605423,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did User Interface think of a curve design when discussing keypad and ergonomic design of the new remote control?",
+    "gold_count": 4,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.22600521943271293,
+    "mean_reliability_nongold": 0.1763332308179977,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0137",
+       "ES2003a_seg_0078",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0024",
+       "ES2003a_seg_0067"
+      ],
+      "components": {
+       "evidence_reliability": 0.18094197171733303,
+       "retrieval_margin": 0.4736375303320749,
+       "evidence_agreement": 0.17287366092205048,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0137",
+       "ES2003a_seg_0024",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0078"
+      ],
+      "components": {
+       "evidence_reliability": 0.19347389941441492,
+       "retrieval_margin": 0.4736375303320749,
+       "evidence_agreement": 0.18186621367931366,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0024",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.2149471812258634,
+       "retrieval_margin": 0.4736375303320749,
+       "evidence_agreement": 0.18025168776512146,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003a_seg_0102",
+       "ES2003a_seg_0115",
+       "ES2003a_seg_0024",
+       "ES2003a_seg_0116",
+       "ES2003a_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.21494718122586345,
+       "retrieval_margin": 0.4736375303320749,
+       "evidence_agreement": 0.18025168776512146,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ]
+ ]
+}
