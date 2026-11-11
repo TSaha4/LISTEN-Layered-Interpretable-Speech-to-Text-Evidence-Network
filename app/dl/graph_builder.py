@@ -9,6 +9,14 @@ Graph structure (adapted from HGN §3.1 for spoken meeting segments):
   - Edge type 1: segment ↔ segment if they share ≥1 entity
   - Edge type 2: segment ↔ segment if cosine similarity > threshold
 
+Uncertainty-aware extension (LISTEN-U):
+  - Every segment node carries a reliability value fused from word-level ASR
+    confidence and speaker-hesitation cues (see ``app.slp.uncertainty``).
+  - Entity edges are *gated* by the ASR confidence of the shared entity's
+    words: an entity the recogniser barely heard cannot bridge two segments.
+  - Every edge carries a confidence equal to the weaker of its endpoints
+    (and, for entity edges, the shared-entity confidence).
+
 This is a simplified version of HGN's 4-level hierarchy (Q → P → S → E),
 collapsed to a flat segment graph because spoken transcript segments are
 already atomic utterances (unlike multi-sentence Wikipedia paragraphs).
@@ -24,6 +32,7 @@ from torch_geometric.data import Data
 
 from app import config
 from app.models.schemas import SLPSegment
+from app.slp.uncertainty import entity_confidence, evidence_reliability
 
 
 class EvidenceGraphBuilder:
@@ -74,87 +83,99 @@ class EvidenceGraphBuilder:
         ])
         x = torch.tensor(node_features, dtype=torch.float32)
 
+        # ── Node reliability (question node is trusted by definition) ──
+        reliabilities = [1.0] + [evidence_reliability(seg) for seg in segments]
+
         # ── Build edges ──
         edge_sources = []
         edge_targets = []
         edge_types = []
-        edge_relations = []  # Human-readable edge descriptions
+        edge_relations = []   # Human-readable edge descriptions
+        edge_confidences = []  # Per-edge confidence in [0, 1]
+        gated_entity_edges = 0  # entity links rejected for low ASR confidence
+
+        def _add_edge(src: int, tgt: int, etype: int, relation: str, conf: float) -> None:
+            """Append a bidirectional edge with shared confidence."""
+            edge_sources.extend([src, tgt])
+            edge_targets.extend([tgt, src])
+            edge_types.extend([etype, etype])
+            edge_relations.extend([relation, relation])
+            edge_confidences.extend([conf, conf])
 
         # Type 0: Question ↔ every segment (bidirectional)
         for i in range(num_segments):
             seg_node = i + 1  # offset by 1 (node 0 = question)
+            _add_edge(0, seg_node, 0, "question_link", reliabilities[seg_node])
 
-            # Question → segment
-            edge_sources.append(0)
-            edge_targets.append(seg_node)
-            edge_types.append(0)
-            edge_relations.append("question_link")
-
-            # Segment → question
-            edge_sources.append(seg_node)
-            edge_targets.append(0)
-            edge_types.append(0)
-            edge_relations.append("question_link")
-
-        # Type 1: Segment ↔ segment via shared entities
+        # Type 1: Segment ↔ segment via shared entities, gated by how well
+        # the ASR actually heard the entity in *both* segments.
         for i in range(num_segments):
-            entities_i = set(e.lower() for e in segments[i].entities)
+            entities_i = {e.lower(): e for e in segments[i].entities}
             if not entities_i:
                 continue
 
             for j in range(i + 1, num_segments):
-                entities_j = set(e.lower() for e in segments[j].entities)
-                shared = entities_i & entities_j
+                entities_j = {e.lower(): e for e in segments[j].entities}
+                shared = set(entities_i) & set(entities_j)
+                if not shared:
+                    continue
 
-                if len(shared) >= self.min_shared_entities:
+                trusted: dict[str, float] = {}
+                for key in shared:
+                    conf = min(
+                        entity_confidence(segments[i], entities_i[key]),
+                        entity_confidence(segments[j], entities_j[key]),
+                    )
+                    if conf >= config.ENTITY_EDGE_MIN_CONFIDENCE:
+                        trusted[key] = conf
+
+                if len(shared) >= self.min_shared_entities and len(trusted) < self.min_shared_entities:
+                    gated_entity_edges += 1
+
+                if len(trusted) >= self.min_shared_entities:
                     node_i = i + 1
                     node_j = j + 1
-                    shared_str = ";".join(sorted(shared))
-
-                    # Bidirectional
-                    edge_sources.extend([node_i, node_j])
-                    edge_targets.extend([node_j, node_i])
-                    edge_types.extend([1, 1])
-                    edge_relations.extend([
-                        f"shared_entity:{shared_str}",
-                        f"shared_entity:{shared_str}",
-                    ])
+                    shared_str = ";".join(sorted(trusted))
+                    # Edge is only as trustworthy as its weakest endpoint and
+                    # its best-heard shared entity.
+                    conf = min(
+                        reliabilities[node_i],
+                        reliabilities[node_j],
+                        max(trusted.values()),
+                    )
+                    _add_edge(node_i, node_j, 1, f"shared_entity:{shared_str}", conf)
 
         # Type 2: Segment ↔ segment via cosine similarity
         if num_segments > 1:
             # Compute pairwise cosine similarity (embeddings are L2-normalized)
             sim_matrix = segment_embeddings @ segment_embeddings.T
+            existing_pairs = {
+                (min(s, t), max(s, t))
+                for s, t, et in zip(edge_sources, edge_targets, edge_types)
+                if et == 1
+            }
 
             for i in range(num_segments):
                 for j in range(i + 1, num_segments):
                     if sim_matrix[i, j] > self.sim_threshold:
                         node_i = i + 1
                         node_j = j + 1
-
                         # Don't add duplicate edge if already connected by entity
-                        pair_key = (min(node_i, node_j), max(node_i, node_j))
-                        existing_pairs = set()
-                        for s, t, et in zip(edge_sources, edge_targets, edge_types):
-                            if et == 1:
-                                existing_pairs.add((min(s, t), max(s, t)))
-
-                        if pair_key not in existing_pairs:
-                            edge_sources.extend([node_i, node_j])
-                            edge_targets.extend([node_j, node_i])
-                            edge_types.extend([2, 2])
-                            edge_relations.extend([
-                                "semantic_similarity",
-                                "semantic_similarity",
-                            ])
+                        if (node_i, node_j) in existing_pairs:
+                            continue
+                        conf = min(reliabilities[node_i], reliabilities[node_j])
+                        _add_edge(node_i, node_j, 2, "semantic_similarity", conf)
 
         # ── Assemble PyG Data ──
         if edge_sources:
             edge_index = torch.tensor([edge_sources, edge_targets], dtype=torch.long)
             edge_type = torch.tensor(edge_types, dtype=torch.long)
+            edge_confidence = torch.tensor(edge_confidences, dtype=torch.float32)
         else:
             # Fallback: no edges (isolated nodes). Add self-loops to avoid empty graph.
             edge_index = torch.zeros((2, 0), dtype=torch.long)
             edge_type = torch.zeros(0, dtype=torch.long)
+            edge_confidence = torch.zeros(0, dtype=torch.float32)
 
         data = Data(
             x=x,
@@ -162,6 +183,8 @@ class EvidenceGraphBuilder:
             edge_type=edge_type,
             num_nodes=num_nodes,
         )
+        data.node_reliability = torch.tensor(reliabilities, dtype=torch.float32)
+        data.edge_confidence = edge_confidence
 
         # ── Metadata for later use (XAI, visualization) ──
         node_id_map = {0: "__question__"}
@@ -171,9 +194,12 @@ class EvidenceGraphBuilder:
         metadata = {
             "node_id_map": node_id_map,           # node_index → segment_id
             "edge_relations": edge_relations,      # per-edge human-readable relation
+            "edge_confidences": edge_confidences,  # per-edge confidence
+            "node_reliability": {node_id_map[i]: r for i, r in enumerate(reliabilities)},
             "num_question_edges": num_segments * 2,
             "num_entity_edges": edge_types.count(1) if edge_types else 0,
             "num_similarity_edges": edge_types.count(2) if edge_types else 0,
+            "gated_entity_edges": gated_entity_edges,
         }
 
         return data, metadata

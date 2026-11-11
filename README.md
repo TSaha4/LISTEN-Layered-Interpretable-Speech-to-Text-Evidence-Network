@@ -12,6 +12,18 @@ LISTEN is an end-to-end system that takes raw audio/video recordings of meetings
 4. **Phase 3 (Answer Generation)**: Sends the top-weighted segments to a multi-provider LLM (Gemini/OpenAI/Groq) to generate a concise natural-language answer.
 5. **XAI**: Computes SHAP values over the evidence segments, determining exactly which words were most influential in the model's retrieval.
 
+### Uncertainty-aware extension (LISTEN-U)
+
+Speech is not text: the recogniser can mishear, and speakers can hedge. LISTEN-U measures both at the **word** level and carries them all the way to the answer:
+
+- **Word confidence + hesitation cues** (`app/slp/uncertainty.py`): per-word ASR probability, fillers, hedges, long pauses and repetitions fuse into a per-segment *reliability*.
+- **Uncertainty-gated graph** (`app/dl/graph_builder.py`): an entity can only link two segments if the ASR actually heard it in both; every edge carries a confidence.
+- **Reliability gate on the GAT** (`app/dl/gat_model.py::ReliabilityGate`): node/edge scores are multiplied by `reliability^β`; raw and gated scores are both returned.
+- **Calibrated answer reliability** (`app/xai/reliability.py`): a probability-like score from evidence reliability, retrieval margin, evidence agreement and the grounding verdict, plus the exact low-confidence words the answer leans on (shown with timestamps in the UI).
+- **Cross-meeting commitment graph** (`app/commitments/`): decisions and promises are extracted with provenance; a later conflicting statement supersedes an earlier one unless it was heard far less reliably. `GET /api/v1/commitments/timeline?topic=...` answers "what is the current decision on X and when did it change?".
+
+See [documents/invention_disclosure.md](documents/invention_disclosure.md) for the full write-up and draft claims.
+
 ## Setup & Installation
 
 **Prerequisites**: Python 3.10, 3.11, or 3.12 is required (PyTorch 2.5 does not fully support Python 3.13+ yet).

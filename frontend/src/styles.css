@@ -1677,3 +1677,51 @@ footer span {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Reliability & commitments (LISTEN-U) ─────────────────────────────── */
+.reliability-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  border: 1px solid currentColor; cursor: help; white-space: pre-line;
+}
+.reliability-pill.high { color: #1b5e20; background: #b8eccd; }
+.reliability-pill.medium { color: #7a5200; background: #ffe585; }
+.reliability-pill.low { color: #8a1c0c; background: #ffc3b9; }
+
+.reliability-warning {
+  margin: 12px 0 0; padding: 12px 14px; border-radius: 12px;
+  background: #fff3e0; border: 1px dashed #ff9800; font-size: 0.9rem;
+}
+.reliability-warning ul { margin: 6px 0 0 18px; padding: 0; }
+.reliability-warning li { margin: 2px 0; }
+
+.rel-chip {
+  display: inline-block; padding: 1px 8px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 600; margin-left: 8px;
+}
+.rel-chip.high { background: #b8eccd; color: #1b5e20; }
+.rel-chip.mid { background: #ffe585; color: #7a5200; }
+.rel-chip.low { background: #ffc3b9; color: #8a1c0c; }
+
+.commitments-panel { margin-top: 24px; }
+.commitment-form { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+.commitment-form input {
+  flex: 1 1 240px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.18); font: inherit;
+}
+.timeline-current { margin: 8px 0 12px; }
+.timeline-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.timeline-list.compact { margin-top: 8px; }
+.timeline-item {
+  padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.6);
+}
+.timeline-item.superseded { opacity: 0.6; }
+.timeline-item p { margin: 6px 0 0; }
+.timeline-meta { display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.75rem; opacity: 0.8; }
+.status-tag, .relation-tag {
+  padding: 0 8px; border-radius: 999px; font-weight: 600; text-transform: uppercase; font-size: 0.68rem;
+}
+.status-tag.active { background: #b8eccd; color: #1b5e20; }
+.status-tag.superseded { background: #e0e0e0; color: #555; text-decoration: line-through; }
+.relation-tag { background: #e3f2fd; color: #0d47a1; }

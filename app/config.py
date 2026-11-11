@@ -35,6 +35,20 @@ WHISPER_COMPUTE_TYPE: str = "int8"
 SPACY_MODEL: str = "en_core_web_sm"
 FFMPEG_AUDIO_CODEC: str = "pcm_s16le"
 FFMPEG_SAMPLE_RATE: int = 16000
+WHISPER_WORD_TIMESTAMPS: bool = True
+
+# Uncertainty cues (word-level ASR confidence + speaker hesitation)
+HESITATION_PAUSE_SECONDS: float = 0.6
+HESITATION_FILLER_WEIGHT: float = 0.25
+HESITATION_HEDGE_WEIGHT: float = 0.20
+HESITATION_PAUSE_WEIGHT: float = 0.15
+HESITATION_REPEAT_WEIGHT: float = 0.15
+LOW_CONFIDENCE_WORD_THRESHOLD: float = 0.55
+
+# Evidence reliability fusion
+RELIABILITY_MEAN_CONF_WEIGHT: float = 0.7   # rest goes to min word confidence
+RELIABILITY_HESITATION_PENALTY: float = 0.5
+RELIABILITY_FLOOR: float = 0.05
 
 # ---------------------------------------------------------------------------
 # DL — Embeddings & retrieval (Person B)
@@ -68,6 +82,12 @@ GAT_TOP_EVIDENCE_K: int = 5
 
 GAT_CHECKPOINT_NAME: str = "gat_qmsum.pt"
 
+# Uncertainty-aware graph & scoring
+ENTITY_EDGE_MIN_CONFIDENCE: float = 0.40  # gate entity edges on ASR confidence
+GAT_RELIABILITY_GATING: bool = True
+RELIABILITY_GATE_BETA: float = 1.0        # node score *= reliability ** beta
+EDGE_CONFIDENCE_GATE_BETA: float = 0.5    # edge score *= confidence ** beta
+
 # ---------------------------------------------------------------------------
 # LLM — Multi-Provider Answer Generation
 # ---------------------------------------------------------------------------
@@ -94,6 +114,19 @@ LLM_TEMPERATURE: float = 0.2
 # ---------------------------------------------------------------------------
 SHAP_MAX_EVALS: int = 50
 SHAP_BACKGROUND_SAMPLES: int = 20
+
+# Answer reliability
+RELIABILITY_CALIBRATION_PATH: Path = CHECKPOINT_DIR / "reliability_calibration.json"
+RELIABILITY_HIGH_THRESHOLD: float = 0.75
+RELIABILITY_MEDIUM_THRESHOLD: float = 0.45
+MAX_UNCERTAIN_WORDS: int = 12
+
+# ---------------------------------------------------------------------------
+# Commitments (cross-meeting decision tracking)
+# ---------------------------------------------------------------------------
+COMMITMENT_GRAPH_PATH: Path = DATA_DIR / "commitments" / "graph.json"
+COMMITMENT_TOPIC_SIMILARITY: float = 0.60   # cosine for "same topic"
+COMMITMENT_MIN_RELIABILITY: float = 0.20    # ignore barely-heard statements
 
 # ---------------------------------------------------------------------------
 # API
