@@ -18,6 +18,7 @@ from app.models.schemas import (
 )
 from app.services.meeting_store import get_meeting_store
 from app.xai.counterfactual import run_counterfactual
+from app.xai.reliability import score_answer
 from app.xai.shap_explainer import explain_retrieval
 
 
@@ -90,6 +91,20 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
     shap_highlights = explain_retrieval(question, retrieval, segments_by_id) if answer_result.supported else {}
     shap_ms = round((time.perf_counter() - t0_shap) * 1000, 2)
 
+    # 6. Answer reliability: calibrated score + the shaky words it leans on.
+    context_embeddings = np.array([
+        index.get_embedding(sid) for sid in answer_context_ids if index.get_embedding(sid) is not None
+    ]) if answer_context_ids else None
+    reliability = score_answer(
+        gat_output,
+        retrieval,
+        segments_by_id,
+        answer_context_ids,
+        supported=answer_result.supported,
+        shap_highlights=shap_highlights,
+        context_embeddings=context_embeddings,
+    )
+
     # Prepare audio references for the frontend (as list with segment_id embedded)
     audio_refs = [
         AudioRef(
@@ -136,6 +151,17 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
         }
     else:
         edge_counts_by_type = {"question_link": 0, "shared_entity": 0, "semantic_similarity": 0}
+    reliability_shifts = [
+        {
+            "segment_id": sid,
+            "raw_score": round(float(gat_output.raw_node_scores.get(sid, 0.0)), 4),
+            "gated_score": round(gat_scores[sid], 4),
+            "reliability": round(float(gat_output.node_reliability.get(sid, 1.0)), 4),
+            "asr_confidence": round(float(segments_by_id[sid].asr_confidence), 4),
+            "hesitation_score": round(float(segments_by_id[sid].hesitation_score), 4),
+        }
+        for sid in candidate_ids
+    ]
 
     # Gold evidence overlay: only if aligned labels exist and query matches
     gold_segment_ids = None
@@ -167,6 +193,8 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
         "node_count": int(data.num_nodes),
         "edge_count": int(data.edge_index.size(1)),
         "edge_counts_by_type": edge_counts_by_type,
+        "gated_entity_edges": int(metadata.get("gated_entity_edges", 0)),
+        "reliability_shifts": reliability_shifts,
         "context_segment_ids": answer_context_ids,
         "stage_latency_ms": {
             "retrieval_ms": retrieval_ms,
@@ -185,6 +213,7 @@ def run_query_pipeline(meeting_id: str, question: str) -> QueryResponse:
         gat_output=gat_output,  # Changed from evidence_graph
         shap_highlights=shap_highlights,
         audio_refs=audio_refs,
+        reliability=reliability,
         trace=trace,
     )
 

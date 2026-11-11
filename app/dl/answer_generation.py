@@ -33,7 +33,17 @@ def _build_evidence_context(
         if segment is None:
             continue
         score = gat_output.node_scores.get(segment_id, 0.0)
-        lines.append(f"[{rank}] (score={score:.3f}, t={segment.start_time:.1f}-{segment.end_time:.1f}s) {segment.text}")
+        reliability = gat_output.node_reliability.get(segment_id, 1.0)
+        flags = []
+        if segment.asr_confidence < 0.7:
+            flags.append("transcription uncertain")
+        if segment.hesitation_score >= 0.3:
+            flags.append("speaker hesitant")
+        flag_str = f", {'; '.join(flags)}" if flags else ""
+        lines.append(
+            f"[{rank}] (score={score:.3f}, reliability={reliability:.2f}{flag_str}, "
+            f"t={segment.start_time:.1f}-{segment.end_time:.1f}s) {segment.text}"
+        )
     return "\n".join(lines)
 
 
@@ -61,7 +71,10 @@ def generate_answer_result(
         "evidence segments. Decide whether they actually answer the question; relevant-sounding "
         "words alone are not enough. Return JSON only with exactly these fields: "
         "{\"answer\": string, \"supported\": boolean}. If unsupported, set supported to false and "
-        "write a short message saying the meeting transcript does not contain the answer.\n\n"
+        "write a short message saying the meeting transcript does not contain the answer. "
+        "Each segment carries a reliability value and flags: prefer high-reliability segments, "
+        "and if the answer depends mainly on a segment marked 'transcription uncertain' or "
+        "'speaker hesitant', say so explicitly in the answer.\n\n"
         f"Question: {question}\n\nEvidence segments:\n{evidence}\n\n"
         "When supported is true, provide a concise factual answer and cite the supporting segment numbers."
     )

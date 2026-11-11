@@ -191,6 +191,19 @@ async def upload_meeting(file: UploadFile = File(...)) -> UploadResponse:
     stage_timings["embed_index_s"] = embed_index_s
     stage_timings["total_s"] = round(time.perf_counter() - t_start, 3)
 
+    # Commitments: extract decisions/promises and merge into the cross-meeting graph.
+    t0_commit = time.perf_counter()
+    record.metadata["meeting_time"] = time.time()
+    try:
+        from app.api.commitments import index_meeting_commitments
+
+        get_meeting_store()._meeting_path(meeting_id).write_text(record.model_dump_json(indent=2), encoding="utf-8")
+        indexed = index_meeting_commitments(meeting_id, record.metadata["meeting_time"])
+        record.metadata["commitment_count"] = len(indexed.commitments)
+    except Exception as exc:  # commitment tracking must never block upload
+        record.metadata["commitment_error"] = str(exc)
+    stage_timings["commitments_s"] = round(time.perf_counter() - t0_commit, 3)
+
     # Persist updated stage_timings in record
     record.metadata["stage_timings"] = stage_timings
     get_meeting_store()._meeting_path(meeting_id).write_text(

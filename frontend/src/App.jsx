@@ -403,6 +403,16 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
             <span className="answer-title">Synthesized Answer</span>
           </div>
           <div className="answer-header-actions">
+            {result.reliability && (
+              <span
+                className={`reliability-pill ${result.reliability.level}`}
+                title={Object.entries(result.reliability.components ?? {})
+                  .map(([k, v]) => `${k}: ${Number(v).toFixed(2)}`)
+                  .join("\n")}
+              >
+                Reliability {Math.round(result.reliability.score * 100)}% · {result.reliability.level}
+              </span>
+            )}
             <span className="evidence-pill">
               <span className="evidence-dot" />
               {topIds.length ? `${topIds.length} Evidence Sources` : "Ground Truth"}
@@ -423,10 +433,27 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
           <p className="answer-text">{result.answer}</p>
         </div>
 
+        {result.reliability?.warning && (
+          <div className="reliability-warning">
+            <strong>{result.reliability.warning}</strong>
+            <ul>
+              {result.reliability.uncertain_words
+                .filter((w) => w.shap_influence > 0)
+                .map((w) => (
+                  <li key={`${w.segment_id}-${w.start}`}>
+                    “{w.word}” heard at {Math.round(w.asr_probability * 100)}% confidence
+                    ({formatTime(w.start)}, influence {w.shap_influence.toFixed(2)})
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
+
         <div className="answer-footer">
           <div className="answer-badges">
             <span className="answer-tag">GAT Attention Graph</span>
             <span className="answer-tag">SHAP Token Attributed</span>
+            <span className="answer-tag">Reliability Gated</span>
           </div>
           <a href="#evidence-details" className="answer-jump-link">
             Inspect Evidence Trail ↓
@@ -485,6 +512,7 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
                 const ref = refs.get(id);
                 const words = result.shap_highlights?.[id] ?? [];
                 const score = result.gat_output?.node_scores?.[id] ?? 0;
+                const reliability = result.gat_output?.node_reliability?.[id];
                 return (
                   <article className="evidence-card" key={id}>
                     <div className="evidence-number">0{index + 1}</div>
@@ -492,6 +520,11 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
                       <div className="evidence-meta">
                         <span>{formatTime(ref?.start_time ?? 0)} – {formatTime(ref?.end_time ?? 0)}</span>
                         <span>GAT {Math.round(score * 100)}%</span>
+                        {typeof reliability === "number" && (
+                          <span className={`rel-chip ${reliability < 0.5 ? "low" : reliability < 0.8 ? "mid" : "high"}`}>
+                            heard {Math.round(reliability * 100)}%
+                          </span>
+                        )}
                       </div>
                       <EvidenceText words={words} fallback={ref?.text} />
                       {ref && <audio controls preload="metadata" src={`${API_ORIGIN}${ref.url}`} />}
@@ -504,6 +537,107 @@ function Results({ result, onCounterfactual, counterfactual, busy }) {
         </div>
       )}
     </>
+  );
+}
+
+function CommitmentsPanel({ meeting }) {
+  const [topic, setTopic] = useState("");
+  const [timeline, setTimeline] = useState(null);
+  const [mine, setMine] = useState([]);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (!meeting?.meeting_id) return;
+    fetch(`${API_BASE}/commitments/meeting/${meeting.meeting_id}`)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((list) => Array.isArray(list) && setMine(list))
+      .catch(() => {});
+  }, [meeting?.meeting_id]);
+
+  const search = async (event) => {
+    event.preventDefault();
+    if (!topic.trim()) return;
+    setBusy(true);
+    try {
+      const response = await fetch(`${API_BASE}/commitments/timeline?topic=${encodeURIComponent(topic)}`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.detail || "Lookup failed");
+      setTimeline(data);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const relationFor = (c) =>
+    timeline?.edges?.find((e) => e.source === c.commitment_id)?.relation;
+
+  return (
+    <section className="panel commitments-panel">
+      <div className="section-heading">
+        <div>
+          <div className="panel-kicker"><span>CMT</span> Commitment graph</div>
+          <h2>What was decided, and when it changed.</h2>
+        </div>
+        <span className="badge">{mine.length} in this meeting</span>
+      </div>
+      <form className="commitment-form" onSubmit={search}>
+        <input
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder="Topic, e.g. launch date, vendor, budget"
+        />
+        <button className="outline-button" type="submit" disabled={busy}>
+          {busy ? "Searching…" : "Trace decision"}<Icon>→</Icon>
+        </button>
+      </form>
+
+      {timeline && (
+        <div className="timeline">
+          {timeline.current ? (
+            <p className="timeline-current">
+              <strong>Current:</strong> {timeline.current.text}
+              <span className={`rel-chip ${timeline.reliability < 0.5 ? "low" : timeline.reliability < 0.8 ? "mid" : "high"}`}>
+                heard {Math.round(timeline.reliability * 100)}%
+              </span>
+            </p>
+          ) : (
+            <p className="muted">No active commitment found for “{timeline.topic}”.</p>
+          )}
+          <ol className="timeline-list">
+            {timeline.history.map((c) => (
+              <li key={c.commitment_id} className={`timeline-item ${c.status}`}>
+                <div className="timeline-meta">
+                  <span>{new Date(c.meeting_time * 1000).toLocaleDateString()}</span>
+                  <span>{c.kind}</span>
+                  {c.owner && <span>{c.owner}</span>}
+                  <span className={`status-tag ${c.status}`}>{c.status}</span>
+                  {relationFor(c) && <span className="relation-tag">{relationFor(c)}</span>}
+                </div>
+                <p>{c.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      {!timeline && mine.length > 0 && (
+        <ul className="timeline-list compact">
+          {mine.map((c) => (
+            <li key={c.commitment_id} className={`timeline-item ${c.status}`}>
+              <div className="timeline-meta">
+                <span>{formatTime(c.offset_s)}</span>
+                <span>{c.kind}</span>
+                {c.owner && <span>{c.owner}</span>}
+                <span className={`status-tag ${c.status}`}>{c.status}</span>
+              </div>
+              <p>{c.text}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
@@ -654,6 +788,7 @@ export default function App() {
           </div>
 
           {meeting && <TranscriptPanel meeting={meeting} />}
+          {meeting && <CommitmentsPanel meeting={meeting} />}
 
           {state.mode === "query" && (
             <div className="loading-line">

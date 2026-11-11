@@ -51,6 +51,28 @@ class EvidenceGAT(nn.Module):
         return node_logits, edge_logits
 
 
+class ReliabilityGate(nn.Module):
+    """Multiplicative gate that folds evidence reliability into GAT scores.
+
+    ``score' = score * reliability ** beta``. ``beta`` is a parameter so the
+    gate can be fine-tuned end-to-end; at ``beta = 0`` the gate is the
+    identity, which makes the pretrained checkpoint a strict special case.
+    """
+
+    def __init__(self, node_beta: float | None = None, edge_beta: float | None = None) -> None:
+        super().__init__()
+        self.node_beta = nn.Parameter(torch.tensor(float(node_beta if node_beta is not None else config.RELIABILITY_GATE_BETA)))
+        self.edge_beta = nn.Parameter(torch.tensor(float(edge_beta if edge_beta is not None else config.EDGE_CONFIDENCE_GATE_BETA)))
+
+    def forward(self, node_probs: Tensor, node_reliability: Tensor, edge_probs: Tensor, edge_confidence: Tensor) -> tuple[Tensor, Tensor]:
+        """Gate sigmoid probabilities by reliability / confidence."""
+        gated_nodes = node_probs * node_reliability.clamp(min=1e-4) ** self.node_beta.clamp(min=0.0)
+        if edge_probs.numel() == 0:
+            return gated_nodes, edge_probs
+        gated_edges = edge_probs * edge_confidence.clamp(min=1e-4) ** self.edge_beta.clamp(min=0.0)
+        return gated_nodes, gated_edges
+
+
 def evidence_graph_to_pyg(graph: EvidenceGraph, device: torch.device | None = None) -> Data:
     """Convert an evidence graph schema object to a PyG graph."""
     device = device or torch.device("cpu")
