@@ -15,7 +15,8 @@ load_dotenv()
 # Paths
 # ---------------------------------------------------------------------------
 PROJECT_ROOT: Path = Path(__file__).resolve().parent.parent
-DATA_DIR: Path = PROJECT_ROOT / "data"
+# LISTEN_DATA_DIR lets worktrees / CI point at a shared data folder.
+DATA_DIR: Path = Path(os.environ.get("LISTEN_DATA_DIR", str(PROJECT_ROOT / "data"))).resolve()
 UPLOAD_DIR: Path = DATA_DIR / "uploads"
 AUDIO_DIR: Path = DATA_DIR / "audio"
 INDEX_DIR: Path = DATA_DIR / "indices"
@@ -127,6 +128,7 @@ MAX_UNCERTAIN_WORDS: int = 12
 COMMITMENT_GRAPH_PATH: Path = DATA_DIR / "commitments" / "graph.json"
 COMMITMENT_TOPIC_SIMILARITY: float = 0.60   # cosine for "same topic"
 COMMITMENT_MIN_RELIABILITY: float = 0.20    # ignore barely-heard statements
+COMMITMENT_RELIABILITY_MARGIN: float = 0.25 # later wins unless this much less reliable
 
 # ---------------------------------------------------------------------------
 # API

@@ -210,8 +210,8 @@ class Commitment(BaseModel):
     meeting_time: float               # epoch seconds of the meeting
     offset_s: float                   # seconds into the meeting
     reliability: float = 1.0          # from the source segment
-    status: str = "active"            # "active" | "superseded"
-    superseded_by: str | None = None
+    status: str = "active"            # "active" | "superseded" | "merged" | "disputed"
+    superseded_by: str | None = None  # the record this one resolved into
 
 
 class CommitmentEdge(BaseModel):

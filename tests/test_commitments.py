@@ -75,12 +75,17 @@ class TestGraph:
         edges = graph.add(_c("b", "m2", 200.0, "still launch Friday", values=["Friday"]))
         assert edges[0].relation == "reaffirms"
         assert graph.nodes["a"].status == "active"
+        assert graph.nodes["b"].status == "merged"
+        assert graph.nodes["b"].superseded_by == "a"
 
     def test_unreliable_later_statement_only_disputes(self, graph: CommitmentGraph) -> None:
         graph.add(_c("a", "m1", 100.0, "launch Friday", values=["Friday"], rel=0.95))
         edges = graph.add(_c("b", "m2", 200.0, "um maybe Monday", values=["Monday"], rel=0.3))
         assert edges[0].relation == "disputes"
         assert graph.nodes["a"].status == "active"
+        assert graph.nodes["b"].status == "disputed"
+        tl = graph.timeline("launch")
+        assert tl.current is not None and tl.current.commitment_id == "a"
 
     def test_out_of_order_insert_respects_time(self, graph: CommitmentGraph) -> None:
         graph.add(_c("b", "m2", 200.0, "launch Monday", values=["Monday"]))

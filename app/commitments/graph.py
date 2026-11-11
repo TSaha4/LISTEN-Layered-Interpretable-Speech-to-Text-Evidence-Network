@@ -27,6 +27,10 @@ from app.dl.embeddings import embed_texts
 from app.models.schemas import Commitment, CommitmentEdge, CommitmentTimeline
 
 
+# Module-level so evaluation scripts can switch the uncertainty rule off.
+RELIABILITY_MARGIN: float = config.COMMITMENT_RELIABILITY_MARGIN
+
+
 def _norm_set(items: list[str]) -> set[str]:
     return {i.lower().strip() for i in items if i and i.strip()}
 
@@ -103,22 +107,28 @@ class CommitmentGraph:
                 continue
 
             earlier, later = sorted((other, commitment), key=lambda c: (c.meeting_time, c.offset_s))
+            # Only an *active* earlier record can be reaffirmed, disputed or
+            # superseded; already-resolved ones are left as history.
+            if self.nodes[earlier.commitment_id].status != "active":
+                continue
             reason = self._conflict_reason(earlier, later)
             if reason is None:
                 new_edges.append(CommitmentEdge(
                     source=later.commitment_id, target=earlier.commitment_id,
                     relation="reaffirms", reason="same stance restated", similarity=sim,
                 ))
+                self._resolve(later, "merged", earlier)
                 continue
 
             # Conflict: later wins unless it is markedly less reliable.
-            if later.reliability + 0.25 < earlier.reliability:
+            if later.reliability + RELIABILITY_MARGIN < earlier.reliability:
                 new_edges.append(CommitmentEdge(
                     source=later.commitment_id, target=earlier.commitment_id,
                     relation="disputes",
                     reason=f"{reason}; later statement unreliable ({later.reliability:.2f} vs {earlier.reliability:.2f})",
                     similarity=sim,
                 ))
+                self._resolve(later, "disputed", earlier)
                 continue
 
             new_edges.append(CommitmentEdge(
@@ -132,6 +142,14 @@ class CommitmentGraph:
 
         self.edges.extend(new_edges)
         return new_edges
+
+    def _resolve(self, node: Commitment, status: str, resolved_to: Commitment) -> None:
+        """Mark ``node`` as folded into ``resolved_to`` (the record that stands)."""
+        current = self.nodes[node.commitment_id]
+        if current.status == "active":
+            self.nodes[node.commitment_id] = current.model_copy(update={
+                "status": status, "superseded_by": resolved_to.commitment_id,
+            })
 
     def add_many(self, commitments: list[Commitment]) -> list[CommitmentEdge]:
         edges: list[CommitmentEdge] = []

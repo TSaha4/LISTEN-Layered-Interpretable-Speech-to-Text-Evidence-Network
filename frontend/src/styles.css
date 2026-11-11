@@ -1725,3 +1725,6 @@ footer span {
 .status-tag.active { background: #b8eccd; color: #1b5e20; }
 .status-tag.superseded { background: #e0e0e0; color: #555; text-decoration: line-through; }
 .relation-tag { background: #e3f2fd; color: #0d47a1; }
+.status-tag.merged { background: #e3f2fd; color: #0d47a1; }
+.status-tag.disputed { background: #ffe585; color: #7a5200; }
+.timeline-item.merged, .timeline-item.disputed { opacity: 0.75; }

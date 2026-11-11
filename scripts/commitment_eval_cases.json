@@ -1,0 +1,103 @@
+{
+  "description": "Hand-labelled multi-meeting commitment sequences. Each case lists statements in chronological order with the reliability the source segment would carry, and the expected relation of each later statement to the earlier one on the same topic plus which statement must be active at the end. Reliability is set by the author to mimic clean speech (0.9+), hedged speech (0.5-0.7) or badly heard speech (<0.4).",
+  "cases": [
+    {
+      "name": "date moved, both clearly heard",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We decided the launch is on Friday.", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.95},
+        {"id": "b", "t": 2, "text": "We decided the launch moves to Monday.", "values": ["Monday"], "topic": ["launch"], "polarity": 1, "reliability": 0.93}
+      ],
+      "expected_relation": "supersedes", "expected_active": "b"
+    },
+    {
+      "name": "date moved, later statement barely heard",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We decided the launch is on Friday.", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.95},
+        {"id": "b", "t": 2, "text": "um maybe the launch is Monday or something", "values": ["Monday"], "topic": ["launch"], "polarity": 1, "reliability": 0.3}
+      ],
+      "expected_relation": "disputes", "expected_active": "a"
+    },
+    {
+      "name": "same decision restated",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We agreed to use Postgres for the backend.", "values": [], "topic": ["Postgres"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "Just confirming we are going with Postgres.", "values": [], "topic": ["Postgres"], "polarity": 1, "reliability": 0.9}
+      ],
+      "expected_relation": "reaffirms", "expected_active": "a"
+    },
+    {
+      "name": "decision reversed by negation",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We agreed to use Postgres for the backend.", "values": [], "topic": ["Postgres"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "We decided we will not use Postgres after all.", "values": [], "topic": ["Postgres"], "polarity": -1, "reliability": 0.9}
+      ],
+      "expected_relation": "supersedes", "expected_active": "b"
+    },
+    {
+      "name": "reversal that was mumbled",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We agreed to use Postgres for the backend.", "values": [], "topic": ["Postgres"], "polarity": 1, "reliability": 0.92},
+        {"id": "b", "t": 2, "text": "uh we're not uh Postgres maybe not", "values": [], "topic": ["Postgres"], "polarity": -1, "reliability": 0.35}
+      ],
+      "expected_relation": "disputes", "expected_active": "a"
+    },
+    {
+      "name": "budget raised",
+      "statements": [
+        {"id": "a", "t": 1, "text": "The budget for the remote control is 12 euros per unit.", "values": ["12 euros"], "topic": ["remote control"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "We decided the budget for the remote control goes up to 15 euros per unit.", "values": ["15 euros"], "topic": ["remote control"], "polarity": 1, "reliability": 0.9}
+      ],
+      "expected_relation": "supersedes", "expected_active": "b"
+    },
+    {
+      "name": "owner changed",
+      "statements": [
+        {"id": "a", "t": 1, "text": "Alice will send the report to the client.", "values": [], "topic": ["report"], "owner": "Alice", "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "Bob will send the report to the client instead.", "values": [], "topic": ["report"], "owner": "Bob", "polarity": 1, "reliability": 0.9}
+      ],
+      "expected_relation": "supersedes", "expected_active": "b"
+    },
+    {
+      "name": "owner changed but second speaker hedged and poorly heard",
+      "statements": [
+        {"id": "a", "t": 1, "text": "Alice will send the report to the client.", "values": [], "topic": ["report"], "owner": "Alice", "polarity": 1, "reliability": 0.95},
+        {"id": "b", "t": 2, "text": "maybe Bob um sends the report I guess", "values": [], "topic": ["report"], "owner": "Bob", "polarity": 1, "reliability": 0.4}
+      ],
+      "expected_relation": "disputes", "expected_active": "a"
+    },
+    {
+      "name": "three-step chain: Friday -> Monday -> Wednesday",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We decided the launch is on Friday.", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "We decided the launch moves to Monday.", "values": ["Monday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9},
+        {"id": "c", "t": 3, "text": "Final decision: the launch is Wednesday.", "values": ["Wednesday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9}
+      ],
+      "expected_relation": "supersedes", "expected_active": "c"
+    },
+    {
+      "name": "chain where the last change was unreliable",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We decided the launch is on Friday.", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "We decided the launch moves to Monday.", "values": ["Monday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9},
+        {"id": "c", "t": 3, "text": "uh launch Wednesday maybe", "values": ["Wednesday"], "topic": ["launch"], "polarity": 1, "reliability": 0.3}
+      ],
+      "expected_relation": "disputes", "expected_active": "b"
+    },
+    {
+      "name": "unrelated topics do not interact",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We decided the launch is on Friday.", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "Carol will book the venue for the offsite in Lisbon.", "values": [], "topic": ["offsite", "Lisbon"], "owner": "Carol", "polarity": 1, "reliability": 0.9}
+      ],
+      "expected_relation": null, "expected_active": "both"
+    },
+    {
+      "name": "late statement both unreliable and same value: harmless reaffirm",
+      "statements": [
+        {"id": "a", "t": 1, "text": "We decided the launch is on Friday.", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.9},
+        {"id": "b", "t": 2, "text": "um launch Friday yeah", "values": ["Friday"], "topic": ["launch"], "polarity": 1, "reliability": 0.35}
+      ],
+      "expected_relation": "reaffirms", "expected_active": "a"
+    }
+  ]
+}
