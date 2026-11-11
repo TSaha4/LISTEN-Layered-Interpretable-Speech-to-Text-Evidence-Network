@@ -71,6 +71,7 @@ def main() -> None:
     ap.add_argument("--conditions", nargs="+", default=["clean", "snr10", "snr5", "snr0"])
     ap.add_argument("--epochs", type=int, default=300)
     ap.add_argument("--lr", type=float, default=0.05)
+    ap.add_argument("--margin-scale", type=float, default=20.0, help="sharpness of the pairwise ranking loss")
     ap.add_argument("--write", action="store_true", help="store gate_state_dict in the GAT checkpoint")
     args = ap.parse_args()
 
@@ -80,19 +81,25 @@ def main() -> None:
 
     gate = ReliabilityGate(node_beta=1.0, edge_beta=0.5)
     opt = torch.optim.Adam(gate.parameters(), lr=args.lr)
-    # Positives are rare (≈5 of 15 candidates); weight them so the gate is
-    # not rewarded simply for pushing every score down.
-    pos = sum(float(e["labels"][1:].sum()) for e in examples)
-    neg = sum(float((1 - e["labels"][1:]).sum()) for e in examples)
-    pos_weight = torch.tensor(neg / max(pos, 1.0))
 
     def loss_fn() -> torch.Tensor:
-        total = 0.0
+        """Pairwise ranking loss: every gold segment should outscore every
+        non-gold one within its own candidate set. The gate only re-ranks
+        (it scales probabilities down), so a ranking objective is the one
+        that matches how top-k evidence is actually selected; BCE would
+        simply reward beta -> 0 because shrinking probabilities hurts the
+        positives' likelihood."""
+        total, n = 0.0, 0
         for e in examples:
             gated, _ = gate(e["node_probs"], e["rel"], e["edge_probs"], e["edge_conf"])
-            g = gated[1:].clamp(1e-5, 1 - 1e-5)
-            total = total + F.binary_cross_entropy(g, e["labels"][1:], weight=torch.where(e["labels"][1:] > 0, pos_weight, torch.ones(1)))
-        return total / len(examples)
+            s, y = gated[1:], e["labels"][1:]
+            pos, neg = s[y > 0], s[y == 0]
+            if pos.numel() == 0 or neg.numel() == 0:
+                continue
+            diff = pos.unsqueeze(1) - neg.unsqueeze(0)  # (P, N)
+            total = total + F.softplus(-args.margin_scale * diff).mean()
+            n += 1
+        return total / max(n, 1)
 
     with torch.no_grad():
         print(f"loss at beta_node=1.0: {loss_fn():.4f}")

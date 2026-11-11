@@ -209,6 +209,9 @@ def main() -> None:
         cells = [f"{s['beta'][b]['f1']:.3f}" for b in betas]
         print(f"| {s['condition']} | {s['mean_asr_confidence']:.3f} | {s['mean_reliability_gold']:.3f} | {s['mean_reliability_nongold']:.3f} | {s['gated_entity_edges']} | {s['retrieval_f1']:.3f} | " + " | ".join(cells) + " |")
 
+    mean_cells = [f"{np.mean([r['summary']['beta'][b]['f1'] for r in results]):.3f}" for b in betas]
+    print(f"| **mean** | | | | | {np.mean([r['summary']['retrieval_f1'] for r in results]):.3f} | " + " | ".join(mean_cells) + " |")
+
     best_beta = max(betas, key=lambda b: np.mean([r["summary"]["beta"][b]["f1"] for r in results]))
     calib = {b: calibration_report(results, b, args.correct_f1) for b in ("0.0", best_beta)} if "0.0" in betas else {}
     print(f"\nbest beta across conditions: {best_beta}")

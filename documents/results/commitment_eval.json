@@ -1,0 +1,282 @@
+{
+ "listen_u": {
+  "margin": 0.25,
+  "relation_accuracy": 1.0,
+  "active_accuracy": 1.0,
+  "rows": [
+   {
+    "case": "date moved, both clearly heard",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "date moved, later statement barely heard",
+    "expected_relation": "disputes",
+    "relation": "disputes",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "same decision restated",
+    "expected_relation": "reaffirms",
+    "relation": "reaffirms",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "decision reversed by negation",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "reversal that was mumbled",
+    "expected_relation": "disputes",
+    "relation": "disputes",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "budget raised",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "owner changed",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "owner changed but second speaker hedged and poorly heard",
+    "expected_relation": "disputes",
+    "relation": "disputes",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "three-step chain: Friday -> Monday -> Wednesday",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "c",
+    "active": [
+     "c"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "chain where the last change was unreliable",
+    "expected_relation": "disputes",
+    "relation": "disputes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "unrelated topics do not interact",
+    "expected_relation": null,
+    "relation": null,
+    "relation_ok": true,
+    "expected_active": "both",
+    "active": [
+     "a",
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "late statement both unreliable and same value: harmless reaffirm",
+    "expected_relation": "reaffirms",
+    "relation": "reaffirms",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   }
+  ]
+ },
+ "latest_wins": {
+  "margin": Infinity,
+  "relation_accuracy": 0.6666666666666666,
+  "active_accuracy": 0.6666666666666666,
+  "rows": [
+   {
+    "case": "date moved, both clearly heard",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "date moved, later statement barely heard",
+    "expected_relation": "disputes",
+    "relation": "supersedes",
+    "relation_ok": false,
+    "expected_active": "a",
+    "active": [
+     "b"
+    ],
+    "active_ok": false
+   },
+   {
+    "case": "same decision restated",
+    "expected_relation": "reaffirms",
+    "relation": "reaffirms",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "decision reversed by negation",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "reversal that was mumbled",
+    "expected_relation": "disputes",
+    "relation": "supersedes",
+    "relation_ok": false,
+    "expected_active": "a",
+    "active": [
+     "b"
+    ],
+    "active_ok": false
+   },
+   {
+    "case": "budget raised",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "owner changed",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "b",
+    "active": [
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "owner changed but second speaker hedged and poorly heard",
+    "expected_relation": "disputes",
+    "relation": "supersedes",
+    "relation_ok": false,
+    "expected_active": "a",
+    "active": [
+     "b"
+    ],
+    "active_ok": false
+   },
+   {
+    "case": "three-step chain: Friday -> Monday -> Wednesday",
+    "expected_relation": "supersedes",
+    "relation": "supersedes",
+    "relation_ok": true,
+    "expected_active": "c",
+    "active": [
+     "c"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "chain where the last change was unreliable",
+    "expected_relation": "disputes",
+    "relation": "supersedes",
+    "relation_ok": false,
+    "expected_active": "b",
+    "active": [
+     "c"
+    ],
+    "active_ok": false
+   },
+   {
+    "case": "unrelated topics do not interact",
+    "expected_relation": null,
+    "relation": null,
+    "relation_ok": true,
+    "expected_active": "both",
+    "active": [
+     "a",
+     "b"
+    ],
+    "active_ok": true
+   },
+   {
+    "case": "late statement both unreliable and same value: harmless reaffirm",
+    "expected_relation": "reaffirms",
+    "relation": "reaffirms",
+    "relation_ok": true,
+    "expected_active": "a",
+    "active": [
+     "a"
+    ],
+    "active_ok": true
+   }
+  ]
+ }
+}

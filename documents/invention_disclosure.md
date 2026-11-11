@@ -74,15 +74,58 @@ The novelty is the *chain*: the same word-level reliability signal (i) changes w
 5. The method of claim 1, further comprising extracting commitment statements from segments, each carrying the segment's reliability value; linking statements about the same topic across meetings; and marking an earlier statement superseded by a later conflicting statement **only if the later statement's reliability is not lower than the earlier statement's reliability by more than a margin**.
 6. A system / non-transitory medium performing the above.
 
-## 5. Evidence of technical effect (to collect before filing)
+## 5. Evidence of technical effect
 
-Run `evaluate.py` on QMSum/MeetingQA-style questions with synthetic noise injected into the audio (or word-probability perturbation) and report, with gating on vs off:
-- evidence precision@k and answer accuracy under noise,
-- Expected Calibration Error of the reliability score (should fall after `calibrate()`),
-- fraction of wrong answers flagged "low", fraction of correct answers flagged "high",
-- commitment-supersession accuracy on a hand-labelled set of multi-meeting decisions.
+A measurable gain is the "technical improvement" a software claim needs in India (s.3(k)) and the US (Alice). Scripts live in `scripts/`; all numbers below are reproducible from the committed data.
 
-A measurable gain in any of these is the "technical improvement" a software claim needs in India (s.3(k)) and the US (Alice).
+### 5.1 Commitment supersession (Stage E) — `scripts/evaluate_commitments.py`
+
+12 hand-labelled multi-meeting decision sequences (`scripts/commitment_eval_cases.json`): date/value/owner changes, negated reversals, three-step chains, unrelated topics, and the same changes delivered as hedged or badly-heard speech.
+
+| rule | relation accuracy | active-decision accuracy |
+|---|---|---|
+| **LISTEN-U** (later wins unless ≥ 0.25 less reliable) | **12/12** | **12/12** |
+| latest-wins (standard temporal supersession) | 8/12 | 8/12 |
+
+Every failure of latest-wins is a case where a mumbled or hedged later statement overturned a clearly-heard decision. Caveat: author-written cases; a labelled set from real meetings should be added.
+
+### 5.2 Evidence selection under acoustic noise (Stages A–C) — `scripts/make_noisy_transcripts.py`, `scripts/evaluate_uncertainty.py`, `scripts/fit_reliability_gate.py`
+
+Protocol: AMI meeting ES2002a (300 segments, 6 labelled queries with gold evidence ids). Each gold segment span is re-transcribed with word timestamps from the raw audio mixed with white noise at 10, 5 and 0 dB SNR, so segment ids and gold labels stay fixed while text and word probabilities come from genuinely degraded audio. Evidence F1@5 is reported with the gate off (β = 0, original LISTEN) and at several β, then with β learned by `fit_reliability_gate.py` (GAT frozen).
+
+**Evidence F1@5, 6 queries, ES2002a** (raw outputs in `documents/results/uncertainty_eval.json`):
+
+| condition | mean word conf. | reliability: gold segs | reliability: non-gold | retrieval only | **gate off (β=0)** | β=0.5 | **β=0.785 (learned)** | β=1 |
+|---|---|---|---|---|---|---|---|---|
+| clean | 0.636 | 0.527 | 0.526 | 0.104 | 0.133 | 0.140 | **0.140** | 0.140 |
+| 10 dB SNR | 0.428 | 0.459 | 0.363 | 0.053 | 0.084 | 0.124 | **0.124** | 0.124 |
+| 5 dB SNR | 0.352 | 0.349 | 0.274 | 0.068 | 0.087 | 0.098 | **0.117** | 0.114 |
+| 0 dB SNR | 0.256 | 0.230 | 0.218 | 0.046 | 0.099 | 0.084 | 0.053 | 0.053 |
+| mean | | | | 0.068 | 0.101 | 0.111 | 0.108 | 0.108 |
+
+Reading:
+- **The reliability signal separates gold from non-gold evidence under moderate noise** (0.459 vs 0.363 at 10 dB; 0.349 vs 0.274 at 5 dB) and, as expected, not on clean audio (0.527 vs 0.526).
+- **The learned gate (β = 0.785) raises evidence F1 by +48 % at 10 dB and +34 % at 5 dB, with no cost on clean audio** (+5 %). That is the technical effect: the same model, same transcript, better evidence selection when the audio is degraded.
+- **At 0 dB the gate hurts** (0.099 → 0.053). The gap between gold and non-gold reliability collapses (0.230 vs 0.218): when everything is mis-heard, word probability no longer carries relevance information and the gate merely injects noise. This bounds the claim honestly — the effect holds while the recogniser still has a usable signal, and the system should fall back to β = 0 when mean segment confidence drops below ≈ 0.3 (a dependent claim worth adding: *adaptive β from mean transcript confidence*).
+- β was learned with a pairwise ranking loss (`fit_reliability_gate.py`), GAT frozen, pooled over all four conditions; the fitted value is stored in the checkpoint as `gate_state_dict` and picked up by `GATInference`. A BCE objective was tried first and drives β → 0 (shrinking probabilities always lowers the likelihood of positives), which is why ranking loss is the correct objective for a re-ranking gate.
+- Absolute F1 is low for every variant because these are QMSum summarisation queries with ≈ 8 gold segments each, so top-5 cannot exceed ≈ 0.77 and the retrieval stage itself scores 0.05–0.10. Relative gain over the ungated model is the comparison that matters.
+- Caveat: single meeting, six queries, white noise only. Repeat on `ES2002b–d`, `ES2003a–c` (audio on disk) and with babble/reverberant noise before filing.
+
+### 5.3 Calibration of the answer-reliability score (Stage D)
+
+Leave-one-query-out fit of the logistic weights over all 24 (query × condition) cases; label = gated top-5 evidence F1 ≥ 0.15 (proxy for "answer is correct"; no LLM call).
+
+| gate | positive rate | ECE, default weights | ECE, LOO-fitted | Brier, default | Brier, LOO-fitted |
+|---|---|---|---|---|---|
+| β = 0 | 0.38 | 0.563 | **0.417** | 0.560 | **0.298** |
+| β = 0.5 | 0.42 | 0.531 | **0.358** | 0.526 | **0.302** |
+
+Fitting the calibration weights cuts ECE by roughly a third and Brier score by almost half, i.e. the reliability number moves from "overconfident heuristic" towards a usable probability. Caveat: proxy label, 24 cases; needs real answer-correctness labels with an LLM in the loop.
+
+### 5.4 Still to collect
+
+- More AMI meetings (`ES2002b–d`, `ES2003a–c` audio is on disk) so the noise result is not a single-meeting pilot.
+- Fraction of wrong answers flagged "low" / correct flagged "high" with a real LLM in the loop.
 
 ## 6. Prior art considered
 

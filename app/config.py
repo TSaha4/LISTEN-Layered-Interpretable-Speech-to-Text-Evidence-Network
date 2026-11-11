@@ -86,7 +86,7 @@ GAT_CHECKPOINT_NAME: str = "gat_qmsum.pt"
 # Uncertainty-aware graph & scoring
 ENTITY_EDGE_MIN_CONFIDENCE: float = 0.40  # gate entity edges on ASR confidence
 GAT_RELIABILITY_GATING: bool = True
-RELIABILITY_GATE_BETA: float = 1.0        # node score *= reliability ** beta
+RELIABILITY_GATE_BETA: float = 0.8        # node score *= reliability ** beta (learned ≈0.785; checkpoint overrides)
 EDGE_CONFIDENCE_GATE_BETA: float = 0.5    # edge score *= confidence ** beta
 
 # ---------------------------------------------------------------------------
