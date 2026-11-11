@@ -1,0 +1,2415 @@
+{
+ "meeting": "ES2003b",
+ "top_k": 5,
+ "best_beta": "1.0",
+ "conditions": [
+  {
+   "condition": "clean",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.6766880489151228,
+   "retrieval_f1": 0.09294871794871795,
+   "mean_reliability_gold": 0.5851161820197411,
+   "mean_reliability_nongold": 0.5747018241122834,
+   "gated_entity_edges": 1,
+   "beta": {
+    "0.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.07638888888888888,
+     "f1": 0.0673076923076923
+    },
+    "0.5": {
+     "precision": 0.03333333333333333,
+     "recall": 0.05555555555555555,
+     "f1": 0.041666666666666664
+    },
+    "0.785": {
+     "precision": 0.03333333333333333,
+     "recall": 0.05555555555555555,
+     "f1": 0.041666666666666664
+    },
+    "1.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.05555555555555555,
+     "f1": 0.041666666666666664
+    }
+   }
+  },
+  {
+   "condition": "snr10",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.44054645662248937,
+   "retrieval_f1": 0.006410256410256409,
+   "mean_reliability_gold": 0.31741376520923853,
+   "mean_reliability_nongold": 0.34350783074756963,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.0035460992907801418,
+     "f1": 0.006410256410256409
+    },
+    "0.5": {
+     "precision": 0.03333333333333333,
+     "recall": 0.023809523809523808,
+     "f1": 0.027777777777777776
+    },
+    "0.785": {
+     "precision": 0.03333333333333333,
+     "recall": 0.023809523809523808,
+     "f1": 0.027777777777777776
+    },
+    "1.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.023809523809523808,
+     "f1": 0.027777777777777776
+    }
+   }
+  },
+  {
+   "condition": "snr5",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.3468997324398554,
+   "retrieval_f1": 0.006410256410256409,
+   "mean_reliability_gold": 0.24249350720109217,
+   "mean_reliability_nongold": 0.2467516482822799,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.024379432624113476,
+     "f1": 0.032051282051282055
+    },
+    "0.5": {
+     "precision": 0.06666666666666667,
+     "recall": 0.07638888888888888,
+     "f1": 0.0673076923076923
+    },
+    "0.785": {
+     "precision": 0.06666666666666667,
+     "recall": 0.07638888888888888,
+     "f1": 0.0673076923076923
+    },
+    "1.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.07638888888888888,
+     "f1": 0.0673076923076923
+    }
+   }
+  },
+  {
+   "condition": "snr0",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.26180662590608117,
+   "retrieval_f1": 0.05128205128205129,
+   "mean_reliability_gold": 0.19270193754028875,
+   "mean_reliability_nongold": 0.19061088552190983,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "0.5": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "0.785": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "1.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.023809523809523808,
+     "f1": 0.027777777777777776
+    }
+   }
+  }
+ ],
+ "calibration": {
+  "0.0": {
+   "n": 24,
+   "positive_rate": 0.125,
+   "ece_default_weights": 0.8165543205926044,
+   "ece_leave_one_out": 0.06653496580843765,
+   "brier_default": 0.7712728547187341,
+   "brier_leave_one_out": 0.1161013096586943
+  },
+  "1.0": {
+   "n": 24,
+   "positive_rate": 0.20833333333333334,
+   "ece_default_weights": 0.7417643756500244,
+   "ece_leave_one_out": 0.2107603386065431,
+   "brier_default": 0.718356505709974,
+   "brier_leave_one_out": 0.19459297460885605
+  }
+ },
+ "per_query": [
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.4,
+     0.25,
+     0.3076923076923077
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5580852989735607,
+    "mean_reliability_nongold": 0.5606830020101276,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0086",
+       "ES2003b_seg_0332",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0368",
+       "ES2003b_seg_0093"
+      ],
+      "components": {
+       "evidence_reliability": 0.5942296734848305,
+       "retrieval_margin": 0.08374848032617332,
+       "evidence_agreement": 0.5665446519851685,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0500",
+       "ES2003b_seg_0086",
+       "ES2003b_seg_0177",
+       "ES2003b_seg_0423",
+       "ES2003b_seg_0332"
+      ],
+      "components": {
+       "evidence_reliability": 0.6887233282642207,
+       "retrieval_margin": 0.08374848032617332,
+       "evidence_agreement": 0.49737516045570374,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0500",
+       "ES2003b_seg_0086",
+       "ES2003b_seg_0177",
+       "ES2003b_seg_0423",
+       "ES2003b_seg_0332"
+      ],
+      "components": {
+       "evidence_reliability": 0.6887233282642207,
+       "retrieval_margin": 0.08374848032617332,
+       "evidence_agreement": 0.49737516045570374,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0500",
+       "ES2003b_seg_0086",
+       "ES2003b_seg_0177",
+       "ES2003b_seg_0423",
+       "ES2003b_seg_0332"
+      ],
+      "components": {
+       "evidence_reliability": 0.6887233282642207,
+       "retrieval_margin": 0.08374848032617332,
+       "evidence_agreement": 0.49737516045570374,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of the incorporation of voice recognition when discussing user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.552509485191122,
+    "mean_reliability_nongold": 0.6600199428822036,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.125,
+       0.15384615384615385
+      ],
+      "top": [
+       "ES2003b_seg_0093",
+       "ES2003b_seg_0466",
+       "ES2003b_seg_0059",
+       "ES2003b_seg_0573",
+       "ES2003b_seg_0120"
+      ],
+      "components": {
+       "evidence_reliability": 0.5448748447114631,
+       "retrieval_margin": 0.20480752696535884,
+       "evidence_agreement": 0.5287883877754211,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.7819947963566763,
+       "retrieval_margin": 0.20480752696535884,
+       "evidence_agreement": 0.5986930727958679,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.7819947963566763,
+       "retrieval_margin": 0.20480752696535884,
+       "evidence_agreement": 0.5986930727958679,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.7819947963566763,
+       "retrieval_margin": 0.20480752696535884,
+       "evidence_agreement": 0.5986930727958679,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details of button design and location function?",
+    "gold_count": 47,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 1,
+    "mean_reliability_gold": 0.5006137326272003,
+    "mean_reliability_nongold": 0.48521927132881376,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0300",
+       "ES2003b_seg_0211",
+       "ES2003b_seg_0365",
+       "ES2003b_seg_0208",
+       "ES2003b_seg_0504"
+      ],
+      "components": {
+       "evidence_reliability": 0.4551767047108228,
+       "retrieval_margin": 0.22186712200004619,
+       "evidence_agreement": 0.5905246138572693,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0189",
+       "ES2003b_seg_0255",
+       "ES2003b_seg_0365",
+       "ES2003b_seg_0300"
+      ],
+      "components": {
+       "evidence_reliability": 0.5828385931361347,
+       "retrieval_margin": 0.22186712200004619,
+       "evidence_agreement": 0.5577313303947449,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0189",
+       "ES2003b_seg_0255",
+       "ES2003b_seg_0365",
+       "ES2003b_seg_0300"
+      ],
+      "components": {
+       "evidence_reliability": 0.5828385931361347,
+       "retrieval_margin": 0.22186712200004619,
+       "evidence_agreement": 0.5577313303947449,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0189",
+       "ES2003b_seg_0255",
+       "ES2003b_seg_0365",
+       "ES2003b_seg_0486"
+      ],
+      "components": {
+       "evidence_reliability": 0.5845949507969285,
+       "retrieval_margin": 0.22186712200004619,
+       "evidence_agreement": 0.5653519630432129,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the incorporation of voice recognition when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.2,
+     0.3333333333333333,
+     0.25
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.7958034805707619,
+    "mean_reliability_nongold": 0.6152638629658854,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0130",
+       "ES2003b_seg_0278",
+       "ES2003b_seg_0118",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.6355109865051844,
+       "retrieval_margin": 0.14126926839726758,
+       "evidence_agreement": 0.6501619815826416,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0278"
+      ],
+      "components": {
+       "evidence_reliability": 0.7756818163070608,
+       "retrieval_margin": 0.14126926839726758,
+       "evidence_agreement": 0.6156499981880188,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.7821678372369851,
+       "retrieval_margin": 0.14126926839726758,
+       "evidence_agreement": 0.5986930727958679,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0142",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.7821678372369851,
+       "retrieval_margin": 0.14126926839726758,
+       "evidence_agreement": 0.5986930727958679,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a joystick when discussing details of button design and location function.",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.4693793450327331,
+    "mean_reliability_nongold": 0.5784315509216198,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0021",
+       "ES2003b_seg_0546",
+       "ES2003b_seg_0332",
+       "ES2003b_seg_0374",
+       "ES2003b_seg_0464"
+      ],
+      "components": {
+       "evidence_reliability": 0.52098644168462,
+       "retrieval_margin": 0.14854066143702452,
+       "evidence_agreement": 0.7051960825920105,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0497",
+       "ES2003b_seg_0495",
+       "ES2003b_seg_0021",
+       "ES2003b_seg_0409",
+       "ES2003b_seg_0332"
+      ],
+      "components": {
+       "evidence_reliability": 0.6734199005729719,
+       "retrieval_margin": 0.14854066143702452,
+       "evidence_agreement": 0.6865471601486206,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0497",
+       "ES2003b_seg_0495",
+       "ES2003b_seg_0021",
+       "ES2003b_seg_0409",
+       "ES2003b_seg_0332"
+      ],
+      "components": {
+       "evidence_reliability": 0.6734199005729719,
+       "retrieval_margin": 0.14854066143702452,
+       "evidence_agreement": 0.6865471601486206,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0497",
+       "ES2003b_seg_0495",
+       "ES2003b_seg_0021",
+       "ES2003b_seg_0409",
+       "ES2003b_seg_0332"
+      ],
+      "components": {
+       "evidence_reliability": 0.6734199005729719,
+       "retrieval_margin": 0.14854066143702452,
+       "evidence_agreement": 0.6865471601486206,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing recommend to specify the target market when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.6343057497230693,
+    "mean_reliability_nongold": 0.5485933145650506,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0082",
+       "ES2003b_seg_0189",
+       "ES2003b_seg_0365",
+       "ES2003b_seg_0486"
+      ],
+      "components": {
+       "evidence_reliability": 0.5227546034118064,
+       "retrieval_margin": 0.1448689756758922,
+       "evidence_agreement": 0.5038517713546753,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0412",
+       "ES2003b_seg_0575",
+       "ES2003b_seg_0189",
+       "ES2003b_seg_0365"
+      ],
+      "components": {
+       "evidence_reliability": 0.5730709943952624,
+       "retrieval_margin": 0.1448689756758922,
+       "evidence_agreement": 0.24722397327423096,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0412",
+       "ES2003b_seg_0575",
+       "ES2003b_seg_0345",
+       "ES2003b_seg_0189"
+      ],
+      "components": {
+       "evidence_reliability": 0.6092350979786857,
+       "retrieval_margin": 0.1448689756758922,
+       "evidence_agreement": 0.19864819943904877,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0412",
+       "ES2003b_seg_0345",
+       "ES2003b_seg_0575",
+       "ES2003b_seg_0189"
+      ],
+      "components": {
+       "evidence_reliability": 0.6092350979786857,
+       "retrieval_margin": 0.1448689756758922,
+       "evidence_agreement": 0.19864819943904877,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.3761361786538926,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0114",
+       "ES2003b_seg_0191"
+      ],
+      "components": {
+       "evidence_reliability": 0.40317880603575734,
+       "retrieval_margin": 0.2488980541291238,
+       "evidence_agreement": 0.4586384892463684,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0132",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0229"
+      ],
+      "components": {
+       "evidence_reliability": 0.4976241552635035,
+       "retrieval_margin": 0.2488980541291238,
+       "evidence_agreement": 0.4407586455345154,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0132",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0147"
+      ],
+      "components": {
+       "evidence_reliability": 0.4976241552635035,
+       "retrieval_margin": 0.2488980541291238,
+       "evidence_agreement": 0.4407586455345154,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0132",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0147"
+      ],
+      "components": {
+       "evidence_reliability": 0.4976241552635035,
+       "retrieval_margin": 0.2488980541291238,
+       "evidence_agreement": 0.4407586455345154,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of the incorporation of voice recognition when discussing user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3433069031250805,
+    "mean_reliability_nongold": 0.4206338431257889,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0125"
+      ],
+      "components": {
+       "evidence_reliability": 0.4763590842895373,
+       "retrieval_margin": 0.16516906889621488,
+       "evidence_agreement": 0.39723801612854004,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.5497059331583682,
+       "retrieval_margin": 0.16516906889621488,
+       "evidence_agreement": 0.4201032519340515,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.5497059331583682,
+       "retrieval_margin": 0.16516906889621488,
+       "evidence_agreement": 0.4201032519340515,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.5557242591994394,
+       "retrieval_margin": 0.16516906889621488,
+       "evidence_agreement": 0.3980494439601898,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details of button design and location function?",
+    "gold_count": 47,
+    "retrieval_prf": [
+     0.2,
+     0.02127659574468085,
+     0.03846153846153846
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.23993037852234667,
+    "mean_reliability_nongold": 0.3041631330165827,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.02127659574468085,
+       0.03846153846153846
+      ],
+      "top": [
+       "ES2003b_seg_0436",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0334",
+       "ES2003b_seg_0484",
+       "ES2003b_seg_0441"
+      ],
+      "components": {
+       "evidence_reliability": 0.27905847283048085,
+       "retrieval_margin": 0.29983794765288313,
+       "evidence_agreement": 0.5643410086631775,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0436"
+      ],
+      "components": {
+       "evidence_reliability": 0.3862384016071435,
+       "retrieval_margin": 0.29983794765288313,
+       "evidence_agreement": 0.47951334714889526,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0436"
+      ],
+      "components": {
+       "evidence_reliability": 0.3862384016071435,
+       "retrieval_margin": 0.29983794765288313,
+       "evidence_agreement": 0.47951334714889526,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0436"
+      ],
+      "components": {
+       "evidence_reliability": 0.3862384016071435,
+       "retrieval_margin": 0.29983794765288313,
+       "evidence_agreement": 0.47951334714889526,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the incorporation of voice recognition when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.34933916705928014,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0125",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.44407948707052775,
+       "retrieval_margin": 0.1737034865057668,
+       "evidence_agreement": 0.6178309917449951,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.5242128284400479,
+       "retrieval_margin": 0.1737034865057668,
+       "evidence_agreement": 0.5105205774307251,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.5242128284400479,
+       "retrieval_margin": 0.1737034865057668,
+       "evidence_agreement": 0.5105205774307251,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.5242128284400479,
+       "retrieval_margin": 0.1737034865057668,
+       "evidence_agreement": 0.5105205774307251,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a joystick when discussing details of button design and location function.",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3690040139802884,
+    "mean_reliability_nongold": 0.30443841503874747,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0458",
+       "ES2003b_seg_0282",
+       "ES2003b_seg_0081",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0439"
+      ],
+      "components": {
+       "evidence_reliability": 0.3161924392785541,
+       "retrieval_margin": 0.2717931318280729,
+       "evidence_agreement": 0.38695719838142395,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.14285714285714285,
+       0.16666666666666666
+      ],
+      "top": [
+       "ES2003b_seg_0282",
+       "ES2003b_seg_0458",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0229"
+      ],
+      "components": {
+       "evidence_reliability": 0.379017054637107,
+       "retrieval_margin": 0.2717931318280729,
+       "evidence_agreement": 0.43774542212486267,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.14285714285714285,
+       0.16666666666666666
+      ],
+      "top": [
+       "ES2003b_seg_0282",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0458",
+       "ES2003b_seg_0229"
+      ],
+      "components": {
+       "evidence_reliability": 0.379017054637107,
+       "retrieval_margin": 0.2717931318280729,
+       "evidence_agreement": 0.4377453923225403,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.14285714285714285,
+       0.16666666666666666
+      ],
+      "top": [
+       "ES2003b_seg_0282",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0458"
+      ],
+      "components": {
+       "evidence_reliability": 0.379017054637107,
+       "retrieval_margin": 0.2717931318280729,
+       "evidence_agreement": 0.43774542212486267,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing recommend to specify the target market when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.3063362475911257,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0484",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0365",
+       "ES2003b_seg_0495"
+      ],
+      "components": {
+       "evidence_reliability": 0.3381814962470643,
+       "retrieval_margin": 0.18839015633334644,
+       "evidence_agreement": 0.5444406270980835,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0031",
+       "ES2003b_seg_0332",
+       "ES2003b_seg_0278"
+      ],
+      "components": {
+       "evidence_reliability": 0.4400157910166069,
+       "retrieval_margin": 0.18839015633334644,
+       "evidence_agreement": 0.2561330199241638,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0031",
+       "ES2003b_seg_0332",
+       "ES2003b_seg_0278"
+      ],
+      "components": {
+       "evidence_reliability": 0.4400157910166069,
+       "retrieval_margin": 0.18839015633334644,
+       "evidence_agreement": 0.2561330199241638,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0441",
+       "ES2003b_seg_0031",
+       "ES2003b_seg_0332",
+       "ES2003b_seg_0278"
+      ],
+      "components": {
+       "evidence_reliability": 0.4400157910166069,
+       "retrieval_margin": 0.18839015633334644,
+       "evidence_agreement": 0.2561330199241638,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3445846014088002,
+    "mean_reliability_nongold": 0.21376560183450186,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.125,
+       0.15384615384615385
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0594",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0072"
+      ],
+      "components": {
+       "evidence_reliability": 0.30814709819519837,
+       "retrieval_margin": 0.3845758306879735,
+       "evidence_agreement": 0.29558396339416504,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.125,
+       0.15384615384615385
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0594",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.3081470981951983,
+       "retrieval_margin": 0.3845758306879735,
+       "evidence_agreement": 0.29558396339416504,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.125,
+       0.15384615384615385
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0594",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.3081470981951983,
+       "retrieval_margin": 0.3845758306879735,
+       "evidence_agreement": 0.29558396339416504,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.125,
+       0.15384615384615385
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0594",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.3081470981951983,
+       "retrieval_margin": 0.3845758306879735,
+       "evidence_agreement": 0.29558396339416504,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of the incorporation of voice recognition when discussing user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.180129418618818,
+    "mean_reliability_nongold": 0.27000522522761783,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0101",
+       "ES2003b_seg_0118",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0125",
+       "ES2003b_seg_0137"
+      ],
+      "components": {
+       "evidence_reliability": 0.27787225197105325,
+       "retrieval_margin": 0.332002575409762,
+       "evidence_agreement": 0.5850124955177307,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0101",
+       "ES2003b_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.3367600493254031,
+       "retrieval_margin": 0.332002575409762,
+       "evidence_agreement": 0.6170943975448608,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.36598663376020246,
+       "retrieval_margin": 0.332002575409762,
+       "evidence_agreement": 0.5045207738876343,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.3659866337602025,
+       "retrieval_margin": 0.332002575409762,
+       "evidence_agreement": 0.5045207738876343,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details of button design and location function?",
+    "gold_count": 47,
+    "retrieval_prf": [
+     0.2,
+     0.02127659574468085,
+     0.03846153846153846
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.16194911625199596,
+    "mean_reliability_nongold": 0.24411707958794085,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.02127659574468085,
+       0.03846153846153846
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0484"
+      ],
+      "components": {
+       "evidence_reliability": 0.2259737335527021,
+       "retrieval_margin": 0.27427584730176124,
+       "evidence_agreement": 0.46408337354660034,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0234"
+      ],
+      "components": {
+       "evidence_reliability": 0.25279472246245516,
+       "retrieval_margin": 0.27427584730176124,
+       "evidence_agreement": 0.34804803133010864,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0437"
+      ],
+      "components": {
+       "evidence_reliability": 0.2889694735821253,
+       "retrieval_margin": 0.27427584730176124,
+       "evidence_agreement": 0.27858996391296387,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0096"
+      ],
+      "components": {
+       "evidence_reliability": 0.31376757319347737,
+       "retrieval_margin": 0.27427584730176124,
+       "evidence_agreement": 0.2419038563966751,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the incorporation of voice recognition when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.263071655460378,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0101",
+       "ES2003b_seg_0118",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0125",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.2684152154780695,
+       "retrieval_margin": 0.23641334841721914,
+       "evidence_agreement": 0.5667309165000916,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0101",
+       "ES2003b_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.33703770420683893,
+       "retrieval_margin": 0.23641334841721914,
+       "evidence_agreement": 0.6170943975448608,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.36650532101838984,
+       "retrieval_margin": 0.23641334841721914,
+       "evidence_agreement": 0.5045207738876343,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0122",
+       "ES2003b_seg_0509",
+       "ES2003b_seg_0137",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.36650532101838984,
+       "retrieval_margin": 0.23641334841721914,
+       "evidence_agreement": 0.5045207738876343,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a joystick when discussing details of button design and location function.",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.23712409772003884,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0530",
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0001",
+       "ES2003b_seg_0096"
+      ],
+      "components": {
+       "evidence_reliability": 0.25602011688566134,
+       "retrieval_margin": 0.16892536035965897,
+       "evidence_agreement": 0.25484710931777954,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0460"
+      ],
+      "components": {
+       "evidence_reliability": 0.30836625196567535,
+       "retrieval_margin": 0.16892536035965897,
+       "evidence_agreement": 0.32746538519859314,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0460"
+      ],
+      "components": {
+       "evidence_reliability": 0.3083662519656754,
+       "retrieval_margin": 0.16892536035965897,
+       "evidence_agreement": 0.32746535539627075,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0070",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0147",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0460"
+      ],
+      "components": {
+       "evidence_reliability": 0.3083662519656754,
+       "retrieval_margin": 0.16892536035965897,
+       "evidence_agreement": 0.32746535539627075,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing recommend to specify the target market when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.2833108925247545,
+    "mean_reliability_nongold": 0.252426229863202,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0156",
+       "ES2003b_seg_0484"
+      ],
+      "components": {
+       "evidence_reliability": 0.22550643591515454,
+       "retrieval_margin": 0.3712044518953836,
+       "evidence_agreement": 0.46408337354660034,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0239",
+       "ES2003b_seg_0138"
+      ],
+      "components": {
+       "evidence_reliability": 0.29334837605160796,
+       "retrieval_margin": 0.3712044518953836,
+       "evidence_agreement": 0.22427204251289368,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0138",
+       "ES2003b_seg_0239",
+       "ES2003b_seg_0399"
+      ],
+      "components": {
+       "evidence_reliability": 0.31762489150096046,
+       "retrieval_margin": 0.3712044518953836,
+       "evidence_agreement": 0.15972889959812164,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0138",
+       "ES2003b_seg_0460",
+       "ES2003b_seg_0239",
+       "ES2003b_seg_0399"
+      ],
+      "components": {
+       "evidence_reliability": 0.3176248915009605,
+       "retrieval_margin": 0.3712044518953836,
+       "evidence_agreement": 0.15972889959812164,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.2,
+     0.125,
+     0.15384615384615385
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.17495962375000781,
+    "mean_reliability_nongold": 0.18124813427923178,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0271",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0297"
+      ],
+      "components": {
+       "evidence_reliability": 0.1953874478695379,
+       "retrieval_margin": 0.33026264560657087,
+       "evidence_agreement": 0.16061735153198242,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0271",
+       "ES2003b_seg_0076"
+      ],
+      "components": {
+       "evidence_reliability": 0.2236746683503027,
+       "retrieval_margin": 0.33026264560657087,
+       "evidence_agreement": 0.17152006924152374,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0076",
+       "ES2003b_seg_0271"
+      ],
+      "components": {
+       "evidence_reliability": 0.22367466835030267,
+       "retrieval_margin": 0.33026264560657087,
+       "evidence_agreement": 0.17152006924152374,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0076",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.2380200317079929,
+       "retrieval_margin": 0.33026264560657087,
+       "evidence_agreement": 0.21632318198680878,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of the incorporation of voice recognition when discussing user requirements of the new remote control?",
+    "gold_count": 8,
+    "retrieval_prf": [
+     0.2,
+     0.125,
+     0.15384615384615385
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.17495962375000781,
+    "mean_reliability_nongold": 0.17313609761118834,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0118",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0271",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.17066984945628516,
+       "retrieval_margin": 0.5128127812685236,
+       "evidence_agreement": 0.3744114935398102,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.21857742020754756,
+       "retrieval_margin": 0.5128127812685236,
+       "evidence_agreement": 0.2980746030807495,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.2185774202075476,
+       "retrieval_margin": 0.5128127812685236,
+       "evidence_agreement": 0.2980745732784271,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0100",
+       "ES2003b_seg_0101"
+      ],
+      "components": {
+       "evidence_reliability": 0.21857742020754758,
+       "retrieval_margin": 0.5128127812685236,
+       "evidence_agreement": 0.2980745732784271,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details of button design and location function?",
+    "gold_count": 47,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.1436491737727118,
+    "mean_reliability_nongold": 0.19486536657233125,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0140"
+      ],
+      "components": {
+       "evidence_reliability": 0.18465718786122093,
+       "retrieval_margin": 0.4045161706927128,
+       "evidence_agreement": 0.24737410247325897,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0141",
+       "ES2003b_seg_0234"
+      ],
+      "components": {
+       "evidence_reliability": 0.22794384056982703,
+       "retrieval_margin": 0.4045161706927128,
+       "evidence_agreement": 0.20805123448371887,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0141",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0234"
+      ],
+      "components": {
+       "evidence_reliability": 0.22794384056982706,
+       "retrieval_margin": 0.4045161706927128,
+       "evidence_agreement": 0.20805123448371887,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0141",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0234"
+      ],
+      "components": {
+       "evidence_reliability": 0.22794384056982706,
+       "retrieval_margin": 0.4045161706927128,
+       "evidence_agreement": 0.20805123448371887,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the incorporation of voice recognition when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.19175724368526784,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0118",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.15869406266011085,
+       "retrieval_margin": 0.4292956320925889,
+       "evidence_agreement": 0.27939075231552124,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0131",
+       "ES2003b_seg_0120"
+      ],
+      "components": {
+       "evidence_reliability": 0.21964216974547202,
+       "retrieval_margin": 0.4292956320925889,
+       "evidence_agreement": 0.18550577759742737,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.21964216974547207,
+       "retrieval_margin": 0.4292956320925889,
+       "evidence_agreement": 0.18550579249858856,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0096",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.23964703760486925,
+       "retrieval_margin": 0.4292956320925889,
+       "evidence_agreement": 0.1373373121023178,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a joystick when discussing details of button design and location function.",
+    "gold_count": 7,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.2772393288884275,
+    "mean_reliability_nongold": 0.18742907959532462,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0271",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0029"
+      ],
+      "components": {
+       "evidence_reliability": 0.16008629641354644,
+       "retrieval_margin": 0.19244456254218859,
+       "evidence_agreement": 0.23937352001667023,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0465"
+      ],
+      "components": {
+       "evidence_reliability": 0.2247856415644478,
+       "retrieval_margin": 0.19244456254218859,
+       "evidence_agreement": 0.2619286775588989,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0465",
+       "ES2003b_seg_0072"
+      ],
+      "components": {
+       "evidence_reliability": 0.2247856415644478,
+       "retrieval_margin": 0.19244456254218859,
+       "evidence_agreement": 0.2619287073612213,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.14285714285714285,
+       0.16666666666666666
+      ],
+      "top": [
+       "ES2003b_seg_0403",
+       "ES2003b_seg_0120",
+       "ES2003b_seg_0234",
+       "ES2003b_seg_0229",
+       "ES2003b_seg_0465"
+      ],
+      "components": {
+       "evidence_reliability": 0.2460280723205966,
+       "retrieval_margin": 0.19244456254218859,
+       "evidence_agreement": 0.21240432560443878,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Why did Marketing recommend to specify the target market when discussing details of button design and location function?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.2152293913881152,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0072",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0437",
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0134"
+      ],
+      "components": {
+       "evidence_reliability": 0.20747750273487536,
+       "retrieval_margin": 0.4283316065222869,
+       "evidence_agreement": 0.24347499012947083,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0109",
+       "ES2003b_seg_0141",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0072"
+      ],
+      "components": {
+       "evidence_reliability": 0.2946464677769147,
+       "retrieval_margin": 0.4283316065222869,
+       "evidence_agreement": 0.18623527884483337,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0109",
+       "ES2003b_seg_0141",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0072"
+      ],
+      "components": {
+       "evidence_reliability": 0.2946464677769147,
+       "retrieval_margin": 0.4283316065222869,
+       "evidence_agreement": 0.18623527884483337,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003b_seg_0153",
+       "ES2003b_seg_0109",
+       "ES2003b_seg_0141",
+       "ES2003b_seg_0077",
+       "ES2003b_seg_0234"
+      ],
+      "components": {
+       "evidence_reliability": 0.3090547320411449,
+       "retrieval_margin": 0.4283316065222869,
+       "evidence_agreement": 0.17289070785045624,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ]
+ ]
+}

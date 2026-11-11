@@ -109,7 +109,7 @@ Reading:
 - **At 0 dB the gate hurts** (0.099 → 0.053). The gap between gold and non-gold reliability collapses (0.230 vs 0.218): when everything is mis-heard, word probability no longer carries relevance information and the gate merely injects noise. This bounds the claim honestly — the effect holds while the recogniser still has a usable signal, and the system should fall back to β = 0 when mean segment confidence drops below ≈ 0.3 (a dependent claim worth adding: *adaptive β from mean transcript confidence*).
 - β was learned with a pairwise ranking loss (`fit_reliability_gate.py`), GAT frozen, pooled over all four conditions; the fitted value is stored in the checkpoint as `gate_state_dict` and picked up by `GATInference`. A BCE objective was tried first and drives β → 0 (shrinking probabilities always lowers the likelihood of positives), which is why ranking loss is the correct objective for a re-ranking gate.
 - Absolute F1 is low for every variant because these are QMSum summarisation queries with ≈ 8 gold segments each, so top-5 cannot exceed ≈ 0.77 and the retrieval stage itself scores 0.05–0.10. Relative gain over the ungated model is the comparison that matters.
-- Caveat: single meeting, six queries, white noise only. Repeat on `ES2002b–d`, `ES2003a–c` (audio on disk) and with babble/reverberant noise before filing.
+- Caveat: single meeting, six queries, white noise only, and β was fitted on this same meeting, so the gains above are in-sample. The held-out replication on six more meetings is in §5.5 and does **not** reproduce them.
 
 ### 5.3 Calibration of the answer-reliability score (Stage D)
 
@@ -124,8 +124,37 @@ Fitting the calibration weights cuts ECE by roughly a third and Brier score by a
 
 ### 5.4 Still to collect
 
-- More AMI meetings (`ES2002b–d`, `ES2003a–c` audio is on disk) so the noise result is not a single-meeting pilot.
 - Fraction of wrong answers flagged "low" / correct flagged "high" with a real LLM in the loop.
+- A direct test of Stages A–B that does not go through top-5 F1: AUROC of segment reliability for gold vs non-gold candidates per condition, pooled over meetings (the F1@5 test in §5.5 is near its floor and leaves the top-5 unchanged on 29 of 40 queries).
+- Re-run §5.5 with β fitted leave-one-meeting-out, and with queries restricted to compact gold sets (≤ 20 segments) where top-5 F1 can move.
+- Babble / reverberant noise instead of white noise; a stronger retriever so that gating acts on candidates that contain gold at all.
+
+### 5.5 Multi-meeting replication — `scripts/build_aligned_labels.py`, `scripts/aggregate_uncertainty_eval.py`
+
+Protocol: the §5.2 pipeline was repeated on six further AMI meetings (ES2002b, ES2002c, ES2002d, ES2003a, ES2003b, ES2003c; 19–44 min each, 154–694 Whisper segments). Gold evidence ids were produced by `scripts/build_aligned_labels.py`, which re-implements the ES2002a alignment (MiniLM cosine between each QMSum turn and nearby Whisper segments, kept at similarity ≥ 0.4, query labels = segments matched to turns inside the QMSum `relevant_text_span`); the original alignment script was not committed, and the re-implementation recovers 114 of the 118 stored ES2002a turn matches. Each meeting was then re-transcribed at clean / 10 / 5 / 0 dB SNR and scored with the **same gate (β = 0.785) learned on ES2002a**, so the six new meetings are a held-out test. 34 new labelled queries; 40 in total with ES2002a. Raw outputs: `documents/results/<meeting>_uncertainty_eval.json`, `documents/results/<meeting>_aligned_labels.json`, full table in `documents/results/multi_meeting_eval.md`.
+
+**Evidence F1@5, gate off (β = 0) vs learned gate (β = 0.785):**
+
+| meeting | queries | clean β=0 | clean gate | 10 dB β=0 | 10 dB gate | 5 dB β=0 | 5 dB gate | 0 dB β=0 | 0 dB gate |
+|---|---|---|---|---|---|---|---|---|---|
+| ES2002a (pilot, in-sample) | 6 | 0.133 | **0.140** | 0.084 | **0.124** | 0.087 | **0.117** | 0.099 | 0.053 |
+| ES2002b | 6 | 0.199 | 0.172 | 0.036 | 0.032 | 0.012 | 0.008 | 0.010 | 0.004 |
+| ES2002c | 5 | 0.061 | 0.061 | 0.130 | **0.136** | 0.154 | 0.116 | 0.099 | 0.025 |
+| ES2002d | 6 | 0.035 | 0.017 | 0.029 | 0.002 | 0.004 | 0.004 | 0.002 | **0.004** |
+| ES2003a | 6 | 0.204 | 0.106 | 0.135 | 0.070 | 0.091 | **0.093** | 0.061 | **0.074** |
+| ES2003b | 6 | 0.067 | 0.042 | 0.006 | **0.028** | 0.032 | **0.067** | 0.000 | 0.000 |
+| ES2003c | 5 | 0.062 | 0.050 | 0.040 | 0.040 | 0.040 | 0.000 | 0.090 | 0.012 |
+| **pooled, 40 queries** | 40 | 0.111 | 0.085 (−23 %) | 0.065 | 0.060 (−7 %) | 0.058 | 0.058 (−0 %) | 0.049 | 0.025 (−50 %) |
+| paired bootstrap 95 % CI of gain | | | [−0.053, −0.002] | | [−0.028, +0.019] | | [−0.026, +0.025] | | [−0.053, +0.002] |
+| meetings helped / hurt | | | 1 / 5 | | 3 / 3 | | 3 / 3 | | 2 / 4 |
+
+**Pooled reliability of gold vs non-gold candidates:** clean 0.533 / 0.539; 10 dB 0.373 / 0.356 (gap +0.018); 5 dB 0.288 / 0.266 (gap +0.022); 0 dB 0.191 / 0.193. On ES2002a alone the gaps were +0.096 and +0.075; on ES2002d, ES2003a, ES2003b and ES2003c the gap at 10 dB is *reversed* (gold segments are less reliable than the distractors).
+
+Reading — this is a negative replication and the disclosure should say so:
+- **The pilot gain does not hold out of sample.** Pooled over 40 queries the learned gate is significantly *worse* on clean audio (−23 %, CI excludes zero), indistinguishable from the ungated model at 10 dB and 5 dB (CIs straddle zero, 3 meetings helped vs 3 hurt), and worse at 0 dB. No β among {0.5, 0.785, 1.0} beats β = 0 pooled, on any condition, by more than 0.001 F1. The +48 % / +34 % in §5.2 came from fitting β on the same six queries it was then scored on.
+- **The reliability signal is only weakly informative across meetings.** The gold-vs-non-gold gap that drove the pilot (≈ +0.09) shrinks to ≈ +0.02 pooled and is reversed on four of the six new meetings at 10 dB. Word-level ASR confidence tracks acoustic degradation (mean confidence falls monotonically with SNR on every meeting) but, on these meetings, it does not track *which* candidate segments are the evidence.
+- **The test has low power, which cuts both ways.** Absolute F1@5 is 0.00–0.20 for every variant; on 29 of 40 queries the gate leaves the top-5 unchanged, and QMSum gold sets are large (up to 160 segments) and only approximately aligned, so top-5 F1 is a blunt instrument. This limits how strongly the negative result can be read, but it equally means the §5.2 numbers cannot be cited as evidence of effect.
+- **Implication for the claims.** The "measurable gain in evidence selection under noise" effect is not currently demonstrated. Independent claims should rest on the mechanism (Stages A–E as an integrated, auditable chain) and on the Stage D calibration and Stage E commitment results, not on §5.2. Any effect claim for Stage C should wait for the §5.4 experiments; an adaptive-β claim that falls back to β = 0 when the gold/non-gold reliability gap is absent cannot be enforced at inference time, since gold is unknown, so it does not rescue the result.
 
 ## 6. Prior art considered
 

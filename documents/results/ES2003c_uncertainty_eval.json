@@ -1,0 +1,2031 @@
+{
+ "meeting": "ES2003c",
+ "top_k": 5,
+ "best_beta": "0.0",
+ "conditions": [
+  {
+   "condition": "clean",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.7885821900038346,
+   "retrieval_f1": 0.04000000000000001,
+   "mean_reliability_gold": 0.47521196936392457,
+   "mean_reliability_nongold": 0.5051859943907858,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.08,
+     "recall": 0.0735632183908046,
+     "f1": 0.061764705882352944
+    },
+    "0.5": {
+     "precision": 0.04,
+     "recall": 0.06666666666666667,
+     "f1": 0.05
+    },
+    "0.785": {
+     "precision": 0.04,
+     "recall": 0.06666666666666667,
+     "f1": 0.05
+    },
+    "1.0": {
+     "precision": 0.04,
+     "recall": 0.06666666666666667,
+     "f1": 0.05
+    }
+   }
+  },
+  {
+   "condition": "snr10",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.5032503115850765,
+   "retrieval_f1": 0.04000000000000001,
+   "mean_reliability_gold": 0.2490615392215558,
+   "mean_reliability_nongold": 0.2590304207075561,
+   "gated_entity_edges": 2,
+   "beta": {
+    "0.0": {
+     "precision": 0.04,
+     "recall": 0.04,
+     "f1": 0.04000000000000001
+    },
+    "0.5": {
+     "precision": 0.04,
+     "recall": 0.04,
+     "f1": 0.04000000000000001
+    },
+    "0.785": {
+     "precision": 0.04,
+     "recall": 0.04,
+     "f1": 0.04000000000000001
+    },
+    "1.0": {
+     "precision": 0.04,
+     "recall": 0.04,
+     "f1": 0.04000000000000001
+    }
+   }
+  },
+  {
+   "condition": "snr5",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.3994921989432272,
+   "retrieval_f1": 0.04000000000000001,
+   "mean_reliability_gold": 0.11396931631723561,
+   "mean_reliability_nongold": 0.19643167950324286,
+   "gated_entity_edges": 1,
+   "beta": {
+    "0.0": {
+     "precision": 0.04,
+     "recall": 0.04,
+     "f1": 0.04000000000000001
+    },
+    "0.5": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "0.785": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "1.0": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    }
+   }
+  },
+  {
+   "condition": "snr0",
+   "n_queries": 5,
+   "mean_asr_confidence": 0.35033285931565583,
+   "retrieval_f1": 0.07843137254901962,
+   "mean_reliability_gold": 0.14209343293091836,
+   "mean_reliability_nongold": 0.16777392583463346,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.12000000000000002,
+     "recall": 0.21379310344827585,
+     "f1": 0.09019607843137255
+    },
+    "0.5": {
+     "precision": 0.04,
+     "recall": 0.006896551724137931,
+     "f1": 0.01176470588235294
+    },
+    "0.785": {
+     "precision": 0.04,
+     "recall": 0.006896551724137931,
+     "f1": 0.01176470588235294
+    },
+    "1.0": {
+     "precision": 0.04,
+     "recall": 0.006896551724137931,
+     "f1": 0.01176470588235294
+    }
+   }
+  }
+ ],
+ "calibration": {
+  "0.0": {
+   "n": 20,
+   "positive_rate": 0.2,
+   "ece_default_weights": 0.7251384557766203,
+   "ece_leave_one_out": 0.29378102780788146,
+   "brier_default": 0.6850103511474365,
+   "brier_leave_one_out": 0.1918146075848356
+  }
+ },
+ "per_query": [
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 5,
+    "retrieval_prf": [
+     0.2,
+     0.2,
+     0.20000000000000004
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.4512930593263884,
+    "mean_reliability_nongold": 0.48801426985781543,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0149",
+       "ES2003c_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.5133086459783073,
+       "retrieval_margin": 0.12230670391257818,
+       "evidence_agreement": 0.49477848410606384,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0062",
+       "ES2003c_seg_0239"
+      ],
+      "components": {
+       "evidence_reliability": 0.5764086829963501,
+       "retrieval_margin": 0.12230670391257818,
+       "evidence_agreement": 0.42744749784469604,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0062",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.5799444552826597,
+       "retrieval_margin": 0.12230670391257818,
+       "evidence_agreement": 0.4393921494483948,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0062",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.5799444552826597,
+       "retrieval_margin": 0.12230670391257818,
+       "evidence_agreement": 0.4393921494483948,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of rubber material when discussing user requirements of the new remote control?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5157953828477,
+    "mean_reliability_nongold": 0.5236425756179226,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0015",
+       "ES2003c_seg_0016",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0272",
+       "ES2003c_seg_0133"
+      ],
+      "components": {
+       "evidence_reliability": 0.5295070853669124,
+       "retrieval_margin": 0.1650855541203895,
+       "evidence_agreement": 0.5293922424316406,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0178",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0069"
+      ],
+      "components": {
+       "evidence_reliability": 0.6337127792273015,
+       "retrieval_margin": 0.1650855541203895,
+       "evidence_agreement": 0.4835600256919861,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0178",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0069"
+      ],
+      "components": {
+       "evidence_reliability": 0.6337127792273015,
+       "retrieval_margin": 0.1650855541203895,
+       "evidence_agreement": 0.4835600256919861,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0178",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0007"
+      ],
+      "components": {
+       "evidence_reliability": 0.6605634762603185,
+       "retrieval_margin": 0.1650855541203895,
+       "evidence_agreement": 0.4050659239292145,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.3876909727723028,
+    "mean_reliability_nongold": 0.5261504689520266,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.034482758620689655,
+       0.0588235294117647
+      ],
+      "top": [
+       "ES2003c_seg_0275",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0057",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0148"
+      ],
+      "components": {
+       "evidence_reliability": 0.4643502333046222,
+       "retrieval_margin": 0.16319318256191598,
+       "evidence_agreement": 0.4405350685119629,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.5658560353335632,
+       "retrieval_margin": 0.16319318256191598,
+       "evidence_agreement": 0.4424842298030853,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.5658560353335632,
+       "retrieval_margin": 0.16319318256191598,
+       "evidence_agreement": 0.4424842298030853,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0075",
+       "ES2003c_seg_0239"
+      ],
+      "components": {
+       "evidence_reliability": 0.5969696190984334,
+       "retrieval_margin": 0.16319318256191598,
+       "evidence_agreement": 0.3596939146518707,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a programmable remote control when discussing details on the new remote control style and the plan for the next meeting.",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5460684625093071,
+    "mean_reliability_nongold": 0.482933736772633,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003c_seg_0196",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0275",
+       "ES2003c_seg_0197",
+       "ES2003c_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.43140111415217247,
+       "retrieval_margin": 0.15415873369244015,
+       "evidence_agreement": 0.4885480999946594,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0197",
+       "ES2003c_seg_0062",
+       "ES2003c_seg_0111"
+      ],
+      "components": {
+       "evidence_reliability": 0.575093446139135,
+       "retrieval_margin": 0.15415873369244015,
+       "evidence_agreement": 0.4461885392665863,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0197",
+       "ES2003c_seg_0062",
+       "ES2003c_seg_0111"
+      ],
+      "components": {
+       "evidence_reliability": 0.575093446139135,
+       "retrieval_margin": 0.15415873369244015,
+       "evidence_agreement": 0.4461885392665863,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.3333333333333333,
+       0.25
+      ],
+      "top": [
+       "ES2003c_seg_0007",
+       "ES2003c_seg_0214",
+       "ES2003c_seg_0062",
+       "ES2003c_seg_0197",
+       "ES2003c_seg_0131"
+      ],
+      "components": {
+       "evidence_reliability": 0.584471199919893,
+       "retrieval_margin": 0.15415873369244015,
+       "evidence_agreement": 0.4716166853904724,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the target market group when discussing details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.5051889207535313,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0275"
+      ],
+      "components": {
+       "evidence_reliability": 0.475222239760259,
+       "retrieval_margin": 0.10540528766550765,
+       "evidence_agreement": 0.4826149046421051,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0275"
+      ],
+      "components": {
+       "evidence_reliability": 0.4752222397602589,
+       "retrieval_margin": 0.10540528766550765,
+       "evidence_agreement": 0.4826149344444275,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0275"
+      ],
+      "components": {
+       "evidence_reliability": 0.4752222397602589,
+       "retrieval_margin": 0.10540528766550765,
+       "evidence_agreement": 0.4826149344444275,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0239",
+       "ES2003c_seg_0275",
+       "ES2003c_seg_0075"
+      ],
+      "components": {
+       "evidence_reliability": 0.5248436394796476,
+       "retrieval_margin": 0.10540528766550765,
+       "evidence_agreement": 0.40812093019485474,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 5,
+    "retrieval_prf": [
+     0.2,
+     0.2,
+     0.20000000000000004
+    ],
+    "gated_entity_edges": 2,
+    "mean_reliability_gold": 0.28299916168566497,
+    "mean_reliability_nongold": 0.2520667289185406,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.2,
+       0.20000000000000004
+      ],
+      "top": [
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0077",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.2721772216157292,
+       "retrieval_margin": 0.28710166355887556,
+       "evidence_agreement": 0.40900343656539917,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.2,
+       0.20000000000000004
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.3557754124983634,
+       "retrieval_margin": 0.28710166355887556,
+       "evidence_agreement": 0.2995460629463196,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.2,
+       0.20000000000000004
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.3557754124983634,
+       "retrieval_margin": 0.28710166355887556,
+       "evidence_agreement": 0.2995460629463196,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.2,
+       0.20000000000000004
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.3557754124983634,
+       "retrieval_margin": 0.28710166355887556,
+       "evidence_agreement": 0.2995460629463196,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of rubber material when discussing user requirements of the new remote control?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.287901168465129,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0178",
+       "ES2003c_seg_0067",
+       "ES2003c_seg_0140"
+      ],
+      "components": {
+       "evidence_reliability": 0.3325547129758577,
+       "retrieval_margin": 0.3269758222190225,
+       "evidence_agreement": 0.24447038769721985,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0067"
+      ],
+      "components": {
+       "evidence_reliability": 0.37998484418894884,
+       "retrieval_margin": 0.3269758222190225,
+       "evidence_agreement": 0.20388071238994598,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0067"
+      ],
+      "components": {
+       "evidence_reliability": 0.37998484418894884,
+       "retrieval_margin": 0.3269758222190225,
+       "evidence_agreement": 0.20388071238994598,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0067"
+      ],
+      "components": {
+       "evidence_reliability": 0.37998484418894884,
+       "retrieval_margin": 0.3269758222190225,
+       "evidence_agreement": 0.20388071238994598,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.21512391675744663,
+    "mean_reliability_nongold": 0.24656099879861085,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0077",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.2523226461048976,
+       "retrieval_margin": 0.2626491884206152,
+       "evidence_agreement": 0.3737576901912689,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0111"
+      ],
+      "components": {
+       "evidence_reliability": 0.34732693767490896,
+       "retrieval_margin": 0.2626491884206152,
+       "evidence_agreement": 0.4009673595428467,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.34732693767490896,
+       "retrieval_margin": 0.2626491884206152,
+       "evidence_agreement": 0.40096741914749146,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.34732693767490896,
+       "retrieval_margin": 0.2626491884206152,
+       "evidence_agreement": 0.40096741914749146,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a programmable remote control when discussing details on the new remote control style and the plan for the next meeting.",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.2555226928490939,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0005",
+       "ES2003c_seg_0077",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140"
+      ],
+      "components": {
+       "evidence_reliability": 0.271235932098559,
+       "retrieval_margin": 0.3319041727673839,
+       "evidence_agreement": 0.2932441830635071,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0118",
+       "ES2003c_seg_0111"
+      ],
+      "components": {
+       "evidence_reliability": 0.34453372003814214,
+       "retrieval_margin": 0.3319041727673839,
+       "evidence_agreement": 0.3369580805301666,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0111",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.34453372003814214,
+       "retrieval_margin": 0.3319041727673839,
+       "evidence_agreement": 0.3369580805301666,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0111"
+      ],
+      "components": {
+       "evidence_reliability": 0.35865063885070103,
+       "retrieval_margin": 0.3319041727673839,
+       "evidence_agreement": 0.23274774849414825,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the target market group when discussing details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.2531005145064064,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0195",
+       "ES2003c_seg_0049",
+       "ES2003c_seg_0124",
+       "ES2003c_seg_0188"
+      ],
+      "components": {
+       "evidence_reliability": 0.22040361632206906,
+       "retrieval_margin": 0.18543025217092257,
+       "evidence_agreement": 0.1211618185043335,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0124",
+       "ES2003c_seg_0195",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.2860789126478644,
+       "retrieval_margin": 0.18543025217092257,
+       "evidence_agreement": 0.15421095490455627,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0124",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0118"
+      ],
+      "components": {
+       "evidence_reliability": 0.32579316622812604,
+       "retrieval_margin": 0.18543025217092257,
+       "evidence_agreement": 0.15164892375469208,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0124",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.33369622623936623,
+       "retrieval_margin": 0.18543025217092257,
+       "evidence_agreement": 0.1344655603170395,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 5,
+    "retrieval_prf": [
+     0.2,
+     0.2,
+     0.20000000000000004
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.11108675031999087,
+    "mean_reliability_nongold": 0.20039001779545013,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.2,
+       0.20000000000000004
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0100",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0111"
+      ],
+      "components": {
+       "evidence_reliability": 0.22027145211712412,
+       "retrieval_margin": 0.3447469593130221,
+       "evidence_agreement": 0.3373473584651947,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0100",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0169"
+      ],
+      "components": {
+       "evidence_reliability": 0.2573365030563365,
+       "retrieval_margin": 0.3447469593130221,
+       "evidence_agreement": 0.19934846460819244,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0100",
+       "ES2003c_seg_0169"
+      ],
+      "components": {
+       "evidence_reliability": 0.2573365030563365,
+       "retrieval_margin": 0.3447469593130221,
+       "evidence_agreement": 0.19934846460819244,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0100",
+       "ES2003c_seg_0169"
+      ],
+      "components": {
+       "evidence_reliability": 0.2573365030563365,
+       "retrieval_margin": 0.3447469593130221,
+       "evidence_agreement": 0.19934846460819244,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of rubber material when discussing user requirements of the new remote control?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.19976372304077383,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0100",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0192",
+       "ES2003c_seg_0226"
+      ],
+      "components": {
+       "evidence_reliability": 0.1927880802020609,
+       "retrieval_margin": 0.17990082756998696,
+       "evidence_agreement": 0.190888449549675,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0100",
+       "ES2003c_seg_0192"
+      ],
+      "components": {
+       "evidence_reliability": 0.2557214416360567,
+       "retrieval_margin": 0.17990082756998696,
+       "evidence_agreement": 0.16632036864757538,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0141",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.29367970004401345,
+       "retrieval_margin": 0.17990082756998696,
+       "evidence_agreement": 0.15578043460845947,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0141",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.29367970004401345,
+       "retrieval_margin": 0.17990082756998696,
+       "evidence_agreement": 0.15578043460845947,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 1,
+    "mean_reliability_gold": 0.11685188231448036,
+    "mean_reliability_nongold": 0.20388223920187556,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0109"
+      ],
+      "components": {
+       "evidence_reliability": 0.22827709157641407,
+       "retrieval_margin": 0.3159957023448733,
+       "evidence_agreement": 0.27540987730026245,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0109"
+      ],
+      "components": {
+       "evidence_reliability": 0.25878664862699635,
+       "retrieval_margin": 0.3159957023448733,
+       "evidence_agreement": 0.19673076272010803,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.28546651779770105,
+       "retrieval_margin": 0.3159957023448733,
+       "evidence_agreement": 0.16899266839027405,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0148",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.28546651779770105,
+       "retrieval_margin": 0.3159957023448733,
+       "evidence_agreement": 0.16899266839027405,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a programmable remote control when discussing details on the new remote control style and the plan for the next meeting.",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.19394322954606266,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0115"
+      ],
+      "components": {
+       "evidence_reliability": 0.2290932153745031,
+       "retrieval_margin": 0.357361181957501,
+       "evidence_agreement": 0.24265213310718536,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0169"
+      ],
+      "components": {
+       "evidence_reliability": 0.2690472934391594,
+       "retrieval_margin": 0.357361181957501,
+       "evidence_agreement": 0.18917609751224518,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0169"
+      ],
+      "components": {
+       "evidence_reliability": 0.2690472934391594,
+       "retrieval_margin": 0.357361181957501,
+       "evidence_agreement": 0.18917609751224518,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0138",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0169"
+      ],
+      "components": {
+       "evidence_reliability": 0.2690472934391594,
+       "retrieval_margin": 0.357361181957501,
+       "evidence_agreement": 0.18917609751224518,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the target market group when discussing details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.18417918793205215,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0120",
+       "ES2003c_seg_0108",
+       "ES2003c_seg_0140"
+      ],
+      "components": {
+       "evidence_reliability": 0.21258850070002028,
+       "retrieval_margin": 0.24472157028739674,
+       "evidence_agreement": 0.27037984132766724,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0108"
+      ],
+      "components": {
+       "evidence_reliability": 0.24140401052046534,
+       "retrieval_margin": 0.24472157028739674,
+       "evidence_agreement": 0.19981183111667633,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0220"
+      ],
+      "components": {
+       "evidence_reliability": 0.267627429293969,
+       "retrieval_margin": 0.24472157028739674,
+       "evidence_agreement": 0.17604053020477295,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0131",
+       "ES2003c_seg_0140",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0220"
+      ],
+      "components": {
+       "evidence_reliability": 0.267627429293969,
+       "retrieval_margin": 0.24472157028739674,
+       "evidence_agreement": 0.17604053020477295,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "What did the group discuss about user requirements of the new remote control?",
+    "gold_count": 5,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.1556624492354695,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0190",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0019",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.15823443943753981,
+       "retrieval_margin": 0.37827233364369267,
+       "evidence_agreement": 0.2571909427642822,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0173",
+       "ES2003c_seg_0047"
+      ],
+      "components": {
+       "evidence_reliability": 0.20166828876841342,
+       "retrieval_margin": 0.37827233364369267,
+       "evidence_agreement": 0.2351849526166916,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0173",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0047"
+      ],
+      "components": {
+       "evidence_reliability": 0.20166828876841342,
+       "retrieval_margin": 0.37827233364369267,
+       "evidence_agreement": 0.2351849526166916,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0173",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0047"
+      ],
+      "components": {
+       "evidence_reliability": 0.20166828876841342,
+       "retrieval_margin": 0.37827233364369267,
+       "evidence_agreement": 0.2351849526166916,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think of rubber material when discussing user requirements of the new remote control?",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.16340095185429973,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0246",
+       "ES2003c_seg_0190",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0125",
+       "ES2003c_seg_0133"
+      ],
+      "components": {
+       "evidence_reliability": 0.1516624910599263,
+       "retrieval_margin": 0.4542665634507663,
+       "evidence_agreement": 0.1869841367006302,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0246",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0010"
+      ],
+      "components": {
+       "evidence_reliability": 0.18125356673493193,
+       "retrieval_margin": 0.4542665634507663,
+       "evidence_agreement": 0.19413384795188904,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0175"
+      ],
+      "components": {
+       "evidence_reliability": 0.20702106298696368,
+       "retrieval_margin": 0.4542665634507663,
+       "evidence_agreement": 0.16388097405433655,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0133",
+       "ES2003c_seg_0010",
+       "ES2003c_seg_0175",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.20702106298696368,
+       "retrieval_margin": 0.4542665634507663,
+       "evidence_agreement": 0.16388095915317535,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did the group discuss about details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 29,
+    "retrieval_prf": [
+     0.2,
+     0.034482758620689655,
+     0.0588235294117647
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.15953233513861836,
+    "mean_reliability_nongold": 0.17954971177737178,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.06896551724137931,
+       0.1176470588235294
+      ],
+      "top": [
+       "ES2003c_seg_0215",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0088",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0142"
+      ],
+      "components": {
+       "evidence_reliability": 0.166017036055284,
+       "retrieval_margin": 0.286911092929202,
+       "evidence_agreement": 0.27541905641555786,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.034482758620689655,
+       0.0588235294117647
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0121"
+      ],
+      "components": {
+       "evidence_reliability": 0.2195915120860814,
+       "retrieval_margin": 0.286911092929202,
+       "evidence_agreement": 0.2003689706325531,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.034482758620689655,
+       0.0588235294117647
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0121",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.2195915120860814,
+       "retrieval_margin": 0.286911092929202,
+       "evidence_agreement": 0.2003689706325531,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.034482758620689655,
+       0.0588235294117647
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0121",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.2195915120860814,
+       "retrieval_margin": 0.286911092929202,
+       "evidence_agreement": 0.2003689706325531,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize Project Manager's opinions towards the idea of a programmable remote control when discussing details on the new remote control style and the plan for the next meeting.",
+    "gold_count": 3,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.16413176812633654,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0190",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0215",
+       "ES2003c_seg_0241"
+      ],
+      "components": {
+       "evidence_reliability": 0.1803352303924807,
+       "retrieval_margin": 0.4086422186035655,
+       "evidence_agreement": 0.1956394612789154,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0196"
+      ],
+      "components": {
+       "evidence_reliability": 0.20572698147641091,
+       "retrieval_margin": 0.4086422186035655,
+       "evidence_agreement": 0.23910322785377502,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0047"
+      ],
+      "components": {
+       "evidence_reliability": 0.21534187943872313,
+       "retrieval_margin": 0.4086422186035655,
+       "evidence_agreement": 0.25127288699150085,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0004",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0047"
+      ],
+      "components": {
+       "evidence_reliability": 0.21534187943872313,
+       "retrieval_margin": 0.4086422186035655,
+       "evidence_agreement": 0.25127288699150085,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Project Manager think of the target market group when discussing details on the new remote control style and the plan for the next meeting?",
+    "gold_count": 1,
+    "retrieval_prf": [
+     0.2,
+     1.0,
+     0.33333333333333337
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.12465453072321833,
+    "mean_reliability_nongold": 0.1761247481796897,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       1.0,
+       0.33333333333333337
+      ],
+      "top": [
+       "ES2003c_seg_0190",
+       "ES2003c_seg_0215",
+       "ES2003c_seg_0123",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0241"
+      ],
+      "components": {
+       "evidence_reliability": 0.16188162840149434,
+       "retrieval_margin": 0.3370165081298025,
+       "evidence_agreement": 0.2232425957918167,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0121",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.2200338919460118,
+       "retrieval_margin": 0.3370165081298025,
+       "evidence_agreement": 0.2003690004348755,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0121",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.2200338919460118,
+       "retrieval_margin": 0.3370165081298025,
+       "evidence_agreement": 0.2003689706325531,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2003c_seg_0161",
+       "ES2003c_seg_0121",
+       "ES2003c_seg_0241",
+       "ES2003c_seg_0142",
+       "ES2003c_seg_0123"
+      ],
+      "components": {
+       "evidence_reliability": 0.2200338919460118,
+       "retrieval_margin": 0.3370165081298025,
+       "evidence_agreement": 0.2003689706325531,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ]
+ ]
+}

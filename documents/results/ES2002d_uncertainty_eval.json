@@ -1,0 +1,2407 @@
+{
+ "meeting": "ES2002d",
+ "top_k": 5,
+ "best_beta": "0.0",
+ "conditions": [
+  {
+   "condition": "clean",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.6666989346227815,
+   "retrieval_f1": 0.02487373737373738,
+   "mean_reliability_gold": 0.4791386324791545,
+   "mean_reliability_nongold": 0.5259629488910598,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.16666666666666666,
+     "recall": 0.021643518518518517,
+     "f1": 0.03504611330698287
+    },
+    "0.5": {
+     "precision": 0.10000000000000002,
+     "recall": 0.011342592592592592,
+     "f1": 0.01853315766359245
+    },
+    "0.785": {
+     "precision": 0.06666666666666667,
+     "recall": 0.010300925925925925,
+     "f1": 0.01651295564339043
+    },
+    "1.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.010300925925925925,
+     "f1": 0.01651295564339043
+    }
+   }
+  },
+  {
+   "condition": "snr10",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.43073157705836723,
+   "retrieval_f1": 0.0,
+   "mean_reliability_gold": 0.27380687212750116,
+   "mean_reliability_nongold": 0.3392658692183603,
+   "gated_entity_edges": 1,
+   "beta": {
+    "0.0": {
+     "precision": 0.10000000000000002,
+     "recall": 0.01823743386243386,
+     "f1": 0.02933346846390325
+    },
+    "0.5": {
+     "precision": 0.06666666666666667,
+     "recall": 0.008978174603174603,
+     "f1": 0.014840714840714841
+    },
+    "0.785": {
+     "precision": 0.03333333333333333,
+     "recall": 0.0010416666666666667,
+     "f1": 0.0020202020202020206
+    },
+    "1.0": {
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    }
+   }
+  },
+  {
+   "condition": "snr5",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.3227212962965017,
+   "retrieval_f1": 0.0020202020202020206,
+   "mean_reliability_gold": 0.24996034886635618,
+   "mean_reliability_nongold": 0.24816223388140765,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.0020833333333333333,
+     "f1": 0.004040404040404041
+    },
+    "0.5": {
+     "precision": 0.06666666666666667,
+     "recall": 0.0020833333333333333,
+     "f1": 0.004040404040404041
+    },
+    "0.785": {
+     "precision": 0.06666666666666667,
+     "recall": 0.0020833333333333333,
+     "f1": 0.004040404040404041
+    },
+    "1.0": {
+     "precision": 0.06666666666666667,
+     "recall": 0.0020833333333333333,
+     "f1": 0.004040404040404041
+    }
+   }
+  },
+  {
+   "condition": "snr0",
+   "n_queries": 6,
+   "mean_asr_confidence": 0.22779222070377017,
+   "retrieval_f1": 0.0020202020202020206,
+   "mean_reliability_gold": 0.12623594251490158,
+   "mean_reliability_nongold": 0.16423262036890865,
+   "gated_entity_edges": 0,
+   "beta": {
+    "0.0": {
+     "precision": 0.03333333333333333,
+     "recall": 0.0010416666666666667,
+     "f1": 0.0020202020202020206
+    },
+    "0.5": {
+     "precision": 0.06666666666666667,
+     "recall": 0.0020833333333333333,
+     "f1": 0.004040404040404041
+    },
+    "0.785": {
+     "precision": 0.06666666666666667,
+     "recall": 0.0020833333333333333,
+     "f1": 0.004040404040404041
+    },
+    "1.0": {
+     "precision": 0.09999999999999999,
+     "recall": 0.0031249999999999997,
+     "f1": 0.006060606060606061
+    }
+   }
+  }
+ ],
+ "calibration": {
+  "0.0": {
+   "n": 24,
+   "positive_rate": 0.041666666666666664,
+   "ece_default_weights": 0.8810893724732223,
+   "ece_leave_one_out": 0.0013596371653262496,
+   "brier_default": 0.814799754778754,
+   "brier_leave_one_out": 0.04353723692437192
+  }
+ },
+ "per_query": [
+  [
+   {
+    "query": "Summarize the discussion about changes in the current design.",
+    "gold_count": 34,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.564339637339565,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0246",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0002"
+      ],
+      "components": {
+       "evidence_reliability": 0.5244121344596654,
+       "retrieval_margin": 0.21556000612313717,
+       "evidence_agreement": 0.21328389644622803,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0310",
+       "ES2002d_seg_0175"
+      ],
+      "components": {
+       "evidence_reliability": 0.6007125265890296,
+       "retrieval_margin": 0.21556000612313717,
+       "evidence_agreement": 0.26340287923812866,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0175",
+       "ES2002d_seg_0310",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.6007125265890296,
+       "retrieval_margin": 0.21556000612313717,
+       "evidence_agreement": 0.26340287923812866,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0175",
+       "ES2002d_seg_0310",
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0085"
+      ],
+      "components": {
+       "evidence_reliability": 0.6007125265890296,
+       "retrieval_margin": 0.21556000612313717,
+       "evidence_agreement": 0.26340287923812866,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the button when talking about changes in the current design?",
+    "gold_count": 18,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.41058255394394066,
+    "mean_reliability_nongold": 0.4346878569735238,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.1111111111111111,
+       0.1739130434782609
+      ],
+      "top": [
+       "ES2002d_seg_0138",
+       "ES2002d_seg_0027",
+       "ES2002d_seg_0068",
+       "ES2002d_seg_0042",
+       "ES2002d_seg_0099"
+      ],
+      "components": {
+       "evidence_reliability": 0.41473797124411077,
+       "retrieval_margin": 0.10795452576318322,
+       "evidence_agreement": 0.48579469323158264,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.05555555555555555,
+       0.08695652173913045
+      ],
+      "top": [
+       "ES2002d_seg_0138",
+       "ES2002d_seg_0042",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0027"
+      ],
+      "components": {
+       "evidence_reliability": 0.44943053279175693,
+       "retrieval_margin": 0.10795452576318322,
+       "evidence_agreement": 0.43477120995521545,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.05555555555555555,
+       0.08695652173913045
+      ],
+      "top": [
+       "ES2002d_seg_0138",
+       "ES2002d_seg_0042",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0011"
+      ],
+      "components": {
+       "evidence_reliability": 0.495455401057268,
+       "retrieval_margin": 0.10795452576318322,
+       "evidence_agreement": 0.39766210317611694,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.05555555555555555,
+       0.08695652173913045
+      ],
+      "top": [
+       "ES2002d_seg_0138",
+       "ES2002d_seg_0042",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0011"
+      ],
+      "components": {
+       "evidence_reliability": 0.495455401057268,
+       "retrieval_margin": 0.10795452576318322,
+       "evidence_agreement": 0.39766210317611694,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the jog dial's function when talking about changes in the current design?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.2,
+     0.09090909090909091,
+     0.12500000000000003
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.5306588500089533,
+    "mean_reliability_nongold": 0.4931559105406473,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0180",
+       "ES2002d_seg_0515",
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0520"
+      ],
+      "components": {
+       "evidence_reliability": 0.4415020964032572,
+       "retrieval_margin": 0.1544722126754783,
+       "evidence_agreement": 0.2404032200574875,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0180",
+       "ES2002d_seg_0515",
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0520"
+      ],
+      "components": {
+       "evidence_reliability": 0.4415020964032572,
+       "retrieval_margin": 0.1544722126754783,
+       "evidence_agreement": 0.2404032200574875,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0180",
+       "ES2002d_seg_0515",
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0141"
+      ],
+      "components": {
+       "evidence_reliability": 0.45840812729683134,
+       "retrieval_margin": 0.1544722126754783,
+       "evidence_agreement": 0.22477856278419495,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0180",
+       "ES2002d_seg_0515",
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0141"
+      ],
+      "components": {
+       "evidence_reliability": 0.45840812729683134,
+       "retrieval_margin": 0.1544722126754783,
+       "evidence_agreement": 0.22477856278419495,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the discussion about evaluating the project.",
+    "gold_count": 160,
+    "retrieval_prf": [
+     0.4,
+     0.0125,
+     0.024242424242424246
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.49617449348456943,
+    "mean_reliability_nongold": 0.5778152765492687,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.6,
+       0.01875,
+       0.03636363636363636
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0189",
+       "ES2002d_seg_0568",
+       "ES2002d_seg_0461"
+      ],
+      "components": {
+       "evidence_reliability": 0.5100549692019647,
+       "retrieval_margin": 0.2603832635843981,
+       "evidence_agreement": 0.31753009557724,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0189",
+       "ES2002d_seg_0568",
+       "ES2002d_seg_0176"
+      ],
+      "components": {
+       "evidence_reliability": 0.5168397268501358,
+       "retrieval_margin": 0.2603832635843981,
+       "evidence_agreement": 0.3230254054069519,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.00625,
+       0.012121212121212123
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0189",
+       "ES2002d_seg_0426",
+       "ES2002d_seg_0176"
+      ],
+      "components": {
+       "evidence_reliability": 0.5419568725293151,
+       "retrieval_margin": 0.2603832635843981,
+       "evidence_agreement": 0.3099108636379242,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.2,
+       0.00625,
+       0.012121212121212123
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0426",
+       "ES2002d_seg_0189",
+       "ES2002d_seg_0175"
+      ],
+      "components": {
+       "evidence_reliability": 0.5716038547492621,
+       "retrieval_margin": 0.2603832635843981,
+       "evidence_agreement": 0.29766038060188293,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think about Project Manager's system when evaluating the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.5527017302303622,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0513",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0454",
+       "ES2002d_seg_0453"
+      ],
+      "components": {
+       "evidence_reliability": 0.5257562135636477,
+       "retrieval_margin": 0.3786693905366722,
+       "evidence_agreement": 0.25313931703567505,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0513",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0453",
+       "ES2002d_seg_0156"
+      ],
+      "components": {
+       "evidence_reliability": 0.5315553542131936,
+       "retrieval_margin": 0.3786693905366722,
+       "evidence_agreement": 0.25785014033317566,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0513",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0453",
+       "ES2002d_seg_0156"
+      ],
+      "components": {
+       "evidence_reliability": 0.5315553542131936,
+       "retrieval_margin": 0.3786693905366722,
+       "evidence_agreement": 0.25785014033317566,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0557",
+       "ES2002d_seg_0513",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0453",
+       "ES2002d_seg_0426"
+      ],
+      "components": {
+       "evidence_reliability": 0.5537605702569974,
+       "retrieval_margin": 0.3786693905366722,
+       "evidence_agreement": 0.20683236420154572,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Industrial Designer think of the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.5330772817129918,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0518",
+       "ES2002d_seg_0568",
+       "ES2002d_seg_0502"
+      ],
+      "components": {
+       "evidence_reliability": 0.49912398221826043,
+       "retrieval_margin": 0.23669008284723997,
+       "evidence_agreement": 0.23642103374004364,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0525",
+       "ES2002d_seg_0568",
+       "ES2002d_seg_0519"
+      ],
+      "components": {
+       "evidence_reliability": 0.5788783354573656,
+       "retrieval_margin": 0.23669008284723997,
+       "evidence_agreement": 0.29636281728744507,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0525",
+       "ES2002d_seg_0568",
+       "ES2002d_seg_0519"
+      ],
+      "components": {
+       "evidence_reliability": 0.5788783354573656,
+       "retrieval_margin": 0.23669008284723997,
+       "evidence_agreement": 0.29636281728744507,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0525",
+       "ES2002d_seg_0461",
+       "ES2002d_seg_0568",
+       "ES2002d_seg_0519"
+      ],
+      "components": {
+       "evidence_reliability": 0.5788783354573656,
+       "retrieval_margin": 0.23669008284723997,
+       "evidence_agreement": 0.29636281728744507,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the discussion about changes in the current design.",
+    "gold_count": 34,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 1,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.3819712317572145,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0315",
+       "ES2002d_seg_0228",
+       "ES2002d_seg_0055",
+       "ES2002d_seg_0491"
+      ],
+      "components": {
+       "evidence_reliability": 0.33988316749654574,
+       "retrieval_margin": 0.3333009318359145,
+       "evidence_agreement": 0.22714154422283173,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0002",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0177"
+      ],
+      "components": {
+       "evidence_reliability": 0.44597775936064005,
+       "retrieval_margin": 0.3333009318359145,
+       "evidence_agreement": 0.30936408042907715,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0002",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0177",
+       "ES2002d_seg_0421"
+      ],
+      "components": {
+       "evidence_reliability": 0.44597775936064005,
+       "retrieval_margin": 0.3333009318359145,
+       "evidence_agreement": 0.30936405062675476,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0002",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0177",
+       "ES2002d_seg_0175",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.48897832292271237,
+       "retrieval_margin": 0.3333009318359145,
+       "evidence_agreement": 0.29641884565353394,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the button when talking about changes in the current design?",
+    "gold_count": 18,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.23860189742885815,
+    "mean_reliability_nongold": 0.3230986172882959,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.05555555555555555,
+       0.08695652173913045
+      ],
+      "top": [
+       "ES2002d_seg_0092",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0068",
+       "ES2002d_seg_0106"
+      ],
+      "components": {
+       "evidence_reliability": 0.28119943465756586,
+       "retrieval_margin": 0.17830615848580464,
+       "evidence_agreement": 0.4717128872871399,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0092"
+      ],
+      "components": {
+       "evidence_reliability": 0.35112541503091793,
+       "retrieval_margin": 0.17830615848580464,
+       "evidence_agreement": 0.3927188813686371,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0092"
+      ],
+      "components": {
+       "evidence_reliability": 0.35112541503091793,
+       "retrieval_margin": 0.17830615848580464,
+       "evidence_agreement": 0.3927188813686371,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0092"
+      ],
+      "components": {
+       "evidence_reliability": 0.35112541503091793,
+       "retrieval_margin": 0.17830615848580464,
+       "evidence_agreement": 0.3927188813686371,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the jog dial's function when talking about changes in the current design?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.30826858891382675,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0587",
+       "ES2002d_seg_0463",
+       "ES2002d_seg_0471"
+      ],
+      "components": {
+       "evidence_reliability": 0.23052134659370324,
+       "retrieval_margin": 0.19665497536002646,
+       "evidence_agreement": 0.14830605685710907,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0553",
+       "ES2002d_seg_0141",
+       "ES2002d_seg_0587"
+      ],
+      "components": {
+       "evidence_reliability": 0.3150499711394965,
+       "retrieval_margin": 0.19665497536002646,
+       "evidence_agreement": 0.14398236572742462,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0141",
+       "ES2002d_seg_0149",
+       "ES2002d_seg_0553",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.34755374461326005,
+       "retrieval_margin": 0.19665497536002646,
+       "evidence_agreement": 0.1828363537788391,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0141",
+       "ES2002d_seg_0553",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0149"
+      ],
+      "components": {
+       "evidence_reliability": 0.34755374461326005,
+       "retrieval_margin": 0.19665497536002646,
+       "evidence_agreement": 0.18283633887767792,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the discussion about evaluating the project.",
+    "gold_count": 160,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.39463429899286967,
+    "mean_reliability_nongold": 0.39369348389086234,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.00625,
+       0.012121212121212123
+      ],
+      "top": [
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0181",
+       "ES2002d_seg_0085"
+      ],
+      "components": {
+       "evidence_reliability": 0.38463547275713483,
+       "retrieval_margin": 0.24282124876073677,
+       "evidence_agreement": 0.19035814702510834,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.00625,
+       0.012121212121212123
+      ],
+      "top": [
+       "ES2002d_seg_0181",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0491"
+      ],
+      "components": {
+       "evidence_reliability": 0.4315455868306779,
+       "retrieval_margin": 0.24282124876073677,
+       "evidence_agreement": 0.20775297284126282,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.2,
+       0.00625,
+       0.012121212121212123
+      ],
+      "top": [
+       "ES2002d_seg_0181",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0421"
+      ],
+      "components": {
+       "evidence_reliability": 0.43154558683067795,
+       "retrieval_margin": 0.24282124876073677,
+       "evidence_agreement": 0.20775297284126282,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0181",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0175"
+      ],
+      "components": {
+       "evidence_reliability": 0.4703399760130019,
+       "retrieval_margin": 0.24282124876073677,
+       "evidence_agreement": 0.19002825021743774,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think about Project Manager's system when evaluating the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.3159752177228775,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0394",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0226",
+       "ES2002d_seg_0423"
+      ],
+      "components": {
+       "evidence_reliability": 0.3085047113637657,
+       "retrieval_margin": 0.1452955514053895,
+       "evidence_agreement": 0.3519461154937744,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0394",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0553"
+      ],
+      "components": {
+       "evidence_reliability": 0.3936681731061932,
+       "retrieval_margin": 0.1452955514053895,
+       "evidence_agreement": 0.2632252871990204,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0394",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0553"
+      ],
+      "components": {
+       "evidence_reliability": 0.3936681731061932,
+       "retrieval_margin": 0.1452955514053895,
+       "evidence_agreement": 0.2632252871990204,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0394",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0553"
+      ],
+      "components": {
+       "evidence_reliability": 0.3936681731061932,
+       "retrieval_margin": 0.1452955514053895,
+       "evidence_agreement": 0.2632252871990204,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Industrial Designer think of the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.1881844199607756,
+    "mean_reliability_nongold": 0.3125880757370848,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.047619047619047616,
+       0.07692307692307693
+      ],
+      "top": [
+       "ES2002d_seg_0132",
+       "ES2002d_seg_0226",
+       "ES2002d_seg_0423",
+       "ES2002d_seg_0518",
+       "ES2002d_seg_0519"
+      ],
+      "components": {
+       "evidence_reliability": 0.21333415010171547,
+       "retrieval_margin": 0.1502176767223491,
+       "evidence_agreement": 0.2953457534313202,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.2,
+       0.047619047619047616,
+       0.07692307692307693
+      ],
+      "top": [
+       "ES2002d_seg_0132",
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0423",
+       "ES2002d_seg_0226"
+      ],
+      "components": {
+       "evidence_reliability": 0.26158619730164323,
+       "retrieval_margin": 0.1502176767223491,
+       "evidence_agreement": 0.2799172103404999,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0132",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0505",
+       "ES2002d_seg_0177"
+      ],
+      "components": {
+       "evidence_reliability": 0.35599266828504217,
+       "retrieval_margin": 0.1502176767223491,
+       "evidence_agreement": 0.3341342508792877,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0519",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0132",
+       "ES2002d_seg_0177",
+       "ES2002d_seg_0505"
+      ],
+      "components": {
+       "evidence_reliability": 0.35599266828504217,
+       "retrieval_margin": 0.1502176767223491,
+       "evidence_agreement": 0.3341342508792877,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the discussion about changes in the current design.",
+    "gold_count": 34,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.15969055349741051,
+    "mean_reliability_nongold": 0.28783961206036235,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0004",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0521",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0085"
+      ],
+      "components": {
+       "evidence_reliability": 0.32438223943457495,
+       "retrieval_margin": 0.33373770214154475,
+       "evidence_agreement": 0.26617148518562317,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0004",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.3799447916998342,
+       "retrieval_margin": 0.33373770214154475,
+       "evidence_agreement": 0.2468269318342209,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0004",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.3799447916998342,
+       "retrieval_margin": 0.33373770214154475,
+       "evidence_agreement": 0.2468269318342209,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0004",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.3799447916998342,
+       "retrieval_margin": 0.33373770214154475,
+       "evidence_agreement": 0.2468269318342209,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the button when talking about changes in the current design?",
+    "gold_count": 18,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.23622068926025516,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0096"
+      ],
+      "components": {
+       "evidence_reliability": 0.2286986293440508,
+       "retrieval_margin": 0.25866471111630557,
+       "evidence_agreement": 0.3168655037879944,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0099",
+       "ES2002d_seg_0073"
+      ],
+      "components": {
+       "evidence_reliability": 0.2947327393079725,
+       "retrieval_margin": 0.25866471111630557,
+       "evidence_agreement": 0.39277055859565735,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0099"
+      ],
+      "components": {
+       "evidence_reliability": 0.2947327393079725,
+       "retrieval_margin": 0.25866471111630557,
+       "evidence_agreement": 0.39277055859565735,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0088",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0073",
+       "ES2002d_seg_0099"
+      ],
+      "components": {
+       "evidence_reliability": 0.2947327393079725,
+       "retrieval_margin": 0.25866471111630557,
+       "evidence_agreement": 0.39277055859565735,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the jog dial's function when talking about changes in the current design?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.23383769760387516,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0077",
+       "ES2002d_seg_0288",
+       "ES2002d_seg_0310"
+      ],
+      "components": {
+       "evidence_reliability": 0.21667478934911621,
+       "retrieval_margin": 0.26211030199759006,
+       "evidence_agreement": 0.22768287360668182,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0162",
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0077",
+       "ES2002d_seg_0141"
+      ],
+      "components": {
+       "evidence_reliability": 0.2615614689293834,
+       "retrieval_margin": 0.26211030199759006,
+       "evidence_agreement": 0.20224325358867645,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0162",
+       "ES2002d_seg_0141",
+       "ES2002d_seg_0288",
+       "ES2002d_seg_0310"
+      ],
+      "components": {
+       "evidence_reliability": 0.28250910356957926,
+       "retrieval_margin": 0.26211030199759006,
+       "evidence_agreement": 0.18553341925144196,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0141",
+       "ES2002d_seg_0162",
+       "ES2002d_seg_0288",
+       "ES2002d_seg_0310"
+      ],
+      "components": {
+       "evidence_reliability": 0.28250910356957926,
+       "retrieval_margin": 0.26211030199759006,
+       "evidence_agreement": 0.18553341925144196,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the discussion about evaluating the project.",
+    "gold_count": 160,
+    "retrieval_prf": [
+     0.2,
+     0.00625,
+     0.012121212121212123
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.34023014423530185,
+    "mean_reliability_nongold": 0.2422319557305012,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0085",
+       "ES2002d_seg_0596",
+       "ES2002d_seg_0491"
+      ],
+      "components": {
+       "evidence_reliability": 0.29476699538685414,
+       "retrieval_margin": 0.2420738632598676,
+       "evidence_agreement": 0.19828233122825623,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0085"
+      ],
+      "components": {
+       "evidence_reliability": 0.3375116947809918,
+       "retrieval_margin": 0.2420738632598676,
+       "evidence_agreement": 0.21439917385578156,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0085"
+      ],
+      "components": {
+       "evidence_reliability": 0.33751169478099174,
+       "retrieval_margin": 0.2420738632598676,
+       "evidence_agreement": 0.21439914405345917,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0410",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0085"
+      ],
+      "components": {
+       "evidence_reliability": 0.33751169478099174,
+       "retrieval_margin": 0.2420738632598676,
+       "evidence_agreement": 0.21439914405345917,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think about Project Manager's system when evaluating the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.24891855596139598,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0496",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0425",
+       "ES2002d_seg_0309"
+      ],
+      "components": {
+       "evidence_reliability": 0.27447660762456944,
+       "retrieval_margin": 0.20352427828055258,
+       "evidence_agreement": 0.2631341218948364,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0425",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0496",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0309"
+      ],
+      "components": {
+       "evidence_reliability": 0.3287282579667888,
+       "retrieval_margin": 0.20352427828055258,
+       "evidence_agreement": 0.2563876211643219,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0425",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0496",
+       "ES2002d_seg_0309"
+      ],
+      "components": {
+       "evidence_reliability": 0.32872825796678884,
+       "retrieval_margin": 0.20352427828055258,
+       "evidence_agreement": 0.2563876211643219,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0425",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0491",
+       "ES2002d_seg_0496",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.35515833467641406,
+       "retrieval_margin": 0.20352427828055258,
+       "evidence_agreement": 0.2561848759651184,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Industrial Designer think of the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.23992489267205583,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0226",
+       "ES2002d_seg_0310"
+      ],
+      "components": {
+       "evidence_reliability": 0.21786462988420455,
+       "retrieval_margin": 0.1477179133641761,
+       "evidence_agreement": 0.2657686471939087,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0162",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0526",
+       "ES2002d_seg_0310"
+      ],
+      "components": {
+       "evidence_reliability": 0.23935736224875567,
+       "retrieval_margin": 0.1477179133641761,
+       "evidence_agreement": 0.25894537568092346,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0162",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0310",
+       "ES2002d_seg_0526"
+      ],
+      "components": {
+       "evidence_reliability": 0.23935736224875567,
+       "retrieval_margin": 0.1477179133641761,
+       "evidence_agreement": 0.25894537568092346,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0495",
+       "ES2002d_seg_0162",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0310"
+      ],
+      "components": {
+       "evidence_reliability": 0.27819428458910805,
+       "retrieval_margin": 0.1477179133641761,
+       "evidence_agreement": 0.24469542503356934,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ],
+  [
+   {
+    "query": "Summarize the discussion about changes in the current design.",
+    "gold_count": 34,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.16772529956925306,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0387",
+       "ES2002d_seg_0173"
+      ],
+      "components": {
+       "evidence_reliability": 0.17230305441800453,
+       "retrieval_margin": 0.4246387977590674,
+       "evidence_agreement": 0.32762572169303894,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0549"
+      ],
+      "components": {
+       "evidence_reliability": 0.20981222612328004,
+       "retrieval_margin": 0.4246387977590674,
+       "evidence_agreement": 0.2872682809829712,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0549"
+      ],
+      "components": {
+       "evidence_reliability": 0.20981222612328004,
+       "retrieval_margin": 0.4246387977590674,
+       "evidence_agreement": 0.2872682809829712,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0552",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0549"
+      ],
+      "components": {
+       "evidence_reliability": 0.20981222612328004,
+       "retrieval_margin": 0.4246387977590674,
+       "evidence_agreement": 0.2872682809829712,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the button when talking about changes in the current design?",
+    "gold_count": 18,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.12203978739679408,
+    "mean_reliability_nongold": 0.17418415746807767,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0414",
+       "ES2002d_seg_0496",
+       "ES2002d_seg_0556"
+      ],
+      "components": {
+       "evidence_reliability": 0.17529630386849948,
+       "retrieval_margin": 0.33688036006864985,
+       "evidence_agreement": 0.1522415429353714,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0556"
+      ],
+      "components": {
+       "evidence_reliability": 0.21896795656415488,
+       "retrieval_margin": 0.33688036006864985,
+       "evidence_agreement": 0.22277875244617462,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0556"
+      ],
+      "components": {
+       "evidence_reliability": 0.21896795656415488,
+       "retrieval_margin": 0.33688036006864985,
+       "evidence_agreement": 0.22277875244617462,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0006",
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0073"
+      ],
+      "components": {
+       "evidence_reliability": 0.23051046058426644,
+       "retrieval_margin": 0.33688036006864985,
+       "evidence_agreement": 0.24067330360412598,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What was the discussion about the jog dial's function when talking about changes in the current design?",
+    "gold_count": 11,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.18308575189899617,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0470",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0056"
+      ],
+      "components": {
+       "evidence_reliability": 0.19788399151014308,
+       "retrieval_margin": 0.3027054627549558,
+       "evidence_agreement": 0.20977334678173065,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0470",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0556"
+      ],
+      "components": {
+       "evidence_reliability": 0.22330588469668272,
+       "retrieval_margin": 0.3027054627549558,
+       "evidence_agreement": 0.22364525496959686,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0470",
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0404"
+      ],
+      "components": {
+       "evidence_reliability": 0.23811534869749174,
+       "retrieval_margin": 0.3027054627549558,
+       "evidence_agreement": 0.1938444823026657,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0427",
+       "ES2002d_seg_0470",
+       "ES2002d_seg_0098",
+       "ES2002d_seg_0421",
+       "ES2002d_seg_0404"
+      ],
+      "components": {
+       "evidence_reliability": 0.23811534869749174,
+       "retrieval_margin": 0.3027054627549558,
+       "evidence_agreement": 0.1938444823026657,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "Summarize the discussion about evaluating the project.",
+    "gold_count": 160,
+    "retrieval_prf": [
+     0.2,
+     0.00625,
+     0.012121212121212123
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.1751259780636164,
+    "mean_reliability_nongold": 0.15032249608510553,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.2,
+       0.00625,
+       0.012121212121212123
+      ],
+      "top": [
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0037",
+       "ES2002d_seg_0508",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0522"
+      ],
+      "components": {
+       "evidence_reliability": 0.15585552425277827,
+       "retrieval_margin": 0.24291529714012244,
+       "evidence_agreement": 0.21792617440223694,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0037",
+       "ES2002d_seg_0433"
+      ],
+      "components": {
+       "evidence_reliability": 0.19221427413394726,
+       "retrieval_margin": 0.24291529714012244,
+       "evidence_agreement": 0.21827130019664764,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.4,
+       0.0125,
+       0.024242424242424246
+      ],
+      "top": [
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0037",
+       "ES2002d_seg_0433"
+      ],
+      "components": {
+       "evidence_reliability": 0.19221427413394726,
+       "retrieval_margin": 0.24291529714012244,
+       "evidence_agreement": 0.21827130019664764,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.6,
+       0.01875,
+       0.03636363636363636
+      ],
+      "top": [
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0037",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.19827177867092668,
+       "retrieval_margin": 0.24291529714012244,
+       "evidence_agreement": 0.22136974334716797,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Marketing think about Project Manager's system when evaluating the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": 0.08154206208429426,
+    "mean_reliability_nongold": 0.16013232799101776,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0240",
+       "ES2002d_seg_0508",
+       "ES2002d_seg_0585"
+      ],
+      "components": {
+       "evidence_reliability": 0.1505822000426513,
+       "retrieval_margin": 0.24756935051764328,
+       "evidence_agreement": 0.20416399836540222,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0428",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.19431400279100988,
+       "retrieval_margin": 0.24756935051764328,
+       "evidence_agreement": 0.1669778823852539,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0428",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0043"
+      ],
+      "components": {
+       "evidence_reliability": 0.19431400279100988,
+       "retrieval_margin": 0.24756935051764328,
+       "evidence_agreement": 0.1669778823852539,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0428",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0561",
+       "ES2002d_seg_0585",
+       "ES2002d_seg_0433"
+      ],
+      "components": {
+       "evidence_reliability": 0.20456216782927159,
+       "retrieval_margin": 0.24756935051764328,
+       "evidence_agreement": 0.14541591703891754,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   },
+   {
+    "query": "What did Industrial Designer think of the project?",
+    "gold_count": 21,
+    "retrieval_prf": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "gated_entity_edges": 0,
+    "mean_reliability_gold": NaN,
+    "mean_reliability_nongold": 0.14994568920100168,
+    "beta": {
+     "0.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0558",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0043",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0495"
+      ],
+      "components": {
+       "evidence_reliability": 0.1529539129860908,
+       "retrieval_margin": 0.3342901226575634,
+       "evidence_agreement": 0.2505686581134796,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.5": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0558",
+       "ES2002d_seg_0043"
+      ],
+      "components": {
+       "evidence_reliability": 0.17286764274038677,
+       "retrieval_margin": 0.3342901226575634,
+       "evidence_agreement": 0.2755816876888275,
+       "grounding_supported": 1.0
+      }
+     },
+     "0.785": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0558",
+       "ES2002d_seg_0043"
+      ],
+      "components": {
+       "evidence_reliability": 0.17286764274038677,
+       "retrieval_margin": 0.3342901226575634,
+       "evidence_agreement": 0.2755816876888275,
+       "grounding_supported": 1.0
+      }
+     },
+     "1.0": {
+      "prf": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "top": [
+       "ES2002d_seg_0404",
+       "ES2002d_seg_0309",
+       "ES2002d_seg_0556",
+       "ES2002d_seg_0558",
+       "ES2002d_seg_0561"
+      ],
+      "components": {
+       "evidence_reliability": 0.1858664349935243,
+       "retrieval_margin": 0.3342901226575634,
+       "evidence_agreement": 0.2783999443054199,
+       "grounding_supported": 1.0
+      }
+     }
+    }
+   }
+  ]
+ ]
+}
